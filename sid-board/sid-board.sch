@@ -1,5 +1,4 @@
 EESchema Schematic File Version 4
-LIBS:sid-board-cache
 EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
@@ -139,17 +138,6 @@ F 3 "~" H 3500 3000 50  0001 C CNN
 	1    3500 3000
 	0    1    1    0   
 $EndComp
-$Comp
-L Device:C_Small C2
-U 1 1 5E2BBFA7
-P 3500 4000
-F 0 "C2" V 3700 4000 50  0000 C CNN
-F 1 "100nF" V 3600 4000 50  0000 C CNN
-F 2 "Capacitor_THT:C_Rect_L7.2mm_W2.5mm_P5.00mm_FKS2_FKP2_MKS2_MKP2" H 3500 4000 50  0001 C CNN
-F 3 "~" H 3500 4000 50  0001 C CNN
-	1    3500 4000
-	0    1    1    0   
-$EndComp
 Wire Wire Line
 	3950 2450 3400 2450
 Wire Wire Line
@@ -157,17 +145,7 @@ Wire Wire Line
 Wire Wire Line
 	4700 3000 4700 2900
 Wire Wire Line
-	3400 4000 3400 3400
-Wire Wire Line
-	3400 3400 3950 3400
-Wire Wire Line
-	3950 3400 3950 3300
-Wire Wire Line
 	3950 3300 3900 3300
-Wire Wire Line
-	3600 4000 4700 4000
-Wire Wire Line
-	4700 4000 4700 3900
 Wire Wire Line
 	5450 3100 5500 3100
 Wire Wire Line
