@@ -61,24 +61,11 @@ Text GLabel 2200 2800 0    50   Input ~ 0
 VIN
 Text GLabel 2200 2500 0    50   Input ~ 0
 GND
-$Comp
-L local_symbols:LM2596MODULE U2
-U 1 1 5E29B6B7
-P 2650 4700
-F 0 "U2" H 2650 4925 50  0000 C CNN
-F 1 "LM2596MODULE" H 2650 4834 50  0000 C CNN
-F 2 "sid-board:LM2596-MODULE" H 2650 4700 50  0001 C CNN
-F 3 "" H 2650 4700 50  0001 C CNN
-	1    2650 4700
-	1    0    0    -1  
-$EndComp
-Text GLabel 2150 4850 0    50   Input ~ 0
+Text GLabel 1700 5250 0    50   Input ~ 0
 GND
-Text GLabel 3150 4850 2    50   Input ~ 0
-GND
-Text GLabel 2150 4700 0    50   Input ~ 0
+Text GLabel 1400 4950 0    50   Input ~ 0
 VIN
-Text GLabel 3150 4700 2    50   Input ~ 0
+Text GLabel 3400 4950 2    50   Input ~ 0
 VDD_5V
 Text GLabel 2200 3500 0    50   Input ~ 0
 GND
@@ -130,20 +117,14 @@ VDD_5V
 $Comp
 L Device:C_Small C1
 U 1 1 5E2BAD29
-P 3500 3000
-F 0 "C1" V 3271 3000 50  0000 C CNN
-F 1 "100nF" V 3362 3000 50  0000 C CNN
-F 2 "Capacitor_THT:C_Rect_L7.2mm_W2.5mm_P5.00mm_FKS2_FKP2_MKS2_MKP2" H 3500 3000 50  0001 C CNN
-F 3 "~" H 3500 3000 50  0001 C CNN
-	1    3500 3000
+P 3300 5250
+F 0 "C1" V 3071 5250 50  0000 C CNN
+F 1 "100nF" V 3162 5250 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 3300 5250 50  0001 C CNN
+F 3 "~" H 3300 5250 50  0001 C CNN
+	1    3300 5250
 	0    1    1    0   
 $EndComp
-Wire Wire Line
-	3950 2450 3400 2450
-Wire Wire Line
-	3600 3000 4700 3000
-Wire Wire Line
-	4700 3000 4700 2900
 Wire Wire Line
 	3950 3300 3900 3300
 Wire Wire Line
@@ -159,9 +140,9 @@ Wire Wire Line
 Connection ~ 5500 3200
 Wire Wire Line
 	5500 3200 6300 3200
-Text GLabel 3800 4700 3    50   Input ~ 0
+Text GLabel 4250 4700 3    50   Input ~ 0
 VDD_5V
-Text GLabel 3900 4700 3    50   Input ~ 0
+Text GLabel 4350 4700 3    50   Input ~ 0
 GND
 Text GLabel 4850 4700 3    50   Input ~ 0
 GND
@@ -217,12 +198,12 @@ $EndComp
 $Comp
 L Connector:Conn_01x02_Male J3
 U 1 1 5E30F0FD
-P 3900 4500
-F 0 "J3" V 3962 4544 50  0000 L CNN
-F 1 "5V/GND" V 4053 4544 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 3900 4500 50  0001 C CNN
-F 3 "~" H 3900 4500 50  0001 C CNN
-	1    3900 4500
+P 4350 4500
+F 0 "J3" V 4412 4544 50  0000 L CNN
+F 1 "5V OUT" V 4503 4544 50  0000 L CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 4350 4500 50  0001 C CNN
+F 3 "~" H 4350 4500 50  0001 C CNN
+	1    4350 4500
 	0    1    1    0   
 $EndComp
 $Comp
@@ -230,7 +211,7 @@ L Connector:Conn_01x02_Male J4
 U 1 1 5E310D87
 P 4850 4500
 F 0 "J4" V 4912 4544 50  0000 L CNN
-F 1 "3.3V/GND" V 5003 4544 50  0000 L CNN
+F 1 "3.3V OUT" V 5003 4544 50  0000 L CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 4850 4500 50  0001 C CNN
 F 3 "~" H 4850 4500 50  0001 C CNN
 	1    4850 4500
@@ -269,7 +250,7 @@ U 1 1 5E32A99C
 P 6650 3800
 F 0 "R1" H 6709 3846 50  0000 L CNN
 F 1 "1K" H 6709 3755 50  0000 L CNN
-F 2 "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal" H 6650 3800 50  0001 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 6650 3800 50  0001 C CNN
 F 3 "~" H 6650 3800 50  0001 C CNN
 	1    6650 3800
 	1    0    0    -1  
@@ -314,11 +295,132 @@ Connection ~ 6100 2850
 Wire Wire Line
 	6100 2850 6100 4000
 Wire Wire Line
-	3400 2450 3400 3000
-Wire Wire Line
-	3950 2300 3950 2450
-Wire Wire Line
 	3950 2300 3900 2300
 Wire Wire Line
 	4700 2300 4700 2350
+Text Notes 5600 2000 0    50   ~ 0
+TODO:\nADD XTAL1/2 OSCILLATOR CIRCUIT\nADD LDO VOLTAGE INPUT for U1
+Text GLabel 3100 5250 0    50   Input ~ 0
+GND
+Text GLabel 2000 4950 2    50   Input ~ 0
+VDD_3.3V
+Text Notes 1450 4450 0    50   ~ 0
+TOTAL ESTIMATED MAX. CURRENT = 230mA\n3.3V U1 SUPPLY = 20mA peak (2x rated max)\n5V U3/U2 SUPPLY = 210mA peak (1.5x rated max)
+$Comp
+L Regulator_Linear:MCP1703A-3302_SOT223 U2
+U 1 1 5E2845BD
+P 1700 4950
+F 0 "U2" H 1700 5192 50  0000 C CNN
+F 1 "MCP1703A-3302_SOT223" H 1700 5101 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-223-3_TabPin2" H 1700 5150 50  0001 C CNN
+F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/20005122B.pdf" H 1700 4900 50  0001 C CNN
+	1    1700 4950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Regulator_Linear:MCP1703A-5002_SOT223 U5
+U 1 1 5E285FEA
+P 3100 4950
+F 0 "U5" H 3100 5192 50  0000 C CNN
+F 1 "MCP1703A-5002_SOT223" H 3100 5101 50  0000 C CNN
+F 2 "Package_TO_SOT_SMD:SOT-223-3_TabPin2" H 3100 5150 50  0001 C CNN
+F 3 "http://ww1.microchip.com/downloads/en/DeviceDoc/20005122B.pdf" H 3100 4900 50  0001 C CNN
+	1    3100 4950
+	1    0    0    -1  
+$EndComp
+Text GLabel 2800 4950 0    50   Input ~ 0
+VIN
+Text Notes 1400 4650 0    50   ~ 10
+3.3V SUPPLY LDO
+Text Notes 2800 4650 0    50   ~ 10
+5V SUPPLY LDO
+$Comp
+L Device:Crystal Y1
+U 1 1 5E2B8361
+P 7400 3000
+F 0 "Y1" H 7400 3268 50  0000 C CNN
+F 1 "14.7456MHz" H 7400 3177 50  0000 C CNN
+F 2 "sid-board:Euroquarts 14.7456MHz Crystal ±30ppm SMD 2-Pin 12.4 x 4.5 x 4.2mm" H 7400 3000 50  0001 C CNN
+F 3 "~" H 7400 3000 50  0001 C CNN
+	1    7400 3000
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R_Small R2
+U 1 1 5E2B87B7
+P 7400 3350
+F 0 "R2" V 7204 3350 50  0000 C CNN
+F 1 "1M" V 7295 3350 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7400 3350 50  0001 C CNN
+F 3 "~" H 7400 3350 50  0001 C CNN
+	1    7400 3350
+	0    1    1    0   
+$EndComp
+$Comp
+L Device:C_Small C2
+U 1 1 5E2B9259
+P 7250 3600
+F 0 "C2" H 7342 3646 50  0000 L CNN
+F 1 "18pF" H 7342 3555 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7250 3600 50  0001 C CNN
+F 3 "~" H 7250 3600 50  0001 C CNN
+	1    7250 3600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C3
+U 1 1 5E2BA581
+P 7550 3600
+F 0 "C3" H 7642 3646 50  0000 L CNN
+F 1 "18pF" H 7642 3555 50  0000 L CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7550 3600 50  0001 C CNN
+F 3 "~" H 7550 3600 50  0001 C CNN
+	1    7550 3600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7250 3000 7250 3350
+Wire Wire Line
+	7250 3350 7300 3350
+Wire Wire Line
+	7250 3350 7250 3500
+Connection ~ 7250 3350
+Wire Wire Line
+	7550 3000 7550 3350
+Wire Wire Line
+	7550 3350 7500 3350
+Wire Wire Line
+	7250 3700 7550 3700
+Wire Wire Line
+	7550 3350 7550 3500
+Connection ~ 7550 3350
+Text GLabel 7400 3700 3    50   Input ~ 0
+GND
+Text GLabel 7550 3000 2    50   Input ~ 10
+XTAL1
+Text GLabel 7250 3000 0    50   Input ~ 10
+XTAL2
+Text GLabel 5500 2900 0    50   Input ~ 10
+XTAL1
+Text GLabel 5500 3000 0    50   Input ~ 10
+XTAL2
+$Comp
+L Device:C_Small C4
+U 1 1 5E29894F
+P 1900 5250
+F 0 "C4" V 1671 5250 50  0000 C CNN
+F 1 "100nF" V 1762 5250 50  0000 C CNN
+F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 1900 5250 50  0001 C CNN
+F 3 "~" H 1900 5250 50  0001 C CNN
+	1    1900 5250
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	2000 4950 2000 5250
+Wire Wire Line
+	1800 5250 1700 5250
+Wire Wire Line
+	3100 5250 3200 5250
+Wire Wire Line
+	3400 5250 3400 4950
 $EndSCHEMATC
