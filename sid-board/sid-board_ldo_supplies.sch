@@ -298,8 +298,6 @@ Wire Wire Line
 	3950 2300 3900 2300
 Wire Wire Line
 	4700 2300 4700 2350
-Text Notes 5600 2000 0    50   ~ 0
-TODO:\nADD XTAL1/2 OSCILLATOR CIRCUIT\nADD LDO VOLTAGE INPUT for U1
 Text GLabel 3100 5250 0    50   Input ~ 0
 GND
 Text GLabel 2000 4950 2    50   Input ~ 0
