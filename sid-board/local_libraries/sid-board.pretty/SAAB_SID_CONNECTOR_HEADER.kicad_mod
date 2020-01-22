@@ -1,4 +1,4 @@
-(module SAAB_SID_CONNECTOR_HEADER (layer F.Cu) (tedit 5E269FE2)
+(module SAAB_SID_CONNECTOR_HEADER (layer F.Cu) (tedit 5E27DE5A)
   (descr "Through hole straight pin header, 2x06, 2.54mm pitch, double rows")
   (tags "Through hole pin header THT 2x06 2.54mm double row")
   (fp_text reference REF** (at 8.68 0.127 270) (layer F.SilkS)
@@ -71,9 +71,9 @@
   (pad 8 thru_hole oval (at -3.81 1.397 270) (size 1.7 1.7) (drill 1) (layers *.Cu *.Mask))
   (pad 6 thru_hole oval (at -6.35 -1.143 270) (size 1.7 1.7) (drill 1) (layers *.Cu *.Mask))
   (pad 7 thru_hole oval (at -6.35 1.397 270) (size 1.7 1.7) (drill 1) (layers *.Cu *.Mask))
-  (model ${KISYS3DMOD}/Connector_PinHeader_2.54mm.3dshapes/PinHeader_2x06_P2.54mm_Vertical.wrl
-    (offset (xyz 6.25 1.2 0))
+  (model ${KISYS3DMOD}/Connector_PinHeader_2.54mm.3dshapes/PinHeader_2x06_P2.54mm_Horizontal.wrl
+    (offset (xyz -6.35 -1.4 0))
     (scale (xyz 1 1 1))
-    (rotate (xyz 0 0 90))
+    (rotate (xyz 0 0 -90))
   )
 )
