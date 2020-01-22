@@ -420,4 +420,6 @@ Wire Wire Line
 Connection ~ 2850 3700
 Wire Wire Line
 	2850 3700 3900 3700
+Text Notes 5200 4500 0    50   ~ 0
+TODO: PUT INTERRUPT PIN BACK IN
 $EndSCHEMATC
