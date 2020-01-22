@@ -1,4 +1,4 @@
-update=Wed 22 Jan 2020 13:50:00 AEDT
+update=Wed 22 Jan 2020 15:47:16 AEDT
 version=1
 last_client=pcbnew
 [general]
@@ -67,10 +67,10 @@ OthersTextUpright=1
 SolderMaskClearance=0.051
 SolderMaskMinWidth=0.25
 SolderPasteClearance=0
-SolderPasteRatio=0
+SolderPasteRatio=-0
 [pcbnew/Layer.F.Cu]
 Name=F.Cu
-Type=0
+Type=2
 Enabled=1
 [pcbnew/Layer.In1.Cu]
 Name=In1.Cu
