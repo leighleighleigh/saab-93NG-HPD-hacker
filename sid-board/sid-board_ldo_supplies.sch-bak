@@ -38,28 +38,28 @@ $EndComp
 $Comp
 L local_symbols:Conn_02x06_SAAB_SID_HPD J1
 U 1 1 5E210180
-P 2650 2600
-F 0 "J1" H 2650 3065 50  0000 C CNN
-F 1 "ICM_CONN" H 2650 2974 50  0000 C CNN
-F 2 "sid-board:SAAB_SID_CONNECTOR_HEADER" H 2400 2600 50  0001 C CNN
-F 3 "~" H 2400 2600 50  0001 C CNN
-	1    2650 2600
+P 1700 2600
+F 0 "J1" H 1700 3065 50  0000 C CNN
+F 1 "ICM_CONN" H 1700 2974 50  0000 C CNN
+F 2 "sid-board:SAAB_SID_CONNECTOR_HEADER" H 1450 2600 50  0001 C CNN
+F 3 "~" H 1450 2600 50  0001 C CNN
+	1    1700 2600
 	1    0    0    -1  
 $EndComp
 $Comp
 L local_symbols:Conn_02x06_SAAB_SID_HPD J2
 U 1 1 5E211BEE
-P 2650 3600
-F 0 "J2" H 2650 4065 50  0000 C CNN
-F 1 "SID_CONN" H 2650 3974 50  0000 C CNN
-F 2 "sid-board:SAAB_SID_CONNECTOR_HEADER" H 2400 3600 50  0001 C CNN
-F 3 "~" H 2400 3600 50  0001 C CNN
-	1    2650 3600
+P 1700 3600
+F 0 "J2" H 1700 4065 50  0000 C CNN
+F 1 "SID_CONN" H 1700 3974 50  0000 C CNN
+F 2 "sid-board:SAAB_SID_CONNECTOR_HEADER" H 1450 3600 50  0001 C CNN
+F 3 "~" H 1450 3600 50  0001 C CNN
+	1    1700 3600
 	1    0    0    -1  
 $EndComp
-Text GLabel 2200 2800 0    50   Input ~ 0
+Text GLabel 1250 2800 0    50   Input ~ 0
 VIN
-Text GLabel 2200 2500 0    50   Input ~ 0
+Text GLabel 1250 2500 0    50   Input ~ 0
 GND
 Text GLabel 1700 5250 0    50   Input ~ 0
 GND
@@ -67,22 +67,22 @@ Text GLabel 1400 4950 0    50   Input ~ 0
 VIN
 Text GLabel 3400 4950 2    50   Input ~ 0
 VDD_5V
-Text GLabel 2200 3500 0    50   Input ~ 0
+Text GLabel 1250 3500 0    50   Input ~ 0
 GND
-Text GLabel 2200 3800 0    50   Input ~ 0
+Text GLabel 1250 3800 0    50   Input ~ 0
 VIN
 Wire Wire Line
-	2200 2900 1950 2900
+	1250 2900 1000 2900
 Wire Wire Line
-	1950 2900 1950 3900
+	1000 2900 1000 3900
 Wire Wire Line
-	1950 3900 2200 3900
+	1000 3900 1250 3900
 Wire Wire Line
-	2200 3600 1900 3600
+	1250 3600 950  3600
 Wire Wire Line
-	1900 3600 1900 2600
+	950  3600 950  2600
 Wire Wire Line
-	1900 2600 2200 2600
+	950  2600 1250 2600
 $Comp
 L local_symbols:PCA82C250 U4
 U 1 1 5E1F1E39
@@ -95,13 +95,9 @@ F 3 "http://www.nxp.com/documents/data_sheet/PCA82C251.pdf" H 5800 3550 50  0001
 	-1   0    0    1   
 $EndComp
 Wire Wire Line
-	3100 2600 3900 2600
+	2150 2600 2900 2600
 Wire Wire Line
-	3900 2700 3100 2700
-Wire Wire Line
-	3100 3600 3900 3600
-Wire Wire Line
-	3900 3700 3100 3700
+	2950 2700 2800 2700
 Text GLabel 3900 2300 0    50   Input ~ 0
 GND
 Text GLabel 3900 3300 0    50   Input ~ 0
@@ -217,33 +213,12 @@ F 3 "~" H 4850 4500 50  0001 C CNN
 	1    4850 4500
 	0    1    1    0   
 $EndComp
-$Comp
-L Connector:Conn_01x05_Male J6
-U 1 1 5E325875
-P 6100 4200
-F 0 "J6" V 6254 3912 50  0000 R CNN
-F 1 "UARTAB/IRQ" V 6163 3912 50  0000 R CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x05_P2.54mm_Vertical" H 6100 4200 50  0001 C CNN
-F 3 "~" H 6100 4200 50  0001 C CNN
-	1    6100 4200
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	5900 2700 5900 4000
-Wire Wire Line
-	5500 2600 6000 2600
-Wire Wire Line
-	6000 2600 6000 4000
 Wire Wire Line
 	6650 2800 6100 2800
 Wire Wire Line
 	6100 2800 6100 2850
 Wire Wire Line
 	6650 2900 6200 2900
-Wire Wire Line
-	6650 3700 6300 3700
-Wire Wire Line
-	6300 3700 6300 4000
 $Comp
 L Device:R_Small R1
 U 1 1 5E32A99C
@@ -255,23 +230,18 @@ F 3 "~" H 6650 3800 50  0001 C CNN
 	1    6650 3800
 	1    0    0    -1  
 $EndComp
-Connection ~ 6650 3700
 Text GLabel 6650 3900 2    50   Input ~ 0
 VDD_3.3V
 Wire Wire Line
 	4700 2700 4700 2600
 Wire Wire Line
 	4700 2600 5500 2600
-Connection ~ 5500 2600
 Wire Wire Line
 	4700 2350 5400 2350
 Wire Wire Line
 	5400 2350 5400 2700
 Wire Wire Line
 	5400 2700 5500 2700
-Connection ~ 5500 2700
-Wire Wire Line
-	5500 2700 5900 2700
 Wire Wire Line
 	6200 2900 6200 2950
 Wire Wire Line
@@ -282,24 +252,16 @@ Wire Wire Line
 	5050 3700 5050 2950
 Wire Wire Line
 	5050 2950 6200 2950
-Connection ~ 6200 2950
-Wire Wire Line
-	6200 2950 6200 4000
 Wire Wire Line
 	4700 3300 5000 3300
 Wire Wire Line
 	5000 2850 6100 2850
 Wire Wire Line
 	5000 2850 5000 3300
-Connection ~ 6100 2850
-Wire Wire Line
-	6100 2850 6100 4000
 Wire Wire Line
 	3950 2300 3900 2300
 Wire Wire Line
 	4700 2300 4700 2350
-Text Notes 5600 2000 0    50   ~ 0
-TODO:\nADD XTAL1/2 OSCILLATOR CIRCUIT\nADD LDO VOLTAGE INPUT for U1
 Text GLabel 3100 5250 0    50   Input ~ 0
 GND
 Text GLabel 2000 4950 2    50   Input ~ 0
@@ -423,4 +385,67 @@ Wire Wire Line
 	3100 5250 3200 5250
 Wire Wire Line
 	3400 5250 3400 4950
+$Comp
+L Switch:SW_DIP_x06 SW1
+U 1 1 5E2890B0
+P 3250 2900
+F 0 "SW1" H 3250 3467 50  0000 C CNN
+F 1 "SW_DIP_x06" H 3250 3376 50  0000 C CNN
+F 2 "Button_Switch_THT:SW_DIP_SPSTx06_Slide_9.78x17.42mm_W7.62mm_P2.54mm" H 3250 2900 50  0001 C CNN
+F 3 "~" H 3250 2900 50  0001 C CNN
+	1    3250 2900
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2150 3600 2400 3600
+Wire Wire Line
+	2400 3600 2400 3000
+Wire Wire Line
+	2400 3000 2950 3000
+Wire Wire Line
+	2150 3700 2450 3700
+Wire Wire Line
+	2450 3700 2450 3100
+Wire Wire Line
+	2450 3100 2950 3100
+Wire Wire Line
+	3550 3100 3550 3700
+Wire Wire Line
+	3550 3000 3650 3000
+Wire Wire Line
+	3650 3600 3900 3600
+Wire Wire Line
+	3650 3000 3650 3600
+Wire Wire Line
+	3550 2700 3900 2700
+Wire Wire Line
+	3550 2600 3900 2600
+Wire Wire Line
+	2900 2600 2900 2800
+Wire Wire Line
+	2900 2800 2950 2800
+Connection ~ 2900 2600
+Wire Wire Line
+	2900 2600 2950 2600
+Wire Wire Line
+	3550 2800 3650 2800
+Wire Wire Line
+	3650 2800 3650 3000
+Connection ~ 3650 3000
+Wire Wire Line
+	2950 2900 2800 2900
+Wire Wire Line
+	2800 2900 2800 2700
+Connection ~ 2800 2700
+Wire Wire Line
+	2800 2700 2150 2700
+Wire Wire Line
+	3550 3700 3700 3700
+Wire Wire Line
+	3700 2900 3700 3700
+Wire Wire Line
+	3550 2900 3700 2900
+Connection ~ 3700 3700
+Wire Wire Line
+	3700 3700 3900 3700
 $EndSCHEMATC

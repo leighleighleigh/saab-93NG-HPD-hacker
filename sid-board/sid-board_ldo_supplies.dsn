@@ -45,8 +45,8 @@
   )
   (placement
     (component "sid-board:SAAB_SID_CONNECTOR_HEADER"
-      (place J2 74930 -65405 front 0 (PN SID_CONN))
       (place J1 93980 -65405 front 0 (PN ICM_CONN))
+      (place J2 74930 -65405 front 0 (PN SID_CONN))
     )
     (component "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm"
       (place U3 98806 -74295 front 90 (PN PCA82C250))
@@ -59,19 +59,16 @@
       (place J4 68580 -82042 front 90 (PN "3.3V OUT"))
     )
     (component Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical
-      (place J5 89916 -92964 front 90 (PN SPI))
-    )
-    (component Connector_PinHeader_2.54mm:PinHeader_1x05_P2.54mm_Vertical
-      (place J6 89916 -87376 front 90 (PN UARTAB/IRQ))
+      (place J5 92456 -87122 front 90 (PN SPI))
     )
     (component "Package_SO:TSSOP-28_4.4x9.7mm_P0.65mm"
       (place U1 81407 -87376 front 90 (PN SC16IS752IPW))
     )
     (component "Package_TO_SOT_SMD:SOT-223-3_TabPin2"
-      (place U2 79375 -77216 front 270 (PN "MCP1703A-33"))
+      (place U2 79375 -77216 front 270 (PN "MCP1703A-3302_SOT223"))
     )
     (component "Package_TO_SOT_SMD:SOT-223-3_TabPin2::1"
-      (place U5 89408 -77216 front 270 (PN "MCP1703A-5"))
+      (place U5 89408 -77216 front 270 (PN "MCP1703A-5002_SOT223"))
     )
     (component "sid-board:Euroquarts 14.7456MHz Crystal ±30ppm SMD 2-Pin 12.4 x 4.5 x 4.2mm"
       (place Y1 73406 -95758 front 0 (PN 14.7456MHz))
@@ -211,28 +208,6 @@
       (outline (path signal 100  1270 -8890  -1270 -8890))
       (outline (path signal 100  1270 1270  1270 -8890))
       (outline (path signal 100  -635 1270  1270 1270))
-      (pin Oval[A]Pad_1700x1700_um 4 0 -7620)
-      (pin Oval[A]Pad_1700x1700_um 3 0 -5080)
-      (pin Oval[A]Pad_1700x1700_um 2 0 -2540)
-      (pin Rect[A]Pad_1700x1700_um 1 0 0)
-    )
-    (image Connector_PinHeader_2.54mm:PinHeader_1x05_P2.54mm_Vertical
-      (outline (path signal 50  1800 1800  -1800 1800))
-      (outline (path signal 50  1800 -11950  1800 1800))
-      (outline (path signal 50  -1800 -11950  1800 -11950))
-      (outline (path signal 50  -1800 1800  -1800 -11950))
-      (outline (path signal 120  -1330 1330  0 1330))
-      (outline (path signal 120  -1330 0  -1330 1330))
-      (outline (path signal 120  -1330 -1270  1330 -1270))
-      (outline (path signal 120  1330 -1270  1330 -11490))
-      (outline (path signal 120  -1330 -1270  -1330 -11490))
-      (outline (path signal 120  -1330 -11490  1330 -11490))
-      (outline (path signal 100  -1270 635  -635 1270))
-      (outline (path signal 100  -1270 -11430  -1270 635))
-      (outline (path signal 100  1270 -11430  -1270 -11430))
-      (outline (path signal 100  1270 1270  1270 -11430))
-      (outline (path signal 100  -635 1270  1270 1270))
-      (pin Oval[A]Pad_1700x1700_um 5 0 -10160)
       (pin Oval[A]Pad_1700x1700_um 4 0 -7620)
       (pin Oval[A]Pad_1700x1700_um 3 0 -5080)
       (pin Oval[A]Pad_1700x1700_um 2 0 -2540)
@@ -428,16 +403,16 @@
       (pins J1-9 U3-7)
     )
     (net "Net-(J1-Pad6)"
-      (pins J2-6 J1-6)
+      (pins J1-6 J2-6)
     )
     (net VIN
-      (pins J2-5 J1-5 U2-1 U5-1)
+      (pins J1-5 J2-5 U2-1 U5-1)
     )
     (net "Net-(J1-Pad3)"
-      (pins J2-3 J1-3)
+      (pins J1-3 J2-3)
     )
     (net GND
-      (pins J2-2 J1-2 U3-2 U3-8 U4-8 U4-2 J3-1 J4-1 U1-22 U1-14 U1-9 U2-2 U2-2@1 U5-2
+      (pins J1-2 J2-2 U3-2 U3-8 U4-8 U4-2 J3-1 J4-1 U1-22 U1-14 U1-9 U2-2 U2-2@1 U5-2
         U5-2@1 C4-2 C1-2 C2-2 C3-2)
     )
     (net "Net-(J2-Pad10)"
@@ -445,15 +420,6 @@
     )
     (net "Net-(J2-Pad9)"
       (pins J2-9 U4-7)
-    )
-    (net "Net-(J6-Pad3)"
-      (pins U4-4 J6-3 U1-24)
-    )
-    (net "Net-(J6-Pad4)"
-      (pins U4-1 J6-4 U1-23)
-    )
-    (net "Net-(J6-Pad2)"
-      (pins U3-1 J6-2 U1-3)
     )
     (net VDD_5V
       (pins U3-3 U4-3 J3-2 U5-3 C1-1)
@@ -472,12 +438,6 @@
     )
     (net "Net-(J5-Pad1)"
       (pins J5-1 U1-10)
-    )
-    (net "Net-(J6-Pad5)"
-      (pins J6-5 U1-15 R1-1)
-    )
-    (net "Net-(J6-Pad1)"
-      (pins U3-4 J6-1 U1-4)
     )
     (net "Net-(J1-Pad7)"
       (pins J1-7)
@@ -566,15 +526,31 @@
     (net XTAL1
       (pins U1-6 Y1-2 C3-1 R2-1)
     )
+    (net "Net-(R1-Pad1)"
+      (pins U1-15 R1-1)
+    )
+    (net "Net-(U1-Pad24)"
+      (pins U4-4 U1-24)
+    )
+    (net "Net-(U1-Pad23)"
+      (pins U4-1 U1-23)
+    )
+    (net "Net-(U1-Pad4)"
+      (pins U3-4 U1-4)
+    )
+    (net "Net-(U1-Pad3)"
+      (pins U3-1 U1-3)
+    )
     (class kicad_default "" GND "Net-(J1-Pad1)" "Net-(J1-Pad10)" "Net-(J1-Pad11)"
       "Net-(J1-Pad12)" "Net-(J1-Pad3)" "Net-(J1-Pad4)" "Net-(J1-Pad6)" "Net-(J1-Pad7)"
       "Net-(J1-Pad8)" "Net-(J1-Pad9)" "Net-(J2-Pad1)" "Net-(J2-Pad10)" "Net-(J2-Pad11)"
       "Net-(J2-Pad12)" "Net-(J2-Pad4)" "Net-(J2-Pad7)" "Net-(J2-Pad8)" "Net-(J2-Pad9)"
-      "Net-(J5-Pad1)" "Net-(J5-Pad2)" "Net-(J5-Pad3)" "Net-(J5-Pad4)" "Net-(J6-Pad1)"
-      "Net-(J6-Pad2)" "Net-(J6-Pad3)" "Net-(J6-Pad4)" "Net-(J6-Pad5)" "Net-(U1-Pad1)"
-      "Net-(U1-Pad16)" "Net-(U1-Pad17)" "Net-(U1-Pad18)" "Net-(U1-Pad19)"
-      "Net-(U1-Pad2)" "Net-(U1-Pad20)" "Net-(U1-Pad21)" "Net-(U1-Pad25)" "Net-(U1-Pad26)"
-      "Net-(U1-Pad27)" "Net-(U1-Pad28)" "Net-(U1-Pad5)" "Net-(U3-Pad5)" "Net-(U4-Pad5)"
+      "Net-(J5-Pad1)" "Net-(J5-Pad2)" "Net-(J5-Pad3)" "Net-(J5-Pad4)" "Net-(R1-Pad1)"
+      "Net-(SW1-Pad10)" "Net-(SW1-Pad11)" "Net-(SW1-Pad12)" "Net-(SW1-Pad7)"
+      "Net-(U1-Pad1)" "Net-(U1-Pad16)" "Net-(U1-Pad17)" "Net-(U1-Pad18)" "Net-(U1-Pad19)"
+      "Net-(U1-Pad2)" "Net-(U1-Pad20)" "Net-(U1-Pad21)" "Net-(U1-Pad23)" "Net-(U1-Pad24)"
+      "Net-(U1-Pad25)" "Net-(U1-Pad26)" "Net-(U1-Pad27)" "Net-(U1-Pad28)"
+      "Net-(U1-Pad3)" "Net-(U1-Pad4)" "Net-(U1-Pad5)" "Net-(U3-Pad5)" "Net-(U4-Pad5)"
       VDD_3.3V VDD_5V VIN XTAL1 XTAL2
       (circuit
         (use_via Via[0-1]_800:400_um)
