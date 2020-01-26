@@ -1,4 +1,5 @@
 EESchema Schematic File Version 4
+LIBS:sid-board_ldo_supplies-cache
 EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
@@ -147,42 +148,18 @@ VDD_3.3V
 Wire Wire Line
 	5500 3600 5400 3600
 Wire Wire Line
-	5400 3600 5400 3950
-Wire Wire Line
-	5400 3950 5650 3950
-Wire Wire Line
-	5650 3950 5650 4200
-Wire Wire Line
 	5500 3500 5350 3500
-Wire Wire Line
-	5350 3500 5350 4000
-Wire Wire Line
-	5350 4000 5550 4000
-Wire Wire Line
-	5550 4000 5550 4200
 Wire Wire Line
 	5500 3400 5300 3400
 Wire Wire Line
-	5300 3400 5300 4050
-Wire Wire Line
-	5300 4050 5450 4050
-Wire Wire Line
-	5450 4050 5450 4200
-Wire Wire Line
 	5500 3300 5250 3300
-Wire Wire Line
-	5250 3300 5250 4100
-Wire Wire Line
-	5250 4100 5350 4100
-Wire Wire Line
-	5350 4100 5350 4200
 $Comp
-L Connector:Conn_01x04_Male J5
+L Connector:Conn_01x05_Male J5
 U 1 1 5E308950
 P 5450 4400
 F 0 "J5" V 5604 4112 50  0000 R CNN
-F 1 "SPI" V 5513 4112 50  0000 R CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical" H 5450 4400 50  0001 C CNN
+F 1 "SPI/INT" V 5513 4112 50  0000 R CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x05_P2.54mm_Vertical" H 5450 4400 50  0001 C CNN
 F 3 "~" H 5450 4400 50  0001 C CNN
 	1    5450 4400
 	0    -1   -1   0   
@@ -422,4 +399,31 @@ Wire Wire Line
 	2850 3700 3900 3700
 Text Notes 5200 4500 0    50   ~ 0
 TODO: PUT INTERRUPT PIN BACK IN
+Wire Wire Line
+	5250 3300 5250 4200
+Wire Wire Line
+	5300 4200 5350 4200
+Wire Wire Line
+	5300 3400 5300 4200
+Wire Wire Line
+	5350 4150 5450 4150
+Wire Wire Line
+	5450 4150 5450 4200
+Wire Wire Line
+	5350 3500 5350 4150
+Wire Wire Line
+	5400 4100 5550 4100
+Wire Wire Line
+	5550 4100 5550 4200
+Wire Wire Line
+	5400 3600 5400 4100
+Wire Wire Line
+	5650 4200 5650 4050
+Wire Wire Line
+	5650 4050 6800 4050
+Wire Wire Line
+	6800 4050 6800 3700
+Wire Wire Line
+	6800 3700 6650 3700
+Connection ~ 6650 3700
 $EndSCHEMATC
