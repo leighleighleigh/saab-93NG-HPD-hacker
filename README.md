@@ -11,6 +11,8 @@ A board to go in between the SAAB SID/HPD connector on 2003+ 93 Gen2 Models, so 
 - First prototype PCB has been made, see observations below.
 
 # Prototype #1
+![Prototype1](https://i.imgur.com/MEXQa4u.jpg)
+
 - ### General Notes
 - Very difficult to hand solder everything, especially the IC's, need to invest in solder paste.
 - Bypass mode worked briefly, but then "burnt out". The tracks are too thin. Oops.
