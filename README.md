@@ -26,3 +26,4 @@ A board to go in between the SAAB SID/HPD connector on 2003+ 93 Gen2 Models, so 
 - Check TRACK WIDTH for LDO OUTPUTS.
 - BYPASS SWITCH resets and breaks the UART IC. Need to rethink this.
 - RESET PIN on UART IC is left floating, oops. It still works like this, but should be held HIGH.
+- Add LED's to GPIO pins? Might be useful for debugging. Plus, LED's are cool.
