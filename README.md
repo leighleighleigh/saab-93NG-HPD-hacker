@@ -26,6 +26,5 @@ A board to go in between the SAAB SID/HPD connector on 2003+ 93 Gen2 Models, so 
 - Add test points to check power supplies and UART IC connections.
 - Add IC orientation dots on silkscreen.
 - Increase track-widths between the two ICM<->SID connectors, as it can't handle the current load.
-- Make CAN-bus bypass driven by the UART IC GPIOs.
 - Tie UART RESET pin HIGH.
 - Add LED's to UART IC GPIO pins, for debugging and extra street cred.
