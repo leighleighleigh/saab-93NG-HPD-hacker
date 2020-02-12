@@ -17,17 +17,15 @@ A board to go in between the SAAB SID/HPD connector on 2003+ 93 Gen2 Models, so 
 # Prototype #1
 ![Prototype1](https://i.imgur.com/MEXQa4u.jpg)
 
-- ### General Notes
+- **General Notes**
 - Very difficult to hand solder everything, especially the IC's, need to invest in solder paste.
 - Bypass mode worked briefly, but then "burnt out". The tracks are too thin. Oops.
 
-- ### Improvements to be Made
-- Add test points to check power supply, and the UART/CAN lines.
-- Adjust layout of components for hand-soldering. Potentially replace some with through-hole components?
-	- Alternatively, go "all-in" on SMD components.
-- ADD IC ORIENTATION TO THE SILKSCREENS
-- INCREASE TRACK WIDTH FOR SID-PASSTHROUGH
-- Check TRACK WIDTH for LDO OUTPUTS.
-- BYPASS SWITCH resets and breaks the UART IC. Need to rethink this.
-- RESET PIN on UART IC is left floating, oops. It still works like this, but should be held HIGH.
-- Add LED's to GPIO pins? Might be useful for debugging. Plus, LED's are cool.
+- **Improvements to be Made**
+- Add 5V TO 3.3V LEVEL SHIFTING between UART IC (TTL) and CAN-BUS INTERFACES (CMOS).
+- Add test points to check power supplies and UART IC connections.
+- Add IC orientation dots on silkscreen.
+- Increase track-widths between the two ICM<->SID connectors, as it can't handle the current load.
+- Make CAN-bus bypass driven by the UART IC GPIOs.
+- Tie UART RESET pin HIGH.
+- Add LED's to UART IC GPIO pins, for debugging and extra street cred.
