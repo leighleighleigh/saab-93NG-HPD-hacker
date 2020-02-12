@@ -2,6 +2,9 @@
 A board to go in between the SAAB SID/HPD connector on 2003+ 93 Gen2 Models, so that the UART-based protocol can be reverse engineered.
 
 # Project structure
+- /esp8266_sid_board
+  - This is the PlatformIO project, which is used to interface an esp8266 with the sid-board.
+  - (Without a microcontroller driving the sid-board, nothing happens.)
 - /sid-board 
   - This is the KiCad 5 project!
 
