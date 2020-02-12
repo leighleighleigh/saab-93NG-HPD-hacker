@@ -1,0 +1,5 @@
+- Added proper level shifting for 5v to 3.3v devices. Inspired by Adafruit's I2C compatible board. :)
+- Removed physical CAN-bus bypass switch.
+- Pulled RESET high on UART IC.
+- Added SMD LED's on GPIO pins.
+- Tidied up the schematic.
