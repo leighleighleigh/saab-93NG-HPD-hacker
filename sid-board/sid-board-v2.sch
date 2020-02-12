@@ -135,20 +135,12 @@ Text GLabel 7500 3050 0    50   Input ~ 0
 GND
 Text GLabel 7500 2950 0    50   Input ~ 0
 VDD_3.3V
-Wire Wire Line
-	7550 3450 7450 3450
-Wire Wire Line
-	7550 3350 7400 3350
-Wire Wire Line
-	7550 3250 7350 3250
-Wire Wire Line
-	7550 3150 7300 3150
 $Comp
 L Connector:Conn_01x05_Male J5
 U 1 1 5E308950
 P 7500 4250
 F 0 "J5" V 7654 3962 50  0000 R CNN
-F 1 "SPI/INT" V 7563 3962 50  0000 R CNN
+F 1 "SPI+IRQ" V 7563 3962 50  0000 R CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_1x05_P2.54mm_Vertical" H 7500 4250 50  0001 C CNN
 F 3 "~" H 7500 4250 50  0001 C CNN
 	1    7500 4250
@@ -159,7 +151,7 @@ L Connector:Conn_01x02_Male J3
 U 1 1 5E30F0FD
 P 7250 4450
 F 0 "J3" V 7312 4494 50  0000 L CNN
-F 1 "5V OUT" V 7403 4494 50  0000 L CNN
+F 1 "5V" V 7403 4494 50  0000 L CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 7250 4450 50  0001 C CNN
 F 3 "~" H 7250 4450 50  0001 C CNN
 	1    7250 4450
@@ -170,7 +162,7 @@ L Connector:Conn_01x02_Male J4
 U 1 1 5E310D87
 P 7750 4450
 F 0 "J4" V 7812 4494 50  0000 L CNN
-F 1 "3.3V OUT" V 7903 4494 50  0000 L CNN
+F 1 "3.3V" V 7903 4494 50  0000 L CNN
 F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 7750 4450 50  0001 C CNN
 F 3 "~" H 7750 4450 50  0001 C CNN
 	1    7750 4450
@@ -246,24 +238,6 @@ Wire Wire Line
 	3100 5250 3200 5250
 Wire Wire Line
 	3400 5250 3400 4950
-Wire Wire Line
-	7300 3150 7300 4050
-Wire Wire Line
-	7350 4050 7400 4050
-Wire Wire Line
-	7350 3250 7350 4050
-Wire Wire Line
-	7400 4000 7500 4000
-Wire Wire Line
-	7500 4000 7500 4050
-Wire Wire Line
-	7400 3350 7400 4000
-Wire Wire Line
-	7450 3950 7600 3950
-Wire Wire Line
-	7600 3950 7600 4050
-Wire Wire Line
-	7450 3450 7450 3950
 Wire Wire Line
 	7700 4050 7700 3900
 Wire Wire Line
@@ -862,4 +836,20 @@ Wire Notes Line
 	9050 3450 9050 2050
 Text Notes 9050 2000 0    50   ~ 0
 GPIO LED OUTPUT
+Text GLabel 7550 3450 0    50   Input ~ 0
+CLK
+Text GLabel 7550 3350 0    50   Input ~ 0
+MISO
+Text GLabel 7550 3250 0    50   Input ~ 0
+MOSI
+Text GLabel 7550 3150 0    50   Input ~ 0
+CS
+Text GLabel 7300 4050 1    50   Input ~ 0
+CLK
+Text GLabel 7400 4050 1    50   Input ~ 0
+MISO
+Text GLabel 7500 4050 1    50   Input ~ 0
+MOSI
+Text GLabel 7600 4050 1    50   Input ~ 0
+CS
 $EndSCHEMATC

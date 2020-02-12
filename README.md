@@ -1,5 +1,6 @@
 # saab-sid-re-board
-A board to go in between the SAAB SID/HPD connector on 2003+ 93 Gen2 Models, so that the UART-based protocol can be reverse engineered.
+SAAB SID Reverse-Engineering Board.
+A board to go in between the SAAB SID/HPD connector on 2003-2006 9-3 (Second Generation) Models, so that the UART-based protocol can be reverse engineered.
 
 <img src="https://i.imgur.com/MEXQa4u.jpg" data-canonical-src="https://i.imgur.com/MEXQa4u.jpg" width="250" height="250" />
 
