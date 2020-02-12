@@ -409,6 +409,22 @@ void SC16IS752::__isr(uint8_t channel)
     return;
 }
 
+void SC16IS752::LoopbackEnable(bool loopback_enable)
+{
+    uint8_t temp_reg;
+
+    temp_reg = ReadRegister(SC16IS752_CHANNEL_BOTH,SC16IS750_REG_MCR);
+    if(loopback_enable)
+    {
+        temp_reg |= 0b00010000;
+    }else{
+        temp_reg = temp_reg & 0b11101111;
+    }
+
+    // Write
+    WriteRegister(SC16IS752_CHANNEL_BOTH,SC16IS750_REG_MCR,temp_reg);
+}
+
 void SC16IS752::FIFOEnable(uint8_t channel, uint8_t fifo_enable)
 {
     uint8_t temp_fcr;

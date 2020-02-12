@@ -133,7 +133,7 @@ class SC16IS752
 		void    InterruptControl(uint8_t channel, uint8_t int_ena);
 		void    ModemPin(uint8_t gpio); //gpio == 0, gpio[7:4] are modem pins, gpio == 1 gpio[7:4] are gpios
 		void    GPIOLatch(uint8_t latch);
-        
+                void    LoopbackEnable(bool loopback_enable);
     
     private:
         uint8_t device_address_sspin;

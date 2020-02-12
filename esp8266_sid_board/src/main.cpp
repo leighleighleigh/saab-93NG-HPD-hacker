@@ -33,6 +33,9 @@ void setup()
   spiuart.pinMode(GPIO, OUTPUT);
   spiuart.digitalWrite(GPIO, LOW);
 
+  // Setup loopback
+  spiuart.LoopbackEnable(true);
+
   Serial.println("Start serial communication");
   Serial.println("start serial communication");
   Serial.print("baudrate(channel A) = ");
@@ -47,6 +50,10 @@ void loop()
 {
   // Print to CHANNEL A
   spiuart.write(SC16IS752_CHANNEL_A,0x41);
+  Serial.print("A: ");
+  Serial.write(0x41);
+  Serial.println(" ");
+
   spiuart.digitalWrite(GPIO, HIGH);
 
   delay(10);
@@ -55,9 +62,9 @@ void loop()
   {
     // read the incoming byte:
     char c = spiuart.read(SC16IS752_CHANNEL_B);
-    Serial.print("Channel B=[");
+    Serial.print("B: ");
     Serial.write(c);
-    Serial.println("]");
+    Serial.println(" ");
   }
 
   delay(100);
