@@ -1,6 +1,8 @@
 # saab-sid-re-board
 A board to go in between the SAAB SID/HPD connector on 2003+ 93 Gen2 Models, so that the UART-based protocol can be reverse engineered.
 
+<img src="https://i.imgur.com/MEXQa4u.jpg" data-canonical-src="https://i.imgur.com/MEXQa4u.jpg" width="250" height="250" />
+
 # Project structure
 - /esp8266_sid_board
   - This is the PlatformIO project, which is used to interface an esp8266 with the sid-board.
@@ -15,13 +17,11 @@ A board to go in between the SAAB SID/HPD connector on 2003+ 93 Gen2 Models, so 
 - First prototype PCB has been made, see observations below.
 
 # Prototype #1
-![Prototype1](https://i.imgur.com/MEXQa4u.jpg)
-
-- **General Notes**
+**General Notes**
 - Very difficult to hand solder everything, especially the IC's, need to invest in solder paste.
 - Bypass mode worked briefly, but then "burnt out". The tracks are too thin. Oops.
 
-- **Improvements to be Made**
+**Improvements to be Made**
 - Add 5V TO 3.3V LEVEL SHIFTING between UART IC (TTL) and CAN-BUS INTERFACES (CMOS).
 - Add test points to check power supplies and UART IC connections.
 - Add IC orientation dots on silkscreen.
