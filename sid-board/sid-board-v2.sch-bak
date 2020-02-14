@@ -1,4 +1,5 @@
 EESchema Schematic File Version 4
+LIBS:sid-board-v2-cache
 EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
@@ -123,51 +124,16 @@ Wire Wire Line
 	7500 2950 7550 2950
 Wire Wire Line
 	7500 3050 7550 3050
-Text GLabel 7150 4650 3    50   Input ~ 0
+Text GLabel 7700 4050 2    50   Input ~ 0
 VDD_5V
-Text GLabel 7250 4650 3    50   Input ~ 0
+Text GLabel 7700 4250 2    50   Input ~ 0
 GND
-Text GLabel 7750 4650 3    50   Input ~ 0
-GND
-Text GLabel 7650 4650 3    50   Input ~ 0
+Text GLabel 7700 4150 2    50   Input ~ 0
 VDD_3.3V
 Text GLabel 7500 3050 0    50   Input ~ 0
 GND
 Text GLabel 7500 2950 0    50   Input ~ 0
 VDD_3.3V
-$Comp
-L Connector:Conn_01x05_Male J5
-U 1 1 5E308950
-P 7500 4250
-F 0 "J5" V 7654 3962 50  0000 R CNN
-F 1 "SPI+IRQ" V 7563 3962 50  0000 R CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x05_P2.54mm_Vertical" H 7500 4250 50  0001 C CNN
-F 3 "~" H 7500 4250 50  0001 C CNN
-	1    7500 4250
-	0    -1   -1   0   
-$EndComp
-$Comp
-L Connector:Conn_01x02_Male J3
-U 1 1 5E30F0FD
-P 7250 4450
-F 0 "J3" V 7312 4494 50  0000 L CNN
-F 1 "5V OUT" V 7403 4494 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 7250 4450 50  0001 C CNN
-F 3 "~" H 7250 4450 50  0001 C CNN
-	1    7250 4450
-	0    1    1    0   
-$EndComp
-$Comp
-L Connector:Conn_01x02_Male J4
-U 1 1 5E310D87
-P 7750 4450
-F 0 "J4" V 7812 4494 50  0000 L CNN
-F 1 "3.3V OUT" V 7903 4494 50  0000 L CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical" H 7750 4450 50  0001 C CNN
-F 3 "~" H 7750 4450 50  0001 C CNN
-	1    7750 4450
-	0    1    1    0   
-$EndComp
 $Comp
 L Device:R_Small R1
 U 1 1 5E32A99C
@@ -238,15 +204,6 @@ Wire Wire Line
 	3100 5250 3200 5250
 Wire Wire Line
 	3400 5250 3400 4950
-Wire Wire Line
-	7700 4050 7700 3900
-Wire Wire Line
-	7700 3900 8850 3900
-Wire Wire Line
-	8850 3900 8850 3550
-Wire Wire Line
-	8850 3550 8700 3550
-Connection ~ 8700 3550
 Text GLabel 7550 2650 0    50   Input ~ 0
 VDD_3.3V
 Wire Notes Line
@@ -308,17 +265,11 @@ CAN INTERFACE
 Text GLabel 7550 3550 3    50   Input ~ 0
 GND
 Wire Notes Line
-	7100 2050 7100 4350
-Wire Notes Line
-	7100 4350 8150 4350
-Wire Notes Line
 	8150 4350 8150 4000
 Wire Notes Line
 	8150 4000 9000 4000
 Wire Notes Line
 	9000 4000 9000 2050
-Wire Notes Line
-	9000 2050 7100 2050
 Text Notes 7100 2000 0    50   ~ 0
 DUAL UART to SPI INTERFACE
 Text Notes 8200 4100 0    50   ~ 0
@@ -844,12 +795,33 @@ Text GLabel 7550 3250 0    50   Input ~ 0
 MOSI
 Text GLabel 7550 3150 0    50   Input ~ 0
 CS
-Text GLabel 7300 4050 1    50   Input ~ 0
+Text GLabel 7200 3950 0    50   Input ~ 0
 CLK
-Text GLabel 7400 4050 1    50   Input ~ 0
+Text GLabel 7200 4050 0    50   Input ~ 0
 MISO
-Text GLabel 7500 4050 1    50   Input ~ 0
+Text GLabel 7200 4150 0    50   Input ~ 0
 MOSI
-Text GLabel 7600 4050 1    50   Input ~ 0
+Text GLabel 7200 4250 0    50   Input ~ 0
 CS
+$Comp
+L Connector_Generic:Conn_02x04_Counter_Clockwise J1
+U 1 1 5E4709DB
+P 7400 4050
+F 0 "J1" H 7450 4367 50  0000 C CNN
+F 1 "SPI+IRQ+POWER" H 7450 4276 50  0000 C CNN
+F 2 "" H 7400 4050 50  0001 C CNN
+F 3 "~" H 7400 4050 50  0001 C CNN
+	1    7400 4050
+	1    0    0    -1  
+$EndComp
+Text GLabel 8700 3550 2    50   Input ~ 0
+IRQ
+Text GLabel 7700 3950 2    50   Input ~ 0
+IRQ
+Wire Notes Line
+	6900 4350 6900 2050
+Wire Notes Line
+	6900 4350 8150 4350
+Wire Notes Line
+	6900 2050 9000 2050
 $EndSCHEMATC
