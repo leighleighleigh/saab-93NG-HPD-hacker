@@ -29,3 +29,4 @@ A board to go in between the SAAB SID/HPD connector on 2003-2006 9-3 (Second Gen
 - [x] Increase track-widths between the two ICM<->SID connectors, as it can't handle the current load.
 - [x] Tie UART RESET pin HIGH.
 - [x] Add LED's to UART IC GPIO pins, for debugging and extra street cred.
+- [ ] Use UART IC GPIO to enable/disable a CAN-bus true-bypass switch?
