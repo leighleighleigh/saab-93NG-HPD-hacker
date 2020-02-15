@@ -2,7 +2,7 @@
 #include <SoftwareSerial.h>
 
 SoftwareSerial swSer(D5,D6); // RX, TX
-#define sw_ser_baud 57600
+#define sw_ser_baud 55555
 
 void setup()
 {
@@ -14,8 +14,14 @@ void setup()
 
 void loop()
 {
-  while(swSer.available() > 0)
+  bool printed = false;
+  while(swSer.available() > 8)
   {
-    Serial.write(swSer.read());
+    Serial.print(swSer.read(),HEX);
+    Serial.print(",");
+    printed = true;
   }
+  if(printed){
+   Serial.println("");
+}
 }
