@@ -22,10 +22,10 @@ A board to go in between the SAAB SID/HPD connector on 2003-2006 9-3 (Second Gen
 - Very difficult to hand solder everything, especially the IC's, need to invest in solder paste.
 - Bypass mode worked briefly, but then "burnt out". The tracks are too thin. Oops.
 
-**Improvements to be Made**
-- Add 5V TO 3.3V LEVEL SHIFTING between UART IC (TTL) and CAN-BUS INTERFACES (CMOS).
-- Add test points to check power supplies and UART IC connections.
-- Add IC orientation dots on silkscreen.
-- Increase track-widths between the two ICM<->SID connectors, as it can't handle the current load.
-- Tie UART RESET pin HIGH.
-- Add LED's to UART IC GPIO pins, for debugging and extra street cred.
+**Improvements to be made in the second revision**
+- [x] Add 5V TO 3.3V LEVEL SHIFTING between UART IC (TTL) and CAN-BUS INTERFACES (CMOS).
+- [ ] Add test points to check power supplies and UART IC connections.
+- [ ] Add IC orientation dots on silkscreen.
+- [x] Increase track-widths between the two ICM<->SID connectors, as it can't handle the current load.
+- [x] Tie UART RESET pin HIGH.
+- [x] Add LED's to UART IC GPIO pins, for debugging and extra street cred.
