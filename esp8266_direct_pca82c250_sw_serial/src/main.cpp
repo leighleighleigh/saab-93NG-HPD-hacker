@@ -1,56 +1,71 @@
 #include <Arduino.h>
 #include <SoftwareSerial.h>
 
-SoftwareSerial sidSerial(D5,D6); // RX, TX
-SoftwareSerial icmSerial(D7,D8); // RX, TX
-#define sw_ser_baud 57600
+SoftwareSerial sidSerial(D7,D8); // RX, TX
+SoftwareSerial icmSerial(D5,D6); // RX, TX
+#define sw_ser_baud 56000
 
-bool passthrough = true;
+bool passthroughICMTOSID = true;
+bool passthroughSIDTOICM = true;
+bool showTX = false;
 
 void setup()
 {
   Serial.begin(115200);
   Serial.println("Start PCA82C250 Software Serial Monitor");  
 
-  if(passthrough)
-  {
-    Serial.println("PASSTHROUGH ENABLED");
-  }
-
   sidSerial.begin(sw_ser_baud);
   icmSerial.begin(sw_ser_baud);
+
   delay(2000);
 }
 
+char inbound = ' ';
+
 void loop()
 {
-  while(sidSerial.available() > 0)
+  // sidSerial.listen();
+  if(sidSerial.available())
   {
-    char inbound = sidSerial.read();
+    inbound = sidSerial.read();
 
     Serial.print("SID: ");
-    Serial.write(inbound);
+    Serial.print(inbound,HEX);
     Serial.println("");
 
-    if(passthrough)
+    if(passthroughSIDTOICM)
     {
+      icmSerial.stopListening();
       icmSerial.write(inbound);
+      if(showTX){
+      Serial.print(">>>ICM: ");
+      Serial.print(inbound,HEX);
+      Serial.println("");
+      }
+      icmSerial.listen();
     }
   }
-  while(icmSerial.available() > 0)
+
+  // icmSerial.listen();
+  if(icmSerial.available())
   {
-    char inbound = icmSerial.read();
+    inbound = icmSerial.read();
 
     Serial.print("ICM: ");
-    Serial.write(inbound);
+    Serial.print(inbound,HEX);
     Serial.println("");
 
-    if(passthrough)
+    if(passthroughICMTOSID)
     {
+      sidSerial.stopListening();
+      if(showTX)
+      {
+      Serial.print(">>>SID: ");
+      Serial.print(inbound,HEX);
+      Serial.println("");
+      }
       sidSerial.write(inbound);
+      sidSerial.listen();
     }
   }
-  if(printed){
-   Serial.println("");
-}
 }
