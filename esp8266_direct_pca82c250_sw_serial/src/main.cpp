@@ -50,4 +50,7 @@ void loop()
       sidSerial.write(inbound);
     }
   }
+  if(printed){
+   Serial.println("");
+}
 }
