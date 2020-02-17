@@ -3,8 +3,9 @@
 
 SoftwareSerial sidSerial(D6, D7); // RX, TX
 SoftwareSerial icmSerial(D4, D5); // RX, TX
-#define sw_ser_baud 56000
+#define sw_ser_baud 55555
 
+bool testMode = false;
 bool passthroughICMTOSID = true;
 bool passthroughSIDTOICM = true;
 bool showTX = false;
@@ -26,6 +27,7 @@ char inbound = ' ';
 
 void loop()
 {
+  if(!testMode){
   // sidSerial.listen();
   if (sidSerial.available())
   {
@@ -37,6 +39,9 @@ void loop()
 
     if (passthroughSIDTOICM)
     {
+      // If it's a zero, don't send
+      if(inbound != 0)
+      {
       icmSerial.stopListening();
       icmSerial.write(inbound);
       if (showTX)
@@ -46,6 +51,7 @@ void loop()
         Serial.println("");
       }
       icmSerial.listen();
+      }
     }
   }
 
@@ -60,6 +66,8 @@ void loop()
 
     if (passthroughICMTOSID)
     {
+      if(inbound != 0)
+      {
       sidSerial.stopListening();
       if (showTX)
       {
@@ -69,6 +77,28 @@ void loop()
       }
       sidSerial.write(inbound);
       sidSerial.listen();
+      }
+    }
+  }
+  }else{
+    sidSerial.stopListening();
+    
+    Serial.println(">0x80");
+    sidSerial.write(0x80);
+    Serial.println(">0x80");
+    sidSerial.write(0x80);
+    delay(500);
+
+
+    sidSerial.listen();
+
+    while (sidSerial.available())
+    {
+      inbound = sidSerial.read();
+
+      Serial.print("SID: ");
+      Serial.print(inbound, HEX);
+      Serial.println("");
     }
   }
 }
