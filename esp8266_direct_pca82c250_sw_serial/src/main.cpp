@@ -1,9 +1,9 @@
 #include <Arduino.h>
 #include <SoftwareSerial.h>
 
-SoftwareSerial sidSerial(D6, D7); // RX, TX
-SoftwareSerial icmSerial(D4, D5); // RX, TX
-#define sw_ser_baud 55555
+SoftwareSerial sidSerial(D5, D6); // RX, TX
+SoftwareSerial icmSerial(D2, D3); // RX, TX
+#define sw_ser_baud 56000
 
 bool testMode = false;
 bool passthroughICMTOSID = true;
@@ -27,21 +27,22 @@ char inbound = ' ';
 
 void loop()
 {
+  // delay(50);
   if(!testMode){
   // sidSerial.listen();
-  if (sidSerial.available())
+  while (sidSerial.available())
   {
     inbound = sidSerial.read();
 
-    Serial.print("SID: ");
+    Serial.print("  SID: ");
     Serial.print(inbound, HEX);
     Serial.println("");
 
     if (passthroughSIDTOICM)
     {
-      // If it's a zero, don't send
       if(inbound != 0)
       {
+      // If it's a zero, don't send
       icmSerial.stopListening();
       icmSerial.write(inbound);
       if (showTX)
@@ -56,7 +57,7 @@ void loop()
   }
 
   // icmSerial.listen();
-  if (icmSerial.available())
+  while (icmSerial.available())
   {
     inbound = icmSerial.read();
 
@@ -80,23 +81,12 @@ void loop()
       }
     }
   }
-  }else{
-    sidSerial.stopListening();
-    
-    Serial.println(">0x80");
-    sidSerial.write(0x80);
-    Serial.println(">0x80");
-    sidSerial.write(0x80);
-    delay(500);
-
-
-    sidSerial.listen();
-
-    while (sidSerial.available())
+  }else{    
+    while (icmSerial.available())
     {
-      inbound = sidSerial.read();
+      inbound = icmSerial.read();
 
-      Serial.print("SID: ");
+      Serial.print("ICM: ");
       Serial.print(inbound, HEX);
       Serial.println("");
     }
