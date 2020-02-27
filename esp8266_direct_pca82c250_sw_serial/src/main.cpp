@@ -21,7 +21,7 @@ void setup()
   delay(2000);
 
   Serial.println("START!");
-  if(testMode)
+  if (testMode)
   {
     Serial.println("TEST MODE ENGAGED");
   }
@@ -31,40 +31,94 @@ void setup()
 }
 
 char inbound = ' ';
+char buffer[128] = {0x0};
+uint8_t bufindex = 0; // Dual function, is reset to zero before filling buffer, represents last filled char after buffer filled.
 
 void loop()
 {
   if (!testMode)
   {
+
+    // Reset buffer index
+    bufindex = 0;
+
     while (icmSerial.available())
     {
       inbound = icmSerial.read();
+      // Store in buffer, increment bufindex
+      buffer[bufindex++] = inbound;
 
+      // Debugging
       Serial.print("ICMrx: ");
       Serial.print(inbound, HEX);
       Serial.println("");
 
-      if (passthroughICMTOSID)
+      // Check for buffer overflow
+      if(bufindex == 128)
       {
-          sidSerial.stopListening();
-          sidSerial.write(inbound);
-          sidSerial.listen();
+        // Break
+        break;
       }
     }
+
+    // If we filled some chars, then read them out to the sidSerial.
+    if (bufindex != 0 && passthroughICMTOSID)
+    {
+      // Stop listening, this prevents doubled-up data.
+      sidSerial.stopListening();
+
+      for (int i = 0; i < bufindex; i++)
+      {
+        sidSerial.write(buffer[i]);
+      }
+      
+      // Debug output
+      Serial.print("SIDtx buflen ");
+      Serial.println(bufindex);
+
+      // Begin listening again
+      sidSerial.listen();
+    }
+
+    // Reset buffer index
+    bufindex = 0;
+
     while (sidSerial.available())
     {
       inbound = sidSerial.read();
 
+      // Store in buffer, increment bufindex
+      buffer[bufindex++] = inbound;
+
+      // Debugging
       Serial.print("SIDrx: ");
       Serial.print(inbound, HEX);
       Serial.println("");
 
-      if (passthroughSIDTOICM)
+      // Check for buffer overflow
+      if(bufindex == 128)
       {
-        icmSerial.stopListening();
-        icmSerial.write(inbound);
-        icmSerial.listen();
+        // Break
+        break;
       }
+    }
+
+    // If we filled some chars, then read them out to the icmSerial.
+    if (bufindex != 0 && passthroughSIDTOICM)
+    {
+      // Stop listening to prevent doubled-up data
+      icmSerial.stopListening();
+
+      for (int i = 0; i < bufindex; i++)
+      {
+        icmSerial.write(buffer[i]);
+      }
+
+      // Debug output
+      Serial.print("ICMtx buflen ");
+      Serial.println(bufindex);
+
+      icmSerial.listen();
     }
   }
   else
