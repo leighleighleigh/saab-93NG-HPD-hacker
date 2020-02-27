@@ -6,7 +6,7 @@ SoftwareSerial sidSerial(D5, D6); // RX, TX
 SoftwareSerial icmSerial(D2, D3); // RX, TX
 #define sw_ser_baud 56000
 
-bool testMode = false; // In test mode, the TX pins are set high.
+bool testMode = true; // In test mode, the TX pins are set high.
 bool passthroughICMTOSID = true;
 bool passthroughSIDTOICM = true;
 
@@ -133,8 +133,8 @@ void loop()
     sidSerial.flush();
     Serial.println(">ICM tx");
     // icmSerial.println("hello sid!");
-    icmSerial.println("testtinjaowijdoiawjtesttinjaowijdoiawj!");
-    delay(20);
+    icmSerial.println("!abcdefghijklmnopqrstuvwxyz!123456789090!");
+    delay(50);
 
     Serial.println("SID rx");
     // Print on ICM, read from SID
