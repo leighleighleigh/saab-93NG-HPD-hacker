@@ -28,6 +28,7 @@ void setup()
 
   icmSerial.flush();
   sidSerial.flush();
+  icmSerial.listen();
 }
 
 char inbound = ' ';
@@ -38,7 +39,6 @@ void loop()
 {
   if (!testMode)
   {
-
     // Reset buffer index
     bufindex = 0;
 
@@ -80,6 +80,8 @@ void loop()
       sidSerial.listen();
     }
 
+    return;
+    
     // Reset buffer index
     bufindex = 0;
 
