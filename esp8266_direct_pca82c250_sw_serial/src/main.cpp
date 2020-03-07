@@ -2,13 +2,12 @@
 #include <SoftwareSerial.h>
 #include <math.h>
 
+
 SoftwareSerial sidSerial(D5, D6); // RX, TX
 SoftwareSerial icmSerial(D2, D3); // RX, TX
-#define sw_ser_baud 56000
+#define sw_ser_baud 56000 // This is a known working BAUD rate for the DLA UART decoder.
 
-bool testMode = true; // In test mode, the TX pins are set high.
-bool passthroughICMTOSID = true;
-bool passthroughSIDTOICM = true;
+bool testMode = false; // In test mode, the TX pins are set high.
 
 void setup()
 {
@@ -28,99 +27,26 @@ void setup()
 
   icmSerial.flush();
   sidSerial.flush();
+  sidSerial.listen();
   icmSerial.listen();
 }
 
 char inbound = ' ';
-char buffer[128] = {0x0};
-uint8_t bufindex = 0; // Dual function, is reset to zero before filling buffer, represents last filled char after buffer filled.
 
 void loop()
 {
   if (!testMode)
   {
-    // Reset buffer index
-    bufindex = 0;
-
-    while (icmSerial.available())
-    {
-      inbound = icmSerial.read();
-      // Store in buffer, increment bufindex
-      buffer[bufindex++] = inbound;
-
-      // Debugging
-      Serial.print("ICMrx: ");
-      Serial.print(inbound, HEX);
-      Serial.println("");
-
-      // Check for buffer overflow
-      if(bufindex == 128)
-      {
-        // Break
-        break;
-      }
+    while (icmSerial.available()) {      // If anything comes in Serial (USB),
+      sidSerial.write(icmSerial.read());   // read it and send it out Serial1 (pins 0 & 1)
+      Serial.print("ICM: ");
+      Serial.println(icmSerial.read(), HEX);
     }
 
-    // If we filled some chars, then read them out to the sidSerial.
-    if (bufindex != 0 && passthroughICMTOSID)
-    {
-      // Stop listening, this prevents doubled-up data.
-      sidSerial.stopListening();
-
-      for (int i = 0; i < bufindex; i++)
-      {
-        sidSerial.write(buffer[i]);
-      }
-      
-      // Debug output
-      Serial.print("SIDtx buflen ");
-      Serial.println(bufindex);
-
-      // Begin listening again
-      sidSerial.listen();
-    }
-
-    return;
-    
-    // Reset buffer index
-    bufindex = 0;
-
-    while (sidSerial.available())
-    {
-      inbound = sidSerial.read();
-
-      // Store in buffer, increment bufindex
-      buffer[bufindex++] = inbound;
-
-      // Debugging
-      Serial.print("SIDrx: ");
-      Serial.print(inbound, HEX);
-      Serial.println("");
-
-      // Check for buffer overflow
-      if(bufindex == 128)
-      {
-        // Break
-        break;
-      }
-    }
-
-    // If we filled some chars, then read them out to the icmSerial.
-    if (bufindex != 0 && passthroughSIDTOICM)
-    {
-      // Stop listening to prevent doubled-up data
-      icmSerial.stopListening();
-
-      for (int i = 0; i < bufindex; i++)
-      {
-        icmSerial.write(buffer[i]);
-      }
-
-      // Debug output
-      Serial.print("ICMtx buflen ");
-      Serial.println(bufindex);
-
-      icmSerial.listen();
+    while (sidSerial.available()) {     // If anything comes in Serial1 (pins 0 & 1)
+      icmSerial.write(sidSerial.read());   // read it and send it out Serial (USB)
+      Serial.print("SID: ");
+      Serial.println(sidSerial.read(), HEX);
     }
   }
   else
@@ -132,7 +58,7 @@ void loop()
     icmSerial.flush();
     sidSerial.flush();
     Serial.println(">ICM tx");
-    // icmSerial.println("hello sid!");
+    Serial.println("!abcdefghijklmnopqrstuvwxyz!123456789090!");
     icmSerial.println("!abcdefghijklmnopqrstuvwxyz!123456789090!");
     delay(50);
 
@@ -151,6 +77,7 @@ void loop()
     icmSerial.flush();
     sidSerial.flush();
     Serial.println(">SID tx");
+    Serial.println("hello icm!");
     sidSerial.println("hello icm!");
     delay(20);
 
