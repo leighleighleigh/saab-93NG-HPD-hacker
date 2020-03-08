@@ -27,8 +27,6 @@ void setup()
 
   icmSerial.flush();
   sidSerial.flush();
-  sidSerial.listen();
-  icmSerial.listen();
 }
 
 char inbound = ' ';
@@ -37,17 +35,25 @@ void loop()
 {
   if (!testMode)
   {
-    while (icmSerial.available()) {      // If anything comes in Serial (USB),
-      sidSerial.write(icmSerial.read());   // read it and send it out Serial1 (pins 0 & 1)
+    if (icmSerial.available()) {      // If anything comes in Serial (USB),
+      inbound = icmSerial.read();
+      // Stop listening to SID
+      // sidSerial.stopListening();
+      // sidSerial.write(inbound);   // read it and send it out Serial1 (pins 0 & 1)
       Serial.print("ICM: ");
-      Serial.println(icmSerial.read(), HEX);
+      Serial.println(inbound, HEX);
     }
+    // sidSerial.listen();
 
-    while (sidSerial.available()) {     // If anything comes in Serial1 (pins 0 & 1)
-      icmSerial.write(sidSerial.read());   // read it and send it out Serial (USB)
+    if (sidSerial.available()) {     // If anything comes in Serial1 (pins 0 & 1)
+      inbound = sidSerial.read();
+      // icmSerial.stopListening();
+      // icmSerial.write(inbound);   // read it and send it out Serial (USB)
       Serial.print("SID: ");
-      Serial.println(sidSerial.read(), HEX);
+      Serial.println(inbound, HEX);
     }
+    // icmSerial.listen();
+
   }
   else
   {
