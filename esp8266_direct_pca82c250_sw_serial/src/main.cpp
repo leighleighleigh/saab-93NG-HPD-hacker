@@ -9,7 +9,7 @@ SoftwareSerial icmSerial(D5, D6); // RX, TX
 void setup()
 {
   Serial.begin(115200);
-  Serial.println("START!");
+  Serial.println("\n\n\nSTART!");
 
   // Begin the software serials
   sidSerial.begin(sw_ser_baud);
@@ -35,10 +35,16 @@ void loop()
     // Stop listening to sidSerial while we send on it
     sidSerial.stopListening();
 
-    // Get all the icmSerial stuff
-    Serial.print("ICM rx: ");
+    bool printedHeader = false;
+
     while (icmSerial.available())
     {
+      if (!printedHeader)
+      {
+        // Get all the icmSerial stuff
+        Serial.print("ICM rx: ");
+        printedHeader = true;
+      }
       // Read from ICM
       inbound = icmSerial.read();
       // Write out to SID
@@ -48,15 +54,19 @@ void loop()
       // Debug that
       Serial.print(inbound, HEX);
     }
-    // Newline
-    Serial.println("");
+    if (printedHeader)
+    {
+      // Newline
+      Serial.println("");
+    }
 
     // Re-listen on SID
     sidSerial.listen();
 
     // If we have printed more than 2 chars, then we can go look for a reply!
-    if(inboundCount >= 2)
+    if (inboundCount >= 2)
     {
+      Serial.println("Switching to bus state S");
       // Change busstate
       busState = 'S';
       // Reset inboundCount
@@ -68,10 +78,18 @@ void loop()
     // Stop listening to sidSerial while we send on it
     icmSerial.stopListening();
 
+    bool printedHeader = false;
+
     // Get all the icmSerial stuff
     Serial.print("SID rx: ");
     while (sidSerial.available())
     {
+      if (!printedHeader)
+      {
+        // Get all the icmSerial stuff
+        Serial.print("SID rx: ");
+        printedHeader = true;
+      }
       // Read from SID
       inbound = sidSerial.read();
       // Write out to ICM
@@ -81,15 +99,19 @@ void loop()
       // Debug that
       Serial.print(inbound, HEX);
     }
-    // Newline
-    Serial.println("");
+    if (printedHeader)
+    {
+      // Newline
+      Serial.println("");
+    }
 
     // Re-listen on ICM
     icmSerial.listen();
 
     // If we have printed more than 2 chars, then we can go look for a reply!
-    if(inboundCount >= 2)
+    if (inboundCount >= 2)
     {
+      Serial.println("Switching to bus state I");
       // Change busstate
       busState = 'I';
       // Reset inboundCount
