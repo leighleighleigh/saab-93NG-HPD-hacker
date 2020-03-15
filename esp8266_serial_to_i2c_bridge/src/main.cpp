@@ -36,9 +36,9 @@ void receiveEvent(size_t howMany)
   while (Wire.available())
   {                       // slave may send less than requested
     char c = Wire.read(); // receive a byte as character
-    
+
     // Skip first byte routine
-    if(skip)
+    if (skip)
     {
       skip = false;
       continue;
@@ -46,12 +46,12 @@ void receiveEvent(size_t howMany)
 
     // Fill the i2cInbound array
     i2cInbound[i2cInboundIndex++] = c;
-    
+
     // print the character
-    Serial.print(c);      
+    Serial.print(c, HEX);
 
     // If i2cInboundIndex == 64 then we gotta quit.
-    if(i2cInboundIndex == 64)
+    if (i2cInboundIndex == 64)
     {
       break;
     }
@@ -70,46 +70,31 @@ void setup()
   // Evaluate if we are master (D8 is LOW)
   pinMode(D7, INPUT_PULLUP);
 
+  delay(500);
+
   isMaster = digitalRead(D7);
- 
+
   // Start with different addresses
   if (isMaster)
   {
     Serial.print("MASTER 0x");
-    Serial.println(I2C_MASTER,HEX);
+    Serial.println(I2C_MASTER, HEX);
     Wire.begin(SDA_PIN, SCL_PIN, I2C_MASTER);
     Wire.onReceive(receiveEvent);
   }
   else
   {
     Serial.print("SLAVE 0x");
-    Serial.println(I2C_SLAVE,HEX);
+    Serial.println(I2C_SLAVE, HEX);
     Wire.begin(SDA_PIN, SCL_PIN, I2C_SLAVE);
     Wire.onReceive(receiveEvent);
   }
 
-  // Start the softwareserial 
+  // Start the softwareserial
   swSer.begin(sw_ser_baud);
 
   Serial.println("START!");
   swSer.flush();
-}
-
-// I2C Send routine for one byte
-void send_byte(char data)
-{
-  // Address differently depending on role.
-  if(isMaster)
-  {
-    Wire.beginTransmission(I2C_SLAVE);
-  }else{
-    Wire.beginTransmission(I2C_MASTER);
-  }
-  Wire.write("X"); // Dummy first byte which is ignored
-  Wire.write(data); // Data byte
-  Wire.endTransmission(); // We done here!
-
-  // delay(1); // Unsure if this is needed.
 }
 
 void loop()
@@ -122,25 +107,37 @@ void loop()
     Serial.print("sw rx: ");
     Serial.println(c, HEX);
     // If swSerInboundIndex == 64 then we gotta quit.
-    if(swSerInboundIndex == 64)
+    if (swSerInboundIndex == 64)
     {
       break;
     }
   }
 
   // If we got serial data input, send it out the I2C.
-  if(swSerInboundIndex != 0)
+  if (swSerInboundIndex != 0)
   {
     Serial.print("i2c tx:");
+    // Address differently depending on role.
+    if (isMaster)
+    {
+      Wire.beginTransmission(I2C_SLAVE);
+    }
+    else
+    {
+      Wire.beginTransmission(I2C_MASTER);
+    }
+    Wire.write("X"); // Dummy first byte which is ignored
+
     // FIFO
-    for(int i = 0; i < swSerInboundIndex; i++)
+    for (int i = 0; i < swSerInboundIndex; i++)
     {
       // Chuck it out the I2C.
-      send_byte(swSerInbound[i]);
-      // Debug about it
-      Serial.print(swSerInbound[i],HEX);
-    }
+      Wire.write(swSerInbound[i]); // Data byte
 
+      // Debug about it
+      Serial.print(swSerInbound[i], HEX);
+    }
+    Wire.endTransmission(); // We done here!
     Serial.println("");
 
     // Reset buffer index
@@ -148,20 +145,22 @@ void loop()
   }
 
   // Now we check for I2C input, and send that out the serial.
-  if(i2cInboundIndex != 0)
+  // When we write to serial we need to also stop listening
+  
+  if (i2cInboundIndex != 0)
   {
     Serial.print("sw tx:");
+    swSer.stopListening();
     //FIFO
-    for(int i = 0; i < i2cInboundIndex; i++)
+    for (int i = 0; i < i2cInboundIndex; i++)
     {
       // SEND IT out the swSer
       swSer.write(i2cInbound[i]);
       // Debug about it
-      Serial.print(i2cInbound[i],HEX);
+      Serial.print(i2cInbound[i], HEX);
     }
-
     Serial.println("");
-
+    swSer.listen();
     // Reset buffer index
     i2cInboundIndex = 0;
   }
