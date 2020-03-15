@@ -16,6 +16,7 @@ const int16_t I2C_SLAVE = 0x08;
 
 // Defines role
 bool isMaster = false;
+bool slaveToMasterTest = false;
 
 // Support 64 byte buffer, which isn't going to be filled as maximum observed messages are around 16 bytes.
 char swSerInbound[64] = {0};
@@ -27,6 +28,7 @@ uint8_t i2cInboundIndex = 0;
 // The I2C receive event, which fills the i2cInbound buffer.
 void receiveEvent(size_t howMany)
 {
+  Serial.println("");
   Serial.print("i2c rx: ");
 
   // We skip the first byte as it's usually incorrect for some reason.
@@ -163,5 +165,16 @@ void loop()
     swSer.listen();
     // Reset buffer index
     i2cInboundIndex = 0;
+  }
+
+  // If we are slave, send to master as a test
+  if(!isMaster && slaveToMasterTest)
+  {
+    delay(500);
+    Wire.beginTransmission(I2C_MASTER);
+    Wire.write("X");
+    Wire.write(0xF2);
+    Wire.endTransmission();
+    delay(500);
   }
 }
