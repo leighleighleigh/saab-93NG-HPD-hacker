@@ -17,105 +17,35 @@ void setup()
 
   // Listen on icmSerial first
   icmSerial.listen();
-  sidSerial.stopListening();
+  sidSerial.listen();
 
   // Flush buffers
   icmSerial.flush();
   sidSerial.flush();
 }
 
-char inbound = ' ';
-uint8_t inboundCount = 0;
-char busState = 'I';
+char inbound[64] = {0};
+uint8_t inboundIndex = 0;
 
 void loop()
 {
-  if (busState == 'I')
+  while(icmSerial.available() > 2)
   {
-    // Stop listening to sidSerial while we send on it
-    sidSerial.stopListening();
-
-    bool printedHeader = false;
-
-    while (icmSerial.available())
-    {
-      if (!printedHeader)
-      {
-        // Get all the icmSerial stuff
-        Serial.print("ICM rx: ");
-        printedHeader = true;
-      }
-      // Read from ICM
-      inbound = icmSerial.read();
-      // Write out to SID
-      sidSerial.write(inbound);
-      // Increment inboundCOUnt
-      inboundCount++;
-      // Debug that
-      Serial.print(inbound, HEX);
-    }
-    if (printedHeader)
-    {
-      // Newline
-      Serial.println("");
-    }
-
-    // Re-listen on SID
-    sidSerial.listen();
-
-    // If we have printed more than 2 chars, then we can go look for a reply!
-    if (inboundCount >= 2)
-    {
-      Serial.println("Switching to bus state S");
-      // Change busstate
-      busState = 'S';
-      // Reset inboundCount
-      inboundCount = 0;
-    }
+    inbound[inboundIndex++] = icmSerial.read();
   }
-  else
+
+  // Send it if it filled up
+  if(inboundIndex != 0)
   {
-    // Stop listening to sidSerial while we send on it
-    icmSerial.stopListening();
-
-    bool printedHeader = false;
-
-    // Get all the icmSerial stuff
-    Serial.print("SID rx: ");
-    while (sidSerial.available())
+    sidSerial.stopListening();
+    Serial.print("sid tx: ");
+    for(int i = 0; i<inboundIndex; i++)
     {
-      if (!printedHeader)
-      {
-        // Get all the icmSerial stuff
-        Serial.print("SID rx: ");
-        printedHeader = true;
-      }
-      // Read from SID
-      inbound = sidSerial.read();
-      // Write out to ICM
-      icmSerial.write(inbound);
-      // Increment inboundCOUnt
-      inboundCount++;
-      // Debug that
-      Serial.print(inbound, HEX);
+      sidSerial.write(inbound[i]);
+      Serial.print(inbound[i],HEX);
     }
-    if (printedHeader)
-    {
-      // Newline
-      Serial.println("");
-    }
-
-    // Re-listen on ICM
-    icmSerial.listen();
-
-    // If we have printed more than 2 chars, then we can go look for a reply!
-    if (inboundCount >= 2)
-    {
-      Serial.println("Switching to bus state I");
-      // Change busstate
-      busState = 'I';
-      // Reset inboundCount
-      inboundCount = 0;
-    }
+    Serial.println("");
+    sidSerial.listen();
+    inboundIndex = 0;
   }
 }
