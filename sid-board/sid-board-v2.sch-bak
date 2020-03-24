@@ -1,5 +1,4 @@
 EESchema Schematic File Version 4
-LIBS:sid-board-v2-cache
 EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
@@ -183,8 +182,6 @@ Text Notes 2800 4650 0    50   ~ 10
 5V SUPPLY LDO
 Text GLabel 7550 2750 0    50   Input ~ 10
 XTAL1
-Text GLabel 7550 2850 0    50   Input ~ 10
-XTAL2
 $Comp
 L Device:C_Small C4
 U 1 1 5E29894F
@@ -279,75 +276,13 @@ Wire Notes Line
 Wire Notes Line
 	9150 5450 8200 5450
 Wire Notes Line
-	9150 4150 9150 5450
+	9500 4150 9500 5450
 Wire Notes Line
 	8200 4150 9150 4150
-Text GLabel 8500 4500 0    50   Input ~ 10
-XTAL2
-Text GLabel 8800 4500 2    50   Input ~ 10
+Text GLabel 8350 4600 3    50   Input ~ 10
 XTAL1
-Text GLabel 8650 5200 3    50   Input ~ 0
+Text GLabel 9300 4300 2    50   Input ~ 0
 GND
-Connection ~ 8800 4850
-Wire Wire Line
-	8800 4850 8800 5000
-Wire Wire Line
-	8500 5200 8800 5200
-Wire Wire Line
-	8800 4850 8750 4850
-Wire Wire Line
-	8800 4500 8800 4850
-Connection ~ 8500 4850
-Wire Wire Line
-	8500 4850 8500 5000
-Wire Wire Line
-	8500 4850 8550 4850
-Wire Wire Line
-	8500 4500 8500 4850
-$Comp
-L Device:C_Small C3
-U 1 1 5E2BA581
-P 8800 5100
-F 0 "C3" H 8892 5146 50  0000 L CNN
-F 1 "18pF" H 8892 5055 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8800 5100 50  0001 C CNN
-F 3 "~" H 8800 5100 50  0001 C CNN
-	1    8800 5100
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:C_Small C2
-U 1 1 5E2B9259
-P 8500 5100
-F 0 "C2" H 8592 5146 50  0000 L CNN
-F 1 "18pF" H 8592 5055 50  0000 L CNN
-F 2 "Capacitor_SMD:C_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8500 5100 50  0001 C CNN
-F 3 "~" H 8500 5100 50  0001 C CNN
-	1    8500 5100
-	1    0    0    -1  
-$EndComp
-$Comp
-L Device:R_Small R2
-U 1 1 5E2B87B7
-P 8650 4850
-F 0 "R2" V 8454 4850 50  0000 C CNN
-F 1 "1M" V 8545 4850 50  0000 C CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 8650 4850 50  0001 C CNN
-F 3 "~" H 8650 4850 50  0001 C CNN
-	1    8650 4850
-	0    1    1    0   
-$EndComp
-$Comp
-L Device:Crystal Y1
-U 1 1 5E2B8361
-P 8650 4500
-F 0 "Y1" H 8650 4768 50  0000 C CNN
-F 1 "14.7456MHz" H 8650 4677 50  0000 C CNN
-F 2 "sid-board:Euroquarts 14.7456MHz Crystal ±30ppm SMD 2-Pin 12.4 x 4.5 x 4.2mm" H 8650 4500 50  0001 C CNN
-F 3 "~" H 8650 4500 50  0001 C CNN
-	1    8650 4500
-	1    0    0    -1  
-$EndComp
 $Comp
 L Transistor_FET:BSS138 Q1
 U 1 1 5E4A8360
@@ -809,7 +744,7 @@ U 1 1 5E4709DB
 P 7400 4050
 F 0 "J1" H 7450 4367 50  0000 C CNN
 F 1 "SPI+IRQ+POWER" H 7450 4276 50  0000 C CNN
-F 2 "" H 7400 4050 50  0001 C CNN
+F 2 "Connector_PinSocket_2.54mm:PinSocket_2x04_P2.54mm_Vertical" H 7400 4050 50  0001 C CNN
 F 3 "~" H 7400 4050 50  0001 C CNN
 	1    7400 4050
 	1    0    0    -1  
@@ -824,4 +759,19 @@ Wire Notes Line
 	6900 4350 8150 4350
 Wire Notes Line
 	6900 2050 9000 2050
+$Comp
+L local_symbols:S53305-16.000-X X?
+U 1 1 5E7AFB1C
+P 8850 4500
+F 0 "X?" H 8850 4350 50  0000 C CNN
+F 1 "S53305-16.000-X" H 8850 4450 50  0000 C CNN
+F 2 "sid-board:S53305-16.000-X" H 8850 4500 50  0001 C CNN
+F 3 "" H 8850 4500 50  0001 C CNN
+	1    8850 4500
+	-1   0    0    1   
+$EndComp
+Text GLabel 8350 4300 3    50   Input ~ 0
+VDD_3.3V
+Text GLabel 9300 4600 3    50   Input ~ 0
+VDD_3.3V
 $EndSCHEMATC
