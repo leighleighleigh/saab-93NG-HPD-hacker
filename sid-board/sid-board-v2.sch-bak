@@ -269,19 +269,11 @@ Wire Notes Line
 	9000 4000 9000 2050
 Text Notes 7100 2000 0    50   ~ 0
 DUAL UART to SPI INTERFACE
-Text Notes 8200 4100 0    50   ~ 0
+Text Notes 8250 4150 0    50   ~ 0
 OSCILLATOR
-Wire Notes Line
-	8200 5450 8200 4150
-Wire Notes Line
-	9150 5450 8200 5450
-Wire Notes Line
-	9500 4150 9500 5450
-Wire Notes Line
-	8200 4150 9150 4150
 Text GLabel 8350 4600 3    50   Input ~ 10
 XTAL1
-Text GLabel 9300 4300 2    50   Input ~ 0
+Text GLabel 9300 4300 3    50   Input ~ 0
 GND
 $Comp
 L Transistor_FET:BSS138 Q1
@@ -774,4 +766,12 @@ Text GLabel 8350 4300 3    50   Input ~ 0
 VDD_3.3V
 Text GLabel 9300 4600 3    50   Input ~ 0
 VDD_3.3V
+Wire Notes Line
+	8250 4200 9400 4200
+Wire Notes Line
+	9400 4200 9400 5050
+Wire Notes Line
+	9400 5050 8250 5050
+Wire Notes Line
+	8250 5050 8250 4200
 $EndSCHEMATC
