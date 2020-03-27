@@ -97,10 +97,11 @@ Please keep the above information when you use this code in your project.
 
 //Application Related 
 
-#define     SC16IS750_CRYSTCAL_FREQ (14745600UL) 
+// #define     SC16IS750_CRYSTCAL_FREQ (14745600UL) 
 // #define 	SC16IS750_CRYSTCAL_FREQ (1843200UL)	  
 // #define     SC16IS750_CRYSTCAL_FREQ (16000000UL)    
-// #define     SC16IS750_CRYSTCAL_FREQ (26000000UL)
+#define     SC16IS750_CRYSTCAL_FREQ (26000000UL)
+
 // #define     SC16IS750_DEBUG_PRINT   (1)
 #define     SC16IS750_PROTOCOL_I2C  (0)
 #define     SC16IS750_PROTOCOL_SPI  (1)

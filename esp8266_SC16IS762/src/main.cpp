@@ -13,7 +13,8 @@ SC16IS752 spiuart = SC16IS752(SC16IS750_PROTOCOL_SPI, CS);
 
 void setup()
 {
-  // pinMode(D3,FUNCTION_4);6
+  // Output 26MHZ clock for the UART SPI interface
+  pinMode(D3,FUNCTION_4);
 
   Serial.begin(115200);
   Serial.println("Start testing");
@@ -38,7 +39,7 @@ void setup()
   spiuart.digitalWrite(GPIO, LOW);
 
   // Setup loopback
-  spiuart.LoopbackEnable(false);
+  spiuart.LoopbackEnable(true);
 
   Serial.println("Start serial communication");
   Serial.println("start serial communication");
@@ -56,20 +57,23 @@ void loop()
   spiuart.write(SC16IS752_CHANNEL_A,0x41);
   Serial.print("A: ");
   Serial.write(0x41);
+  Serial.write(0x42);
+  Serial.write(0x43);
   Serial.println(" ");
 
   spiuart.digitalWrite(GPIO, HIGH);
 
   delay(10);
 
-  if (spiuart.available(SC16IS752_CHANNEL_B) > 0)
+  Serial.print("B: ");
+  while (spiuart.available(SC16IS752_CHANNEL_B) > 0)
   {
     // read the incoming byte:
     char c = spiuart.read(SC16IS752_CHANNEL_B);
-    Serial.print("B: ");
     Serial.write(c);
-    Serial.println(" ");
   }
+
+  Serial.println("");
 
   delay(300);
   spiuart.digitalWrite(GPIO, LOW);
