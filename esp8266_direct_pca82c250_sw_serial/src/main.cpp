@@ -13,100 +13,79 @@ void setup()
 
   delay(1000);
 
-  pinMode(D2,INPUT_PULLUP);
-  pinMode(D3,INPUT_PULLUP);
-  pinMode(D5,INPUT_PULLUP);
-  pinMode(D6,INPUT_PULLUP);
+  pinMode(D2, INPUT_PULLUP);
+  pinMode(D3, INPUT_PULLUP);
+  pinMode(D5, INPUT_PULLUP);
+  pinMode(D6, INPUT_PULLUP);
 
   // Begin the software serials
+  sidSerial.begin(sw_ser_baud)
   sidSerial.begin(sw_ser_baud);
   icmSerial.begin(sw_ser_baud);
 
   icmSerial.flush();
   sidSerial.flush();
 
-  Serial.println("(listen ICM)");
+  sidSerial.listen();
   icmSerial.listen();
-  sidSerial.stopListening();
 }
 
 char inboundBuf[64] = {0};
 uint8_t inboundBufIndex = 0;
-bool hasData = false;
 
 void loop()
 {
-
   inboundBufIndex = 0;
-  hasData = false;
-  while(icmSerial.available() > 0)
+  if (icmSerial.available() > 2)
   {
-    hasData = true;
-    inboundBuf[inboundBufIndex++] = icmSerial.read();
-    if(inboundBufIndex == 64)
+    while (icmSerial.available() > 0)
     {
-      break;
+      inboundBuf[inboundBufIndex++] = icmSerial.read();
+      if (inboundBufIndex == 64)
+      {
+        break;
+      }
     }
   }
 
-  if(hasData){
-    // Stop listening on icm!
+  if (inboundBufIndex != 0)
+  {
     sidSerial.stopListening();
-    icmSerial.stopListening();
-
-    for(int i = 0; i<inboundBufIndex;i++)
+    for (int i = 0; i < inboundBufIndex; i++)
     {
       sidSerial.write(inboundBuf[i]);
-      Serial.print("ICMrx: 0x");
-      Serial.print(inboundBuf[i],HEX);
-      Serial.println(" ");
-      Serial.print("SIDtx: 0x");
-      Serial.print(inboundBuf[i],HEX);
+      Serial.print("ICM: ");
+      Serial.print(inboundBuf[i], HEX);
       Serial.println(" ");
     }
-    if(inboundBufIndex < 64)
-    {
-      Serial.println("END");
-    }
-    Serial.println("");
     sidSerial.listen();
-    Serial.println("(listen SID)");
   }
-  
-  
+
+
   inboundBufIndex = 0;
-  hasData = false;
-  while(sidSerial.available() > 0)
+
+  if (sidSerial.available() >= 2)
   {
-    hasData = true;
-    inboundBuf[inboundBufIndex++] = sidSerial.read();
-    if(inboundBufIndex == 64)
+    while (sidSerial.available() > 0)
     {
-      break;
+      inboundBuf[inboundBufIndex++] = sidSerial.read();
+      if (inboundBufIndex == 64)
+      {
+        break;
+      }
     }
   }
-  
-  if(hasData){
-    // Stop listening on SID!
+
+  if (inboundBufIndex != 0)
+  {
     icmSerial.stopListening();
-    sidSerial.stopListening();
-    
-    for(int i = 0; i<inboundBufIndex;i++)
+    for (int i = 0; i < inboundBufIndex; i++)
     {
       icmSerial.write(inboundBuf[i]);
-      Serial.print("SIDrx: 0x");
-      Serial.print(inboundBuf[i],HEX);
-      Serial.println(" ");
-      Serial.print("ICMtx: 0x");
-      Serial.print(inboundBuf[i],HEX);
+      Serial.print("SID: ");
+      Serial.print(inboundBuf[i], HEX);
       Serial.println(" ");
     }
-    if(inboundBufIndex < 64)
-    {
-      Serial.println("END");
-    }
-    Serial.println("");
     icmSerial.listen();
-    Serial.println("(listen ICM)");
   }
 }
