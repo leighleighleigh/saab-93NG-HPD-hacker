@@ -28,6 +28,7 @@ A board to go in between the SAAB SID/HPD connector on 2003-2006 9-3 (Second Gen
 - Bypass mode worked briefly, but then "burnt out". The tracks are too thin. Oops.
 
 **Issues Faced / Current Project State**
+
 I didn't do any level shifting bc I rushed the design, oops. Although I could talk to the dual UART to SPI/I2C chip, and I could even toggle it's GPIO pins, I could not get any serial data to or from the SID/ICM. 
 By the time I had considered bodge-wiring the situation, I had accidentally killed the SCI16IS762 chip, which at the time was actually too expensive to justify buying another of. Hence, I attempted another approach:
  
