@@ -29,7 +29,7 @@ A board to go in between the SAAB SID/HPD connector on 2003-2006 9-3 (Second Gen
 
 **Issues Faced / Current Project State**
 
-I didn't do any level shifting bc I rushed the design, oops. Although I could talk to the dual UART to SPI/I2C chip, and I could even toggle it's GPIO pins, I could not get any serial data to or from the SID/ICM. 
+I didn't do any level shifting because I rushed the design, and I'm an idiot. Although I could talk to the dual UART to SPI/I2C chip, and I could even toggle it's GPIO pins, I could not get any serial data to or from the SID/ICM. 
 By the time I had considered bodge-wiring the situation, I had accidentally killed the SCI16IS762 chip, which at the time was actually too expensive to justify buying another of. Hence, I attempted another approach:
  
 I experimented heavily using software serial, as seen in the "esp8266_direct_pca82c250_sw_serial" folder, which was ultimately unsuccessful. I also experimented with using a 3.3V-compatible CAN controller interface, the SN65HVD232D, but that was also unsuccessful. It seems software serial, especially on the esp8266, is a terrible way to approach this.
