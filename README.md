@@ -5,16 +5,17 @@ A board to go in between the SAAB SID/HPD connector on 2003-2006 9-3 (Second Gen
 <img src="https://i.imgur.com/MEXQa4u.jpg" data-canonical-src="https://i.imgur.com/MEXQa4u.jpg" width="250" height="250" />
 
 # Project structure
-- /esp8266_sid_board
-  - This is the PlatformIO project, which is used to interface an esp8266 with the sid-board.
-  - (Without a microcontroller driving the sid-board, nothing happens.)
-  - For the prototype development, I'm using a NodeMCU v1.0 esp8266 dev board.
-- /esp86266_direct_pca82c250
-  - Attempt to talk to can interfaces over software serial, and perform MITM that way.
-- /esp8266_serial_i2c_bridge
-  - Attempt to use two ESP8266 boards, one for the SID and one for the ICM, and send data between them over I2C.
-  - The logic here is that, the ESP8266 does not like switching between two SoftwareSerial interfaces on a single board.
-- /sid-board 
+- /software
+    - /esp8266_sid_board
+      - This is the PlatformIO project, which is used to interface an esp8266 with the sid-board.
+      - (Without a microcontroller driving the sid-board, nothing happens.)
+      - For the prototype development, I'm using a NodeMCU v1.0 esp8266 dev board.
+    - /esp86266_direct_pca82c250
+      - Attempt to talk to can interfaces over software serial, and perform MITM that way.
+    - /esp8266_serial_i2c_bridge
+      - Attempt to use two ESP8266 boards, one for the SID and one for the ICM, and send data between them over I2C.
+      - The logic here is that, the ESP8266 does not like switching between two SoftwareSerial interfaces on a single board.
+- /sid-board-kicad 
   - This is the KiCad 5 project, currently holding the designs for a future SID BOARD V2.
 
 # Project Status
