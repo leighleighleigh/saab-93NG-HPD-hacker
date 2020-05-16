@@ -6,6 +6,7 @@ Interface
 
 Command frame format
 - DLC[1] + CONTENT[x] + CRC[1], CRC being the MSB of the sum of all previous bytes.
+- About 12 commands have been sniffed while used in stock operation, however 32 returned response codes. This might indicate extra features!
 
 Response frame types
 - ACK, NACK, ERROR, VALUE ...
@@ -13,3 +14,5 @@ Response frame types
 MISC:
 - Panel resolution (green) is 384x64 px
 - Icon resolution (orange) is 64x64 px
+- Temp and light sensors
+- 4 font sizes, underscore, solid background, flashing, and align right styles.
