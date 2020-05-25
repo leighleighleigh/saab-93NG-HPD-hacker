@@ -7,15 +7,11 @@
 
 SC16IS752 spiuart = SC16IS752(SC16IS750_PROTOCOL_SPI, CS);
 
-#define baudrate_A 56000
-#define baudrate_B 56000
-#define GPIO 3
+#define baudrate_A 115200
+#define baudrate_B 115200
 
 void setup()
 {
-  // Output 26MHZ clock for the UART SPI interface
-  pinMode(D3,FUNCTION_4);
-
   Serial.begin(115200);
   Serial.println("Start testing");
 
@@ -35,11 +31,14 @@ void setup()
     Serial.println("Device found");
   }
 
-  spiuart.pinMode(GPIO, OUTPUT);
-  spiuart.digitalWrite(GPIO, LOW);
+  // SETUP GPIO
+  for(int gpioPin = 0; gpioPin < 8; gpioPin++){
+    spiuart.pinMode(gpioPin, OUTPUT);
+    spiuart.digitalWrite(gpioPin, HIGH);
+  }
 
   // Setup loopback
-  spiuart.LoopbackEnable(true);
+  spiuart.LoopbackEnable(false);
 
   Serial.println("Start serial communication");
   Serial.println("start serial communication");
@@ -51,31 +50,33 @@ void setup()
   
 }
 
+int val = 0;
+
+void numberToGPIO(uint8_t val)
+{
+  for(int gpioPin = 7; gpioPin > -1; gpioPin--){
+    spiuart.digitalWrite(gpioPin, val & 1);
+    val = val >> 1;
+  }
+}
+
 void loop()
 {
-  // Print to CHANNEL A
-  spiuart.write(SC16IS752_CHANNEL_A,0x41);
-  Serial.print("A: ");
-  Serial.write(0x41);
-  Serial.write(0x42);
-  Serial.write(0x43);
-  Serial.println(" ");
+  if(spiuart.available(SC16IS752_CHANNEL_A) > 0){
+    Serial.print("A: ");
+    while (spiuart.available(SC16IS752_CHANNEL_A) > 0)
+    {
+      // read the incoming byte:
+      char c = spiuart.read(SC16IS752_CHANNEL_A);
+      Serial.write(c);
+    }
+    Serial.println("");
 
-  spiuart.digitalWrite(GPIO, HIGH);
-
-  delay(10);
-
-  Serial.print("B: ");
-  while (spiuart.available(SC16IS752_CHANNEL_B) > 0)
-  {
-    // read the incoming byte:
-    char c = spiuart.read(SC16IS752_CHANNEL_B);
-    Serial.write(c);
+    delay(1000);
   }
+  
+  numberToGPIO(val);
+  val++;
 
-  Serial.println("");
-
-  delay(300);
-  spiuart.digitalWrite(GPIO, LOW);
-  delay(300);
+  delay(100);
 }

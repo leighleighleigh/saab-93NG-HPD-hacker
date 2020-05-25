@@ -3,8 +3,31 @@
 #include <math.h>
 
 SoftwareSerial sidSerial(D2, D3); // RX, TX
-SoftwareSerial icmSerial(D5, D6); // RX, TX
-#define sw_ser_baud 56000         // This is a known working BAUD rate for the DLA UART decoder.
+
+#define sw_ser_baud 115200         // This is a known working BAUD rate for the DLA UART decoder.
+
+
+void send_sid_data(byte len,byte* data)
+{
+  uint16_t sum;
+  
+  sum += len;
+
+  sidSerial.write(3);
+  
+  Serial.println(len,HEX);
+
+  for(byte i = 0; i<len; i++)
+  {
+    sidSerial.write(*data);
+    Serial.println(*data,HEX);
+    sum += *data;
+    data = data + sizeof(byte);
+  }
+
+  sidSerial.write(sum);
+  Serial.println(sum,HEX);
+}
 
 void setup()
 {
@@ -13,79 +36,31 @@ void setup()
 
   delay(1000);
 
-  pinMode(D2, INPUT_PULLUP);
-  pinMode(D3, INPUT_PULLUP);
-  pinMode(D5, INPUT_PULLUP);
-  pinMode(D6, INPUT_PULLUP);
+  pinMode(D2, INPUT);
+  pinMode(D3, INPUT);
+  pinMode(D5, INPUT);
+  pinMode(D6, INPUT);
 
   // Begin the software serials
-  sidSerial.begin(sw_ser_baud)
   sidSerial.begin(sw_ser_baud);
-  icmSerial.begin(sw_ser_baud);
 
-  icmSerial.flush();
   sidSerial.flush();
 
   sidSerial.listen();
-  icmSerial.listen();
-}
 
-char inboundBuf[64] = {0};
-uint8_t inboundBufIndex = 0;
+  byte dat[3] = {0x10,0x11,0x12};
+  send_sid_data(sizeof(dat) / sizeof(byte),dat);
+  delay(10);
+}
 
 void loop()
 {
-  inboundBufIndex = 0;
-  if (icmSerial.available() > 2)
-  {
-    while (icmSerial.available() > 0)
-    {
-      inboundBuf[inboundBufIndex++] = icmSerial.read();
-      if (inboundBufIndex == 64)
-      {
-        break;
-      }
-    }
+  if(sidSerial.available() > 0){
+    Serial.println("READ: ");
   }
-
-  if (inboundBufIndex != 0)
+  while(sidSerial.available() > 0)
   {
-    sidSerial.stopListening();
-    for (int i = 0; i < inboundBufIndex; i++)
-    {
-      sidSerial.write(inboundBuf[i]);
-      Serial.print("ICM: ");
-      Serial.print(inboundBuf[i], HEX);
-      Serial.println(" ");
-    }
-    sidSerial.listen();
-  }
-
-
-  inboundBufIndex = 0;
-
-  if (sidSerial.available() >= 2)
-  {
-    while (sidSerial.available() > 0)
-    {
-      inboundBuf[inboundBufIndex++] = sidSerial.read();
-      if (inboundBufIndex == 64)
-      {
-        break;
-      }
-    }
-  }
-
-  if (inboundBufIndex != 0)
-  {
-    icmSerial.stopListening();
-    for (int i = 0; i < inboundBufIndex; i++)
-    {
-      icmSerial.write(inboundBuf[i]);
-      Serial.print("SID: ");
-      Serial.print(inboundBuf[i], HEX);
-      Serial.println(" ");
-    }
-    icmSerial.listen();
-  }
+    Serial.print(sidSerial.read());
+    Serial.print(",");
+  } 
 }
