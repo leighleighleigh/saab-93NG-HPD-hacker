@@ -7,8 +7,8 @@
 
 SC16IS752 spiuart = SC16IS752(SC16IS750_PROTOCOL_SPI, CS);
 
-#define baudrate_A 115200
-#define baudrate_B 115200
+#define baudrate_A 101952
+#define baudrate_B 101952
 
 void setup()
 {
@@ -62,18 +62,25 @@ void numberToGPIO(uint8_t val)
 
 void loop()
 {
-  if(spiuart.available(SC16IS752_CHANNEL_A) > 0){
-    Serial.print("A: ");
-    while (spiuart.available(SC16IS752_CHANNEL_A) > 0)
-    {
-      // read the incoming byte:
-      char c = spiuart.read(SC16IS752_CHANNEL_A);
-      Serial.write(c);
-    }
-    Serial.println("");
+  spiuart.write(SC16IS752_CHANNEL_A,'A');
+  spiuart.write(SC16IS752_CHANNEL_A,'B');
+  spiuart.write(SC16IS752_CHANNEL_A,'C');
+  spiuart.write(SC16IS752_CHANNEL_A,'D');
+  spiuart.write(SC16IS752_CHANNEL_A,'E');
+  spiuart.write(SC16IS752_CHANNEL_A,'F');
 
-    delay(1000);
-  }
+  // if(spiuart.available(SC16IS752_CHANNEL_A) > 0){
+  //   Serial.print("A: ");
+  //   while (spiuart.available(SC16IS752_CHANNEL_A) > 0)
+  //   {
+  //     // read the incoming byte:
+  //     char c = spiuart.read(SC16IS752_CHANNEL_A);
+  //     Serial.write(c);
+  //   }
+  //   Serial.println("");
+
+  //   delay(1000);
+  // }
   
   numberToGPIO(val);
   val++;
