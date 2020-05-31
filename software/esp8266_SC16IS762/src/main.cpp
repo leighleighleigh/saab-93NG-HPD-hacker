@@ -7,8 +7,32 @@
 
 SC16IS752 spiuart = SC16IS752(SC16IS750_PROTOCOL_SPI, CS);
 
-#define baudrate_A 101952
-#define baudrate_B 101952
+// Old baudrate for freq compensation is 101952
+
+#define baudrate_A 115200
+#define baudrate_B 115200
+
+void send_sid_data(byte len,byte* data)
+{
+  uint16_t sum;
+  
+  sum += len;
+
+  spiuart.write(SC16IS752_CHANNEL_A,len);
+  
+  Serial.println(len,HEX);
+
+  for(byte i = 0; i<len; i++)
+  {
+    spiuart.write(SC16IS752_CHANNEL_A,*data);
+    Serial.println(*data,HEX);
+    sum += *data;
+    data = data + sizeof(byte);
+  }
+
+  spiuart.write(SC16IS752_CHANNEL_A,sum);
+  Serial.println(sum,HEX);
+}
 
 void setup()
 {
@@ -47,7 +71,13 @@ void setup()
   Serial.print("baudrate(channel B) = ");
   Serial.println(baudrate_B);
   delay(1000);
-  
+
+
+  spiuart.flush(SC16IS752_CHANNEL_A);
+
+  byte dat[4] = {0x2,0x81,0x00,0x83};
+  send_sid_data(sizeof(dat) / sizeof(byte),dat);
+  delay(10);
 }
 
 int val = 0;
@@ -61,29 +91,24 @@ void numberToGPIO(uint8_t val)
 }
 
 void loop()
-{
-  spiuart.write(SC16IS752_CHANNEL_A,'A');
-  spiuart.write(SC16IS752_CHANNEL_A,'B');
-  spiuart.write(SC16IS752_CHANNEL_A,'C');
-  spiuart.write(SC16IS752_CHANNEL_A,'D');
-  spiuart.write(SC16IS752_CHANNEL_A,'E');
-  spiuart.write(SC16IS752_CHANNEL_A,'F');
-
-  // if(spiuart.available(SC16IS752_CHANNEL_A) > 0){
-  //   Serial.print("A: ");
-  //   while (spiuart.available(SC16IS752_CHANNEL_A) > 0)
-  //   {
-  //     // read the incoming byte:
-  //     char c = spiuart.read(SC16IS752_CHANNEL_A);
-  //     Serial.write(c);
-  //   }
-  //   Serial.println("");
-
-  //   delay(1000);
-  // }
+{  
+  if(spiuart.available(SC16IS752_CHANNEL_A) > 0){
+    Serial.print("A: ");
+    while (spiuart.available(SC16IS752_CHANNEL_A) > 0)
+    {
+      // read the incoming byte:
+      char c = spiuart.read(SC16IS752_CHANNEL_A);
+      Serial.print(c,HEX);
+    }
+    Serial.println("");
+    // delay(1000);
+  }
   
   numberToGPIO(val);
   val++;
 
-  delay(100);
+  delay(1000);
+  byte dat[4] = {0x2,0x81,0x00,0x83};
+  send_sid_data(sizeof(dat) / sizeof(byte),dat);
+  delay(10);
 }

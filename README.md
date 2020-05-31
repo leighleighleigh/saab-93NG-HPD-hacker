@@ -6,6 +6,8 @@ A board to go in between the SAAB SID/HPD connector on 2003-2006 9-3 (Second Gen
 
 # Project structure
 - /software
+    - /esp8266_SC16IS762
+      - Newer sid-board software, this is the primary code I use right now.
     - /esp8266_sid_board
       - This is the PlatformIO project, which is used to interface an esp8266 with the sid-board.
       - (Without a microcontroller driving the sid-board, nothing happens.)
@@ -23,6 +25,19 @@ A board to go in between the SAAB SID/HPD connector on 2003-2006 9-3 (Second Gen
 - ~Components have been ordered, currently being shipped also.~
 - ~First prototype PCB has been made, see observations below.~
 - Second prototype PCB received, assembling and testing.
+
+# Prototype #2
+First board has been assembled!
+Results so far:
+ - GPIO leds are working so communication with the SPI-UART SC16IS762 chip is working.
+ - The new voltage-level conversion appears to be working correctly, however:
+   - I forgot the bus termination resistor, and it appears this is quite necesary.
+   - I think CAN_H and CAN_L are switched, this is because UART is active-low, and is usually a '1' value, which means the CAN was in a recessive state. 
+   - Hence I mistook the CAN_H for CAN_L when observing the transitions with a DLA.
+   - After fixing the aformentioned issues, it appears there is significant 'sag' in the recessive state of the CAN interface.
+   - IE after a UART byte is sent, both CAN_H and CAN_L will be at ~2 volts, but this will then slowly sag down to ~1 volt until the next byte.
+ - The 16Mhz oscillator is not ideal for 115200 baud communication. This would have been obvious, If I hadn't originally designed the board for 56000baud.
+   - I should be able to simply replace the part with a 24Mhz one.
 
 # Prototype #1
 **General Notes**
