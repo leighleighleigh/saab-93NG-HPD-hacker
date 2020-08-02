@@ -111,8 +111,16 @@ Discovered commands (data portion only):
 - 0x81,0x00 (gets info from SID, status query?)
 - 0x11 < draw data to screen
 
+- 0x94, some kind of serial code
+- 0x96, some other kind of serial code
+
+- 0x9f,0x00 < self test mode
+
 Return values
 - 0xff,0x00 (success)
-- 0xfe (failure?)
+- 0xfe,0x00,0x31 (invalid commmand / command doesn't exist)
+- 0xfe,0x00,0x34 (invalid command length, arguments?)
+- 0xfe,0x00,0x35 ( no idea)
+- 0xfe,0x0,0x37 (no idea)
 
 
