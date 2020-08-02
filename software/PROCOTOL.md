@@ -99,3 +99,20 @@ ICON DATA CODES:
 - 167	NAV skew up left		
 - 168	NAV ROTATE LEFT		filled
 - 169	NAV ROTATE RIGHT		filled
+
+
+Discovered commands (data portion only):
+- 0x80,0x80 clear screen / screen off
+- 0x80,0x00,0xCE,0x00 (sets backlight for orange portion, last value is brightness)
+            0xC, shows only the orange portion.
+
+- 0x80,0x00-x79 screen on, brightess command?
+- 0x83,0x00 (gets some kind of info from SID, status query?)
+- 0x81,0x00 (gets info from SID, status query?)
+- 0x11 < draw data to screen
+
+Return values
+- 0xff,0x00 (success)
+- 0xfe (failure?)
+
+
