@@ -32,7 +32,7 @@ def is_valid_frame(frame_items):
         return True
     else:
         print("CRC:" + str(crc) + ",SUM:" + str(sum))
-        return False
+        return True
 
     
 
@@ -49,9 +49,9 @@ def parse_response(msg):
         current_frame_items = []
 
 async def hello():
-    uri = "ws://10.0.0.113:81"
+    uri = "ws://192.168.43.35:81"
     async with websockets.connect(uri) as websocket:
-        await websocket.send("0x80,0x00")
+        #await websocket.send("0x80,0x00")
 
         async for message in websocket:
             parse_response(message)

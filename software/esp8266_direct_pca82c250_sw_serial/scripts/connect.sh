@@ -1,2 +1,2 @@
 #!/usr/bin/bash
-websocat -t ws://10.0.0.113:81
+websocat -t ws://192.168.43.35:81
