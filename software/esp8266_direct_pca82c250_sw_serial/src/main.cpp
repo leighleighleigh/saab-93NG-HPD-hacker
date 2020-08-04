@@ -11,8 +11,10 @@
 
 WebSocketsServer webSocket = WebSocketsServer(81);
 
-const char* ssid     = "Belong7DC9C8";         // The SSID (name) of the Wi-Fi network you want to connect to
-const char* password = "axk37jbtd64y";     // The password of the Wi-Fi network
+// const char* ssid     = "Belong7DC9C8";         // The SSID (name) of the Wi-Fi network you want to connect to
+// const char* password = "axk37jbtd64y";     // The password of the Wi-Fi network
+const char* ssid     = "Smallholder";         // The SSID (name) of the Wi-Fi network you want to connect to
+const char* password = "letmeinplease";     // The password of the Wi-Fi network
 
 bool clientConnected = false;
 
