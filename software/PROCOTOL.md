@@ -111,6 +111,8 @@ Discovered commands (data portion only):
 - 0x81,0x00 (gets info from SID, status query?)
 - 0x11 < draw data to screen
 
+- 0x70,0x0,0x76,0x0,0x01 < Displays brake light failure icon
+
 - 0x94, some kind of serial code
 - 0x96, some other kind of serial code
 

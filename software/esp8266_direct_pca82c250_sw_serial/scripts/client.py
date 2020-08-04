@@ -49,7 +49,7 @@ def parse_response(msg):
         current_frame_items = []
 
 async def hello():
-    uri = "ws://192.168.43.35:81"
+    uri = "ws://10.0.0.113:81"
     async with websockets.connect(uri) as websocket:
         #await websocket.send("0x80,0x00")
 
