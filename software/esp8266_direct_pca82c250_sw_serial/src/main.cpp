@@ -16,11 +16,16 @@ const char* password = "axk37jbtd64y";     // The password of the Wi-Fi network
 
 bool clientConnected = false;
 
+uint8_t ignoreCharCount = 0;
+
 void send_sid_data(byte len,byte* data)
 {
+  // Setup ignore char count
+  ignoreCharCount = len + 2;
+  
   uint16_t sum = 0;
   
-  sum += len;
+  sum += len;  
 
   Serial.write(len);
 
@@ -91,7 +96,7 @@ void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t length
             }
             break;
         case WStype_TEXT:
-            webSocket.sendTXT(num,"Received text.");
+            webSocket.sendTXT(num,"GOT");
             parseUserInput(payload,length);
 
             // send message to client
@@ -148,24 +153,26 @@ void setup()
   webSocket.onEvent(webSocketEvent);
 }
 
-byte cmd = 0;
 
 uint8_t msgIndex = 0;
-char msgs[64];
+char msgs[256];
 
 void publishSerialRead()
 {
   if(msgIndex != 0)
   {
-    char str[128];
-    sprintf(str,"RX: ");
-
     for(int i = 0; i<msgIndex; i++)
     {
-      sprintf(str + strlen(str), "%02x%,", msgs[i]);
+      if(ignoreCharCount == 0){
+        char str[128];
+        sprintf(str,"RX: ");
+        sprintf(str + strlen(str), "%02x", msgs[i]);
+        webSocket.broadcastTXT(str);
+      }else{
+        ignoreCharCount --;
+      }
     }
-
-    webSocket.broadcastTXT(str);
+    msgIndex = 0;
   }
 }
 
@@ -175,20 +182,17 @@ void loop()
   {
     webSocket.loop();
 
-    // Listen to stuff
+    // Listen to stuff, if we are not writing
     if(Serial.available() > 0)
     {
-      // Reset msgIndex
-      msgIndex = 0;
-
       while(Serial.available() > 0)
       {
         msgs[msgIndex++] = Serial.read();
       }
+    }
 
-      if(clientConnected){
-        publishSerialRead();
-      }
+    if(clientConnected){
+      publishSerialRead();
     }
   }
 }
