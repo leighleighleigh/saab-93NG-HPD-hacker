@@ -46,7 +46,7 @@ void parseUserInput(uint8_t * payload, size_t length)
 {
   // Parse the input text payload as CSVs
   // Send this onto the serial bus via send_sid_data.
-  char str[128];
+  char str[1024];
 
   // Load payload into str (the buffer)
   memcpy(str,payload,length);
@@ -54,7 +54,7 @@ void parseUserInput(uint8_t * payload, size_t length)
   const char s[2] = ",";
 
   byte tokenIndex = 0;
-  byte tokenData[128];
+  byte tokenData[1024];
   char *token;
   
   /* get the first token */
@@ -157,7 +157,7 @@ void setup()
 
 
 uint8_t msgIndex = 0;
-char msgs[256];
+char msgs[1024];
 
 void publishSerialRead()
 {
@@ -166,7 +166,7 @@ void publishSerialRead()
     for(int i = 0; i<msgIndex; i++)
     {
       if(ignoreCharCount == 0){
-        char str[128];
+        char str[1024];
         sprintf(str,"RX: ");
         sprintf(str + strlen(str), "%02x", msgs[i]);
         webSocket.broadcastTXT(str);
