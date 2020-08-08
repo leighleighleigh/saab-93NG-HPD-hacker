@@ -7,7 +7,8 @@ import time
 # List of commands, not including DLC's and trailing headers
 cmdList = []
 response_SUCCESS = ['02','ff','00','01']
-#response_ARG = ['03','fe','33','34'] # Incorrect arguments?
+response_ARG = ['03','fe','33','34'] # Incorrect arguments?
+response_ARG2 = ['03','fe','31','32'] # Idk???
 
 # Backlight
 def setBacklight(a,b=None,c=None):
@@ -46,7 +47,6 @@ def drawText(gfxArea,reqID,reqID2,w,x,y,size,text=None,rawText=None,doClear=True
 	if(doDraw):
 		cmdList.append("0x70,0x0,{},0x0,0x1".format(hex(gfxArea)))
 
-
 def drawIcon(gfxArea,reqID,reqID2,x,flip,mode,iconNumber):
 	# 0x30,0x0,0x76,0x0,0x4,0x71,0x54,0x0,0x48,0x0,0x0 
 
@@ -62,56 +62,57 @@ def drawIcon(gfxArea,reqID,reqID2,x,flip,mode,iconNumber):
 	# Draw GFX area
 	cmdList.append("0x70,0x0,{},0x0,0x1".format(hex(gfxArea)))
 
-# Execute desired commands, which adds them to the cmdList
-# All on
-setBacklight(0x00,0xFF,0xFF)
-# Alternative, low power mode? keyless mode? hmm.
-#setBacklight(0xff)
-
-#drawText(gfxArea=0x25,reqID=0x1,reqID2=0x55,w=0xff,x=148,y=48,size=1,text="abcdefghijklmnopqrstuvw\nxyz0123456789!@#$%^&*()")
-
-# FONTSIZE
-# 0 has all caps, and some symbols
-# 1 and 2 have normall unicode stuff, no symbols?
-
-# NEWLINE WORKS! woah.
-drawText(gfxArea=0x25,reqID=0x1,reqID2=0x0,w=384,x=140,y=20,size=1,text="BOY BYE")
-drawText(gfxArea=0x26,reqID=0x2,reqID2=0x0,w=384,x=140,y=38,size=0,text="GINGER\nBROCKHAMPTON")
-#drawText(gfxArea=0x81,reqID=0x1,reqID2=0x1,w=384,x=68,y=0x0,size=1,text="abcdefghijklmnopqrstuvw\nxyz0123456789!@#$%^&*()")
-
-# VALID GFX AREAS
-# 0x25, 0x26, used for primary text
-# 0x81 used for secondary status text
-# 0x76, used for icons
-
-# Testing the symbols in fontsize 0
-# Fontsize zero has symbols from 0x30 (0) to 0x5a (Z)
-# There also some other symbols for computer and messages
-# 0x2f = /
-# 0x2e = .
-# 0x2d = -
-# 0x2b = +
-# 0x27 = email icon
-# 0x26 = clock icon
-# 0x25 = wavey heat icon
-# 0x24 = message / email icon but different
-# 0x23 = computer with slash icon
-# 0x4 = "K" for kelvin?
-# 0x2 = "+" ???
-
-## POSITIONS
-# 68 x = inside of icon screen
-# 140 x = padded into right text region
-
-symbolInt = 0x27
-symbolRange = 1
-msg = allHex(symbolInt,symbolInt+symbolRange) + "," + strToHex(" YOU HAVE 1 MESSAGE")
-drawText(gfxArea=0x81,reqID=0x3,reqID2=0x0,w=384,x=140,y=4,size=0,rawText=msg)
 
 
-### ICONS
-#drawIcon(0x76,0x0,0x04,0x48,0x0,0x0,0x54)
-drawIcon(gfxArea=0x76,reqID=0x4,reqID2=0x0,x=72,flip=0,mode=0x0,iconNumber=168)
+
+doTestRoutine = True
+if(doTestRoutine):
+	# Execute desired commands, which adds them to the cmdList
+	# All on
+	setBacklight(0x00,0xFF,0xFF)
+	# Alternative, low power mode? keyless mode? hmm.
+	#setBacklight(0xff)
+	#drawText(gfxArea=0x25,reqID=0x1,reqID2=0x55,w=0xff,x=148,y=48,size=1,text="abcdefghijklmnopqrstuvw\nxyz0123456789!@#$%^&*()")
+	# FONTSIZE
+	# 0 has all caps, and some symbols
+	# 1 and 2 have normall unicode stuff, no symbols?
+	# NEWLINE WORKS! woah.
+	drawText(gfxArea=0x25,reqID=0x1,reqID2=0x0,w=384,x=140,y=20,size=1,text="BOY BYE")
+	drawText(gfxArea=0x26,reqID=0x2,reqID2=0x0,w=384,x=140,y=38,size=0,text="GINGER\nBROCKHAMPTON")
+	#drawText(gfxArea=0x81,reqID=0x1,reqID2=0x1,w=384,x=68,y=0x0,size=1,text="abcdefghijklmnopqrstuvw\nxyz0123456789!@#$%^&*()")
+	# VALID GFX AREAS
+	# 0x25, 0x26, used for primary text
+	# 0x81 used for secondary status text
+	# 0x76, used for icons
+	# Testing the symbols in fontsize 0
+	# Fontsize zero has symbols from 0x30 (0) to 0x5a (Z)
+	# There also some other symbols for computer and messages
+	# 0x2f = /
+	# 0x2e = .
+	# 0x2d = -
+	# 0x2b = +
+	# 0x27 = email icon
+	# 0x26 = clock icon
+	# 0x25 = wavey heat icon
+	# 0x24 = message / email icon but different
+	# 0x23 = computer with slash icon
+	# 0x4 = "K" for kelvin?
+	# 0x2 = "+" ???
+	## POSITIONS
+	# 68 x = inside of icon screen
+	# 140 x = padded into right text region
+	symbolInt = 0x27
+	symbolRange = 1
+	msg = allHex(symbolInt,symbolInt+symbolRange) + "," + strToHex(" YOU HAVE 1 MESSAGE")
+	drawText(gfxArea=0x81,reqID=0x3,reqID2=0x0,w=384,x=140,y=4,size=0,rawText=msg)
+	### ICONS
+	#drawIcon(0x76,0x0,0x04,0x48,0x0,0x0,0x54)
+	drawIcon(gfxArea=0x76,reqID=0x4,reqID2=0x0,x=72,flip=0,mode=0x0,iconNumber=168)
+
+
+#for i in range(0,256):
+#	cmdList.append(hex(i) + ",0x0")
+
 
 ### Used for response parsing
 def is_valid_frame(frame_items):
@@ -165,13 +166,14 @@ async def send_cmds():
 		# Send commands, wait for valid return code, retry send if fail.
 		cmdIndex = 0
 		retryCount = 0
-		restartOnFail = True
+		retryMax = 2
+		restartOnFail = False
 
 		while(cmdIndex < len(cmdList)):
 			cmd = cmdList[cmdIndex]
 
 			# Send the command
-			print(cmd)
+			#print(cmd)
 			await websocket.send(cmd)
 			
 			# Wait for return code
@@ -184,10 +186,12 @@ async def send_cmds():
 					break
 			
 			# Print response
-			print(response_code)
+			#print(response_code)			
 
 			# Check if response == SUCCESS
 			if(response_code == response_SUCCESS):
+				print(cmd)
+				print(response_code)
 				# Increment command
 				cmdIndex += 1
 				# Reset retry count
@@ -197,20 +201,19 @@ async def send_cmds():
 				# Print a newline
 				print("")
 			else:
-				if(retryCount != 1):
-					print("ERR, Retrying...")
+				if(retryCount != retryMax):
+					print(".")
 					# Increment retry count
 					retryCount += 1
 					# Sleep for longer
 					time.sleep(0.1)
 				else:
-					print("ERR, Giving up.")
-					print("")
+					print("ERR")
 					retryCount = 0
 					cmdIndex += 1
+					time.sleep(0.1)
 					if(restartOnFail):
-						print("RESTARTING")
-						time.sleep(0.1)
+						print("Retransmit...")
 						cmdIndex = 0
 					
 
