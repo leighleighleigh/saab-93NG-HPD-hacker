@@ -2,39 +2,37 @@
 #include <SPI.h>
 #include <Wire.h>
 #include <SC16IS752.h> // Dual UART interface
+#include <string.h>
+#include <stdio.h>
 
 #define CS D8
 
 SC16IS752 spiuart = SC16IS752(SC16IS750_PROTOCOL_SPI, CS);
 
-// Old baudrate for freq compensation is 101952
+// Due to bodged board, data goes out channel A, and comes back in channel B.
 
-#define baudrate_A 9600
-#define baudrate_B 9600
+#define baudrate_A 115200
+#define baudrate_B 115200
+int ignoreCharCount = 0;
 
 void send_sid_data(byte channel,byte len,byte* data)
 {
   uint16_t sum;
+  ignoreCharCount = len + 2;
   
   sum += len;
 
-  spiuart.write(channel,len);
+  spiuart.write(channel,len);  
+  //Serial.print("TX: ");
   
-  if(channel == 0){
-    Serial.print("TX A [");
-  }
-  else{
-    Serial.print("TX B [");
-  }
-
-  Serial.print(len,HEX);
-  Serial.print("]:");
+  // Serial.print(len,HEX);
+  // Serial.print(",");
 
   for(byte i = 0; i<len; i++)
   {
     spiuart.write(channel,*data);
-    Serial.print(*data,HEX);
-    Serial.print(",");
+    // Serial.print(*data,HEX);
+    // Serial.print(",");
     sum += *data;
     data = data + sizeof(byte);
   }
@@ -42,14 +40,14 @@ void send_sid_data(byte channel,byte len,byte* data)
   // Send the LSB of the sum.
   sum = sum & 0b11111111;
   spiuart.write(channel,sum);
-  Serial.print(sum,HEX);
-  Serial.println("...");
+  // Serial.println(sum,HEX);
 }
 
 void setup()
 {
   Serial.begin(115200);
-  Serial.println("Start testing");
+  Serial.setTimeout(50);
+  Serial.println("Start UART -> SID adapter.");
 
   delay(1000);
 
@@ -75,74 +73,71 @@ void setup()
 
   // Setup loopback
   spiuart.LoopbackEnable(false);
-
-  Serial.println("Start serial communication");
-  Serial.println("start serial communication");
-  Serial.print("baudrate(channel A) = ");
-  Serial.println(baudrate_A);
-  Serial.print("baudrate(channel B) = ");
-  Serial.println(baudrate_B);
-  delay(1000);
-
   
   spiuart.flush(SC16IS752_CHANNEL_A);
   spiuart.flush(SC16IS752_CHANNEL_B);
-
-  byte dat[4] = {0x2,0x81,0x00,0x83};
-  send_sid_data(SC16IS752_CHANNEL_A,sizeof(dat) / sizeof(byte),dat);
-  delay(10);
 }
 
-int val = 0;
+String userInput;
+uint8_t inputBuf[1024];
 
-void numberToGPIO(uint8_t val)
+void parseUserInput(uint8_t * payload, size_t length)
 {
-  for(int gpioPin = 7; gpioPin > -1; gpioPin--){
-    spiuart.digitalWrite(gpioPin, val & 1);
-    val = val >> 1;
+  // Parse the input text payload as CSVs
+  // Send this onto the serial bus via send_sid_data.
+  char str[1024];
+
+  // Load payload into str (the buffer)
+  memcpy(str,payload,length);
+
+  const char s[2] = ",";
+
+  byte tokenIndex = 0;
+  byte tokenData[1024];
+  char *token;
+  
+  /* get the first token */
+  token = strtok(str, s);
+
+  /* walk through other tokens */
+  while( token != NULL ) {
+    // Only do if token != '\n'
+    if(token != "\n" && token != "\0" && token != "\r"){
+      // Parse token into array
+      tokenData[tokenIndex++] = (byte)strtol(token, NULL, 0);
+    }
+
+    // Get next token
+    token = strtok(NULL, s);
   }
+
+  // Send data using send_sid_data
+  send_sid_data(SC16IS752_CHANNEL_A,tokenIndex,tokenData);
 }
 
 void loop()
 {
-  if(spiuart.available(SC16IS752_CHANNEL_A) > 0){
-    Serial.print("RX A: ");
-    while (spiuart.available(SC16IS752_CHANNEL_A) > 0)
-    {
-      // read the incoming byte:
-      char c = spiuart.read(SC16IS752_CHANNEL_A);
-      Serial.print(c,HEX);
-      Serial.print(",");
-    }
-    Serial.println(".");
-    // delay(1000);
-  }
-
+  // Read from channel B and print to serial
   if(spiuart.available(SC16IS752_CHANNEL_B) > 0){
-    Serial.print("RX B: ");
     while (spiuart.available(SC16IS752_CHANNEL_B) > 0)
     {
       // read the incoming byte:
       char c = spiuart.read(SC16IS752_CHANNEL_B);
-      Serial.print(c,HEX);
-      Serial.print(",");
+      if(ignoreCharCount == 0){
+        Serial.print("RX:");
+        Serial.print(c,HEX);
+        Serial.println("");
+      }else{
+        ignoreCharCount --;
+      }
     }
-    Serial.println(".");
-    // delay(1000);
   }
-  
-  numberToGPIO(val);
-  val++;
 
-  delay(1000);
-  
-  Serial.println("...");
-
-  byte dat[4] = {0x1,0x2,0x3,0x4};
-  send_sid_data(SC16IS752_CHANNEL_A,sizeof(dat) / sizeof(byte),dat);
-
-  byte dat2[4] = {0x4,0x3,0x2,0x1};
-  send_sid_data(SC16IS752_CHANNEL_B,sizeof(dat2) / sizeof(byte),dat2);
-
-  delay(1000);
+  // Check if we have stuff to read in serial
+  if(Serial.available() > 0)
+  {
+    userInput = Serial.readStringUntil('\n');
+    userInput.getBytes(inputBuf,1024);
+    parseUserInput(inputBuf,userInput.length());
+  }
 }
