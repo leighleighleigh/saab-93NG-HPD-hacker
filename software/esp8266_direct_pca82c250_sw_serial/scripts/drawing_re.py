@@ -10,8 +10,11 @@ response_SUCCESS = ['02','ff','00','01']
 #response_ARG = ['03','fe','33','34'] # Incorrect arguments?
 
 # Backlight
-def setBacklight(panelBrightness,iconBrightness):
-	cmdList.append("0x80,0x0,0xce,0xce")
+def setBacklight(a,b=None,c=None):
+	if(b == None and c == None):
+		cmdList.append("0x80,{}".format(hex(a)))
+	else:
+		cmdList.append("0x80,{},{},{}".format(hex(a),hex(b),hex(c)))
 
 def strToHex(msg):
 	"""
@@ -25,9 +28,10 @@ def allHex(start,stop):
 
 # Function to draw text command, which does the 'clear' and 'draw' commands too.
 # Inputs are integers.
-def drawText(gfxArea,reqID,reqID2,w,x,y,size,text=None,rawText=None):
+def drawText(gfxArea,reqID,reqID2,w,x,y,size,text=None,rawText=None,doClear=True,doDraw=True):
 	# Clear text area
-	cmdList.append("0x60,0x0,{},0x0".format(hex(gfxArea)))
+	if(doClear):
+		cmdList.append("0x60,0x0,{},0x0".format(hex(gfxArea)))
 
 	# Create the data array, used to insert into the text command.
 	# Some inputs are split into two bytes, such as width and reqID.
@@ -37,12 +41,33 @@ def drawText(gfxArea,reqID,reqID2,w,x,y,size,text=None,rawText=None):
 		data = [hex(gfxArea),hex(reqID),hex(reqID2),hex(size),hex(w & 0xff),hex(w >> 8),hex(x),hex(y),rawText]
 	# Place text graphics
 	cmdList.append("0x10,0x0,{},0x0,{},{},0x0,{},{},{},{},0x0,{},{}".format(*data))
+	
 	# Draw text area
+	if(doDraw):
+		cmdList.append("0x70,0x0,{},0x0,0x1".format(hex(gfxArea)))
+
+
+def drawIcon(gfxArea,reqID,reqID2,x,flip,mode,iconNumber):
+	# 0x30,0x0,0x76,0x0,0x4,0x71,0x54,0x0,0x48,0x0,0x0 
+
+	# Clear GFX area
+	cmdList.append("0x60,0x0,{},0x0".format(hex(gfxArea)))
+
+	# Create the data array, used to insert into the text command.
+	# Some inputs are split into two bytes, such as width and reqID.
+	data = [hex(gfxArea),hex(reqID),hex(reqID2),hex(iconNumber),hex(mode),hex(x),hex(flip)]
+	# Place text graphics
+	cmdList.append("0x30,0x0,{},0x0,{},{},{},{},{},{},0x0".format(*data))
+	
+	# Draw GFX area
 	cmdList.append("0x70,0x0,{},0x0,0x1".format(hex(gfxArea)))
 
-
 # Execute desired commands, which adds them to the cmdList
-setBacklight(100,100)
+# All on
+setBacklight(0x00,0xFF,0xFF)
+# Alternative, low power mode? keyless mode? hmm.
+#setBacklight(0xff)
+
 #drawText(gfxArea=0x25,reqID=0x1,reqID2=0x55,w=0xff,x=148,y=48,size=1,text="abcdefghijklmnopqrstuvw\nxyz0123456789!@#$%^&*()")
 
 # FONTSIZE
@@ -50,8 +75,14 @@ setBacklight(100,100)
 # 1 and 2 have normall unicode stuff, no symbols?
 
 # NEWLINE WORKS! woah.
-drawText(gfxArea=0x81,reqID=0x1,reqID2=0x1,w=384,x=68,y=0x0,size=1,text="")
+drawText(gfxArea=0x25,reqID=0x1,reqID2=0x0,w=384,x=140,y=20,size=1,text="BOY BYE")
+drawText(gfxArea=0x26,reqID=0x2,reqID2=0x0,w=384,x=140,y=38,size=0,text="GINGER\nBROCKHAMPTON")
 #drawText(gfxArea=0x81,reqID=0x1,reqID2=0x1,w=384,x=68,y=0x0,size=1,text="abcdefghijklmnopqrstuvw\nxyz0123456789!@#$%^&*()")
+
+# VALID GFX AREAS
+# 0x25, 0x26, used for primary text
+# 0x81 used for secondary status text
+# 0x76, used for icons
 
 # Testing the symbols in fontsize 0
 # Fontsize zero has symbols from 0x30 (0) to 0x5a (Z)
@@ -75,8 +106,12 @@ drawText(gfxArea=0x81,reqID=0x1,reqID2=0x1,w=384,x=68,y=0x0,size=1,text="")
 symbolInt = 0x27
 symbolRange = 1
 msg = allHex(symbolInt,symbolInt+symbolRange) + "," + strToHex(" YOU HAVE 1 MESSAGE")
-drawText(gfxArea=0x25,reqID=0x0,reqID2=0x1,w=384,x=140,y=4,size=0,rawText=msg)
+drawText(gfxArea=0x81,reqID=0x3,reqID2=0x0,w=384,x=140,y=4,size=0,rawText=msg)
 
+
+### ICONS
+#drawIcon(0x76,0x0,0x04,0x48,0x0,0x0,0x54)
+drawIcon(gfxArea=0x76,reqID=0x4,reqID2=0x0,x=72,flip=0,mode=0x0,iconNumber=168)
 
 ### Used for response parsing
 def is_valid_frame(frame_items):
@@ -158,7 +193,7 @@ async def send_cmds():
 				# Reset retry count
 				retryCount = 0
 				# Sleep for a bit
-				time.sleep(0.05)
+				time.sleep(0.1)
 				# Print a newline
 				print("")
 			else:
@@ -167,7 +202,7 @@ async def send_cmds():
 					# Increment retry count
 					retryCount += 1
 					# Sleep for longer
-					time.sleep(0.05)
+					time.sleep(0.1)
 				else:
 					print("ERR, Giving up.")
 					print("")
