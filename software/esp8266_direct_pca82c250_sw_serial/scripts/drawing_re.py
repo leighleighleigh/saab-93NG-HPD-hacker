@@ -9,6 +9,7 @@ cmdList = []
 response_SUCCESS = ['02','ff','00','01']
 response_ARG = ['03','fe','33','34'] # Incorrect arguments?
 response_ARG2 = ['03','fe','31','32'] # Idk???
+response_INVALID = ['03','fe','4a','4b'] # For example, trying to draw when nothing has been written.
 
 # Backlight
 def setBacklight(a,b=None,c=None):
@@ -16,6 +17,12 @@ def setBacklight(a,b=None,c=None):
 		cmdList.append("0x80,{}".format(hex(a)))
 	else:
 		cmdList.append("0x80,{},{},{}".format(hex(a),hex(b),hex(c)))
+
+def clearArea(area):
+	cmdList.append("0x60,0x0,{},0x0".format(hex(area)))
+
+def rawCMD(cmds):
+	cmdList.append(",".join([hex(x) for x in cmds]))
 
 def strToHex(msg):
 	"""
@@ -47,17 +54,18 @@ def drawText(gfxArea,reqID,reqID2,w,x,y,size,text=None,rawText=None,doClear=True
 	if(doDraw):
 		cmdList.append("0x70,0x0,{},0x0,0x1".format(hex(gfxArea)))
 
-def drawIcon(gfxArea,reqID,reqID2,x,flip,mode,iconNumber):
+def drawIcon(gfxArea,reqID,reqID2,x,flip,mode,iconNumber,doClear=True,extraData="0x0"):
 	# 0x30,0x0,0x76,0x0,0x4,0x71,0x54,0x0,0x48,0x0,0x0 
 
 	# Clear GFX area
-	cmdList.append("0x60,0x0,{},0x0".format(hex(gfxArea)))
+	if(doClear):
+		cmdList.append("0x60,0x0,{},0x0".format(hex(gfxArea)))
 
 	# Create the data array, used to insert into the text command.
 	# Some inputs are split into two bytes, such as width and reqID.
-	data = [hex(gfxArea),hex(reqID),hex(reqID2),hex(iconNumber),hex(mode),hex(x),hex(flip)]
+	data = [hex(gfxArea),hex(reqID),hex(reqID2),hex(iconNumber),hex(mode),hex(x),hex(flip),extraData]
 	# Place text graphics
-	cmdList.append("0x30,0x0,{},0x0,{},{},{},{},{},{},0x0".format(*data))
+	cmdList.append("0x30,0x0,{},0x0,{},{},{},{},{},{},{}".format(*data))
 	
 	# Draw GFX area
 	cmdList.append("0x70,0x0,{},0x0,0x1".format(hex(gfxArea)))
@@ -65,7 +73,7 @@ def drawIcon(gfxArea,reqID,reqID2,x,flip,mode,iconNumber):
 
 
 
-doTestRoutine = True
+doTestRoutine = False
 if(doTestRoutine):
 	# Execute desired commands, which adds them to the cmdList
 	# All on
@@ -109,9 +117,28 @@ if(doTestRoutine):
 	#drawIcon(0x76,0x0,0x04,0x48,0x0,0x0,0x54)
 	drawIcon(gfxArea=0x76,reqID=0x4,reqID2=0x0,x=72,flip=0,mode=0x0,iconNumber=168)
 
+else:
+	# Do experimental icon drawing
+	setBacklight(0x00,0xFF,0xFF)
+	clearArea(0x81)
+	clearArea(0x25)
+	clearArea(0x26)
+	clearArea(0x76)
+	
+	
+	# Potential icon commands
+	# 0x30, 0x32, 0x33, 0x35
+	rawCMD([0x32,0x0,0x76,0x0])
+	#rawCMD([0x33,0x0,0x10,0x10,0x10,0x10,0x10,0x10,0x10,0x10])
+	#rawCMD([0x35,0x0,0x10,0x10,0x10,0x10,0x10,0x10,0x10,0x10])
 
-#for i in range(0,256):
-#	cmdList.append(hex(i) + ",0x0")
+	drawIcon(gfxArea=0x76,reqID=0x4,reqID2=0x0,x=72,flip=0,mode=0x0,iconNumber=5,doClear=False)
+
+	# What does c0 do? It clears all?
+	# What does df do? ef?
+
+	# for i in range(0,256):
+		# cmdList.append(hex(i) + ",0x0")
 
 
 ### Used for response parsing
@@ -166,8 +193,8 @@ async def send_cmds():
 		# Send commands, wait for valid return code, retry send if fail.
 		cmdIndex = 0
 		retryCount = 0
-		retryMax = 2
-		restartOnFail = False
+		retryMax = 3
+		restartOnFail = True
 
 		while(cmdIndex < len(cmdList)):
 			cmd = cmdList[cmdIndex]
@@ -185,13 +212,11 @@ async def send_cmds():
 					response_code = result					
 					break
 			
-			# Print response
-			#print(response_code)			
-
 			# Check if response == SUCCESS
 			if(response_code == response_SUCCESS):
 				print(cmd)
 				print(response_code)
+
 				# Increment command
 				cmdIndex += 1
 				# Reset retry count
@@ -202,19 +227,21 @@ async def send_cmds():
 				print("")
 			else:
 				if(retryCount != retryMax):
-					print(".")
+					print("ERR")
 					# Increment retry count
 					retryCount += 1
 					# Sleep for longer
 					time.sleep(0.1)
 				else:
-					print("ERR")
 					retryCount = 0
 					cmdIndex += 1
 					time.sleep(0.1)
+
 					if(restartOnFail):
-						print("Retransmit...")
+						print("RETRANS")
 						cmdIndex = 0
+					else:
+						print("SKIP")
 					
 
 		await websocket.close()
