@@ -861,24 +861,6 @@ Text GLabel 7100 4250 3    50   Input ~ 0
 VBUS
 Wire Wire Line
 	7100 4250 7100 4150
-$Comp
-L Device:C_Small C10
-U 1 1 5F4B4B6B
-P 9450 4350
-F 0 "C10" V 9221 4350 50  0000 C CNN
-F 1 "10uF" V 9312 4350 50  0000 C CNN
-F 2 "Capacitor_Tantalum_SMD:CP_EIA-6032-20_AVX-F_Pad2.25x2.35mm_HandSolder" H 9450 4350 50  0001 C CNN
-F 3 "~" H 9450 4350 50  0001 C CNN
-	1    9450 4350
-	-1   0    0    1   
-$EndComp
-Wire Wire Line
-	9050 4250 9450 4250
-Connection ~ 9450 4250
-Text GLabel 9600 4450 3    50   Input ~ 0
-GND
-Wire Wire Line
-	9600 4450 9450 4450
 Text GLabel 8200 4750 3    50   Input ~ 0
 RI
 Text GLabel 5900 4850 2    50   Input ~ 0
@@ -991,6 +973,21 @@ F 3 "https://au.mouser.com/datasheet/2/302/SC16IS752_SC16IS762-1127856.pdf" H 52
 	1    5400 1750
 	1    0    0    -1  
 $EndComp
+$Comp
+L Connector:Screw_Terminal_01x02 I-BUS1
+U 1 1 5F317B0C
+P 1350 3700
+F 0 "I-BUS1" H 1430 3692 50  0000 L CNN
+F 1 "Screw_Terminal_01x02" H 1430 3601 50  0000 L CNN
+F 2 "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal" H 1350 3700 50  0001 C CNN
+F 3 "~" H 1350 3700 50  0001 C CNN
+	1    1350 3700
+	1    0    0    -1  
+$EndComp
+Text GLabel 1150 3700 0    50   Input ~ 0
+CAN_L
+Text GLabel 1150 3800 0    50   Input ~ 0
+CAN_H
 Wire Wire Line
-	9450 4250 9850 4250
+	9050 4250 9850 4250
 $EndSCHEMATC
