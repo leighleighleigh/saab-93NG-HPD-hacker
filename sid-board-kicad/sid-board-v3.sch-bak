@@ -551,8 +551,6 @@ Wire Notes Line
 Wire Notes Line
 	550  2950 2250 2950
 Wire Notes Line
-	4300 3200 8500 3200
-Wire Notes Line
 	6150 6600 4300 6600
 Wire Notes Line
 	4300 6600 4300 3200
@@ -1001,4 +999,12 @@ Text GLabel 10250 5800 2    50   Input ~ 0
 RXA
 Text GLabel 10250 5900 2    50   Input ~ 0
 TXA
+Wire Notes Line
+	6150 6600 6150 6400
+Wire Notes Line
+	6150 6400 10750 6400
+Wire Notes Line
+	10750 6400 10750 3200
+Wire Notes Line
+	4300 3200 10750 3200
 $EndSCHEMATC
