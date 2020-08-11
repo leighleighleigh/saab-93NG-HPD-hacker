@@ -331,17 +331,17 @@ Text GLabel 3350 1750 0    50   Input ~ 0
 VDD_3.3V
 Text GLabel 3350 2900 0    50   Input ~ 0
 VDD_3.3V
-Text GLabel 1850 1400 2    50   Input ~ 0
+Text GLabel 1850 1500 2    50   Input ~ 0
 CAN_A_L
 Text GLabel 2950 1350 0    50   Input ~ 0
 CAN_A_L
 Text GLabel 2950 1450 0    50   Input ~ 0
 CAN_A_H
-Text GLabel 1850 1500 2    50   Input ~ 0
+Text GLabel 1850 1400 2    50   Input ~ 0
 CAN_A_H
-Text GLabel 1850 2500 2    50   Input ~ 0
-CAN_B_H
 Text GLabel 1850 2400 2    50   Input ~ 0
+CAN_B_H
+Text GLabel 1850 2500 2    50   Input ~ 0
 CAN_B_L
 Text GLabel 2950 2500 0    50   Input ~ 0
 CAN_B_L
@@ -861,14 +861,6 @@ Text GLabel 7100 4250 3    50   Input ~ 0
 VBUS
 Wire Wire Line
 	7100 4250 7100 4150
-Text GLabel 8200 4750 3    50   Input ~ 0
-RI
-Text GLabel 5900 4850 2    50   Input ~ 0
-RI
-Text GLabel 7900 3650 1    50   Input ~ 0
-SLEEP
-Text GLabel 5900 4950 2    50   Input ~ 0
-SLEEP
 $Comp
 L Device:LED D12
 U 1 1 5F4CCE75
@@ -990,4 +982,6 @@ Text GLabel 1150 3800 0    50   Input ~ 0
 CAN_H
 Wire Wire Line
 	9050 4250 9850 4250
+Text GLabel 3300 5350 3    50   Input ~ 0
+GND
 $EndSCHEMATC
