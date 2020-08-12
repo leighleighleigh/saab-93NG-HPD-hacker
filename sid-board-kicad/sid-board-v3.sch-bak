@@ -125,9 +125,9 @@ Text Notes 4300 800  0    50   ~ 0
 DUAL UART to SPI INTERFACE
 Text Notes 6500 3100 0    50   ~ 0
 OSCILLATOR
-Text GLabel 6550 2700 3    50   Input ~ 0
+Text GLabel 7500 2700 3    50   Input ~ 0
 XTAL1
-Text GLabel 7500 2400 3    50   Input ~ 0
+Text GLabel 7200 3000 0    50   Input ~ 0
 GND
 $Comp
 L Device:LED D1
@@ -285,20 +285,9 @@ Text GLabel 6000 2400 2    50   Input ~ 0
 IRQ
 Wire Notes Line
 	4300 850  6400 850 
-$Comp
-L local_symbols:S53305-16.000-X X1
-U 1 1 5E7AFB1C
-P 7050 2600
-F 0 "X1" H 7050 2450 50  0000 C CNN
-F 1 "S53305-24.000-X" H 7050 2550 50  0000 C CNN
-F 2 "sid-board:S53305-16.000-X" H 7050 2600 50  0001 C CNN
-F 3 "" H 7050 2600 50  0001 C CNN
-	1    7050 2600
-	-1   0    0    1   
-$EndComp
-Text GLabel 6550 2400 3    50   Input ~ 0
+Text GLabel 6900 2700 0    50   Input ~ 0
 VDD_3.3V
-Text GLabel 7500 2700 3    50   Input ~ 0
+Text GLabel 7200 2400 0    50   Input ~ 0
 VDD_3.3V
 Wire Notes Line
 	6450 2300 7600 2300
@@ -951,6 +940,29 @@ F 1 "Screw_Terminal_01x02" H 1430 3601 50  0000 L CNN
 F 2 "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal" H 1350 3700 50  0001 C CNN
 F 3 "~" H 1350 3700 50  0001 C CNN
 	1    1350 3700
+	1    0    0    -1  
+$EndComp
+Text GLabel 10250 5900 2    50   Input ~ 0
+GND
+Text GLabel 10250 5700 2    50   Input ~ 0
+GND
+Text GLabel 10250 5800 2    50   Input ~ 0
+VDD_3.3V
+Text GLabel 10250 6000 2    50   Input ~ 0
+VDD_3.3V
+Text Notes 6800 5500 0    50   ~ 0
+NOTE: MIGHT NEED 10K's HERE
+Text Notes 8400 5450 0    50   ~ 0
+NOTE: NO IDEA IF THIS WILL WORK LMAO
+$Comp
+L Oscillator:ASE-xxxMHz X?
+U 1 1 5F3441C0
+P 7200 2700
+F 0 "X?" H 7544 2746 50  0000 L CNN
+F 1 "ASE-xxxMHz" H 7544 2655 50  0000 L CNN
+F 2 "Oscillator:Oscillator_SMD_EuroQuartz_XO53-4Pin_5.0x3.2mm_HandSoldering" H 7900 2350 50  0001 C CNN
+F 3 "http://www.abracon.com/Oscillators/ASV.pdf" H 7100 2700 50  0001 C CNN
+	1    7200 2700
 	1    0    0    -1  
 $EndComp
 $EndSCHEMATC
