@@ -61,7 +61,7 @@ Wire Wire Line
 	4800 1900 4850 1900
 Text GLabel 10250 6100 2    50   Input ~ 0
 GND
-Text GLabel 10250 6000 2    50   Input ~ 0
+Text GLabel 9750 6100 0    50   Input ~ 0
 VDD_3.3V
 Text GLabel 4800 1900 0    50   Input ~ 0
 GND
@@ -262,21 +262,21 @@ Text GLabel 4850 2100 0    50   Input ~ 0
 MOSI
 Text GLabel 4850 2000 0    50   Input ~ 0
 CS
-Text GLabel 9750 5900 0    50   Input ~ 0
-CLK
-Text GLabel 9750 6100 0    50   Input ~ 0
-MISO
 Text GLabel 9750 6000 0    50   Input ~ 0
-MOSI
+CLK
+Text GLabel 9750 5900 0    50   Input ~ 0
+MISO
 Text GLabel 9750 5800 0    50   Input ~ 0
+MOSI
+Text GLabel 9750 5700 0    50   Input ~ 0
 CS
 $Comp
-L Connector_Generic:Conn_02x04_Counter_Clockwise J1
+L Connector_Generic:Conn_02x05_Counter_Clockwise J1
 U 1 1 5E4709DB
 P 9950 5900
 F 0 "J1" H 10000 6217 50  0000 C CNN
 F 1 "SPI + UART" H 10000 6126 50  0000 C CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_2x04_P2.54mm_Vertical" H 9950 5900 50  0001 C CNN
+F 2 "Connector_PinHeader_1.00mm:PinHeader_2x05_P1.00mm_Vertical" H 9950 5900 50  0001 C CNN
 F 3 "~" H 9950 5900 50  0001 C CNN
 	1    9950 5900
 	1    0    0    -1  
@@ -915,37 +915,6 @@ F 3 "~" H 8550 3450 50  0001 C CNN
 	1    8550 3450
 	1    0    0    -1  
 $EndComp
-Text GLabel 10250 5400 2    50   Input ~ 0
-GND
-Text GLabel 10250 5300 2    50   Input ~ 0
-VDD_3.3V
-$Comp
-L Connector_Generic:Conn_02x04_Counter_Clockwise J3
-U 1 1 5F517DB1
-P 9950 5200
-F 0 "J3" H 10000 5517 50  0000 C CNN
-F 1 "UART" H 10000 5426 50  0000 C CNN
-F 2 "Connector_PinSocket_2.54mm:PinSocket_2x04_P2.54mm_Vertical" H 9950 5200 50  0001 C CNN
-F 3 "~" H 9950 5200 50  0001 C CNN
-	1    9950 5200
-	1    0    0    -1  
-$EndComp
-Text GLabel 9750 5100 0    50   Input ~ 0
-TX_ESP32
-Text GLabel 9750 5200 0    50   Input ~ 0
-RX_ESP32
-Text GLabel 9750 5300 0    50   Input ~ 0
-TX_ESP32_CAN
-Text GLabel 9750 5400 0    50   Input ~ 0
-RX_ESP32_CAN
-Text GLabel 10250 5100 2    50   Input ~ 0
-RXB
-Text GLabel 10250 5200 2    50   Input ~ 0
-TXB
-Text GLabel 10250 5800 2    50   Input ~ 0
-RXA
-Text GLabel 10250 5900 2    50   Input ~ 0
-TXA
 Wire Notes Line
 	6150 6600 6150 6400
 Wire Notes Line
@@ -965,6 +934,14 @@ F 3 "https://au.mouser.com/datasheet/2/302/SC16IS752_SC16IS762-1127856.pdf" H 52
 	1    5400 1750
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	9050 4250 9850 4250
+Text GLabel 3300 5350 3    50   Input ~ 0
+GND
+Text GLabel 1150 3700 0    50   Input ~ 0
+CAN_H
+Text GLabel 1150 3800 0    50   Input ~ 0
+CAN_L
 $Comp
 L Connector:Screw_Terminal_01x02 I-BUS1
 U 1 1 5F317B0C
@@ -976,12 +953,12 @@ F 3 "~" H 1350 3700 50  0001 C CNN
 	1    1350 3700
 	1    0    0    -1  
 $EndComp
-Text GLabel 1150 3700 0    50   Input ~ 0
-CAN_L
-Text GLabel 1150 3800 0    50   Input ~ 0
-CAN_H
-Wire Wire Line
-	9050 4250 9850 4250
-Text GLabel 3300 5350 3    50   Input ~ 0
+Text GLabel 10250 5900 2    50   Input ~ 0
 GND
+Text GLabel 10250 5700 2    50   Input ~ 0
+GND
+Text GLabel 10250 5800 2    50   Input ~ 0
+VDD_3.3V
+Text GLabel 10250 6000 2    50   Input ~ 0
+VDD_3.3V
 $EndSCHEMATC
