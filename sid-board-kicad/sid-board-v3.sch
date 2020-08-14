@@ -965,4 +965,63 @@ F 3 "http://www.abracon.com/Oscillators/ASV.pdf" H 7100 2700 50  0001 C CNN
 	1    7200 2700
 	1    0    0    -1  
 $EndComp
+$Comp
+L Connector_Generic:Conn_01x12 J3
+U 1 1 5F374BE1
+P 5500 7050
+F 0 "J3" V 5625 6996 50  0000 C CNN
+F 1 "Conn_01x12" V 5716 6996 50  0000 C CNN
+F 2 "Connector_PinHeader_2.54mm:PinHeader_1x12_P2.54mm_Vertical" H 5500 7050 50  0001 C CNN
+F 3 "~" H 5500 7050 50  0001 C CNN
+	1    5500 7050
+	0    1    1    0   
+$EndComp
+Text GLabel 5900 6850 1    50   Input ~ 0
+VDD_3.3V
+Text GLabel 6000 6850 1    50   Input ~ 0
+GND
+Wire Wire Line
+	4700 4050 5700 4050
+Wire Wire Line
+	5700 4050 5700 6850
+Wire Wire Line
+	4700 4150 5600 4150
+Wire Wire Line
+	5600 4150 5600 6850
+Wire Wire Line
+	5900 6050 5500 6050
+Wire Wire Line
+	5500 6050 5500 6850
+Wire Wire Line
+	5900 6150 5400 6150
+Wire Wire Line
+	5400 6150 5400 6850
+Wire Wire Line
+	5900 5850 5200 5850
+Wire Wire Line
+	5200 5850 5200 6600
+Wire Wire Line
+	5200 6600 5300 6600
+Wire Wire Line
+	5300 6600 5300 6850
+Wire Wire Line
+	5900 5950 5250 5950
+Wire Wire Line
+	5250 5950 5250 6750
+Wire Wire Line
+	5250 6750 5200 6750
+Wire Wire Line
+	5200 6750 5200 6850
+Wire Wire Line
+	5900 5550 5100 5550
+Wire Wire Line
+	5100 5550 5100 6850
+Wire Wire Line
+	5900 5650 5000 5650
+Wire Wire Line
+	5000 5650 5000 6850
+Wire Wire Line
+	5900 5750 4900 5750
+Wire Wire Line
+	4900 5750 4900 6850
 $EndSCHEMATC
