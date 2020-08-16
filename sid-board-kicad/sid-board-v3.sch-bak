@@ -1010,4 +1010,12 @@ Wire Wire Line
 	5350 5750 5350 7150
 Wire Wire Line
 	5350 7150 5300 7150
+Wire Notes Line
+	4850 6650 5850 6650
+Wire Notes Line
+	5850 6650 5850 7650
+Wire Notes Line
+	5850 7650 4850 7650
+Wire Notes Line
+	4850 7650 4850 6650
 $EndSCHEMATC

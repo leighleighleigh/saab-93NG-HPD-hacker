@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source /home/leigh/Documents/GitHub/saab-sid-re-board/sid-board-kicad/sid-board-v3.sch)
-    (date "Fri 14 Aug 2020 20:00:50")
+    (date "Sun 16 Aug 2020 15:53:21")
     (tool "Eeschema 5.1.5+dfsg1-2build2")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -108,7 +108,7 @@
       (tstamp 5E53B9FC))
     (comp (ref J1)
       (value "SPI + UART")
-      (footprint Connector_PinHeader_1.00mm:PinHeader_2x05_P1.00mm_Vertical)
+      (footprint Connector_PinHeader_2.54mm:PinHeader_2x05_P2.54mm_Vertical)
       (datasheet ~)
       (libsource (lib Connector_Generic) (part Conn_02x05_Counter_Clockwise) (description "Generic connector, double row, 02x05, counter clockwise pin numbering scheme (similar to DIP packge numbering), script generated (kicad-library-utils/schlib/autogen/connector/)"))
       (sheetpath (names /) (tstamps /))

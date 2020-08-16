@@ -276,7 +276,7 @@ U 1 1 5E4709DB
 P 9950 5900
 F 0 "J1" H 10000 6217 50  0000 C CNN
 F 1 "SPI + UART" H 10000 6126 50  0000 C CNN
-F 2 "Connector_PinHeader_1.00mm:PinHeader_2x05_P1.00mm_Vertical" H 9950 5900 50  0001 C CNN
+F 2 "Connector_PinHeader_2.00mm:PinHeader_2x05_P2.00mm_Vertical" H 9950 5900 50  0001 C CNN
 F 3 "~" H 9950 5900 50  0001 C CNN
 	1    9950 5900
 	1    0    0    -1  
