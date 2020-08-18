@@ -794,8 +794,6 @@ Text GLabel 4500 2700 0    50   Input ~ 0
 GND
 Wire Notes Line
 	4300 850  4300 2800
-Text GLabel 7600 4750 3    50   Input ~ 0
-RX_ESP32
 Text GLabel 5900 4150 2    50   Input ~ 0
 RX_ESP32
 Text GLabel 7500 4750 3    50   Input ~ 0
@@ -980,10 +978,6 @@ Text GLabel 5600 7150 1    50   Input ~ 0
 VDD_3.3V
 Text GLabel 5700 7150 1    50   Input ~ 0
 GND
-Wire Wire Line
-	4700 4050 5700 4050
-Wire Wire Line
-	4700 4150 5600 4150
 Text GLabel 5900 5350 2    50   Input ~ 0
 I2S_DIN
 Text GLabel 5900 5550 2    50   Input ~ 0
@@ -1018,4 +1012,8 @@ Wire Notes Line
 	5850 7650 4850 7650
 Wire Notes Line
 	4850 7650 4850 6650
+Text GLabel 7600 4950 3    50   Input ~ 0
+RX_ESP32
+Wire Wire Line
+	7600 4950 7600 4750
 $EndSCHEMATC

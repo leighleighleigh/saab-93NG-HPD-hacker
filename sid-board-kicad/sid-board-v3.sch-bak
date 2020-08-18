@@ -276,7 +276,7 @@ U 1 1 5E4709DB
 P 9950 5900
 F 0 "J1" H 10000 6217 50  0000 C CNN
 F 1 "SPI + UART" H 10000 6126 50  0000 C CNN
-F 2 "Connector_PinHeader_1.00mm:PinHeader_2x05_P1.00mm_Vertical" H 9950 5900 50  0001 C CNN
+F 2 "Connector_PinHeader_2.00mm:PinHeader_2x05_P2.00mm_Vertical" H 9950 5900 50  0001 C CNN
 F 3 "~" H 9950 5900 50  0001 C CNN
 	1    9950 5900
 	1    0    0    -1  
@@ -794,8 +794,6 @@ Text GLabel 4500 2700 0    50   Input ~ 0
 GND
 Wire Notes Line
 	4300 850  4300 2800
-Text GLabel 7600 4750 3    50   Input ~ 0
-RX_ESP32
 Text GLabel 5900 4150 2    50   Input ~ 0
 RX_ESP32
 Text GLabel 7500 4750 3    50   Input ~ 0
@@ -980,10 +978,6 @@ Text GLabel 5600 7150 1    50   Input ~ 0
 VDD_3.3V
 Text GLabel 5700 7150 1    50   Input ~ 0
 GND
-Wire Wire Line
-	4700 4050 5700 4050
-Wire Wire Line
-	4700 4150 5600 4150
 Text GLabel 5900 5350 2    50   Input ~ 0
 I2S_DIN
 Text GLabel 5900 5550 2    50   Input ~ 0
@@ -1018,4 +1012,17 @@ Wire Notes Line
 	5850 7650 4850 7650
 Wire Notes Line
 	4850 7650 4850 6650
+Text GLabel 7600 4950 3    50   Input ~ 0
+RX_ESP32
+$Comp
+L Device:R_Small R9
+U 1 1 5F3E9BB0
+P 7600 4850
+F 0 "R9" V 7404 4850 50  0000 C CNN
+F 1 "470" V 7495 4850 50  0000 C CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7600 4850 50  0001 C CNN
+F 3 "~" H 7600 4850 50  0001 C CNN
+	1    7600 4850
+	-1   0    0    1   
+$EndComp
 $EndSCHEMATC
