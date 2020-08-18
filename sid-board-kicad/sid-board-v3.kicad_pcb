@@ -2467,6 +2467,7 @@
     )
   )
 
+  (gr_circle (center 115.316 120.786) (end 116.816 120.786) (layer Edge.Cuts) (width 0.1) (tstamp 5F34B477))
   (gr_text "LEIGH OLIVER 2020" (at 118.11 95.25) (layer F.SilkS)
     (effects (font (size 1 1) (thickness 0.25)) (justify left))
   )
@@ -2597,10 +2598,9 @@
   (gr_line (start 170.316 123.328739) (end 115.316 123.328739) (layer Edge.Cuts) (width 0.1) (tstamp 5F34B4B3))
   (gr_line (start 172.858739 65.786) (end 172.858739 120.786) (layer Edge.Cuts) (width 0.1) (tstamp 5F34B4B2))
   (gr_line (start 115.316 63.243261) (end 170.316 63.243261) (layer Edge.Cuts) (width 0.1) (tstamp 5F34B4B1))
-  (gr_circle (center 170.316 120.786) (end 171.586 120.786) (layer Edge.Cuts) (width 0.1) (tstamp 5F34B479))
-  (gr_circle (center 115.316 120.786) (end 116.586 120.786) (layer Edge.Cuts) (width 0.1) (tstamp 5F34B477))
-  (gr_circle (center 170.316 65.786) (end 171.586 65.786) (layer Edge.Cuts) (width 0.1) (tstamp 5F34B475))
-  (gr_circle (center 115.316 65.786) (end 116.586 65.786) (layer Edge.Cuts) (width 0.1))
+  (gr_circle (center 170.316 120.786) (end 171.816 120.786) (layer Edge.Cuts) (width 0.1) (tstamp 5F34B479))
+  (gr_circle (center 170.316 65.786) (end 171.816 65.786) (layer Edge.Cuts) (width 0.1) (tstamp 5F34B475))
+  (gr_circle (center 115.316 65.786) (end 116.816 65.786) (layer Edge.Cuts) (width 0.1))
 
   (via (at 131.953 102.87) (size 0.8) (drill 0.4) (layers F.Cu B.Cu) (net 1))
   (via (at 150.114 114.554) (size 0.8) (drill 0.4) (layers F.Cu B.Cu) (net 1))
