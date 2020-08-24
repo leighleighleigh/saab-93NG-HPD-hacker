@@ -97,129 +97,6 @@ Text Notes 6750 3100 0    50   ~ 0
 OSCILLATOR
 Text GLabel 7750 2700 3    50   Input ~ 0
 XTAL1
-$Comp
-L Device:LED D1
-U 1 1 5E524EBA
-P 7100 1100
-F 0 "D1" H 7093 845 50  0000 C CNN
-F 1 "LED7" H 7093 936 50  0000 C CNN
-F 2 "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7100 1100 50  0001 C CNN
-F 3 "~" H 7100 1100 50  0001 C CNN
-	1    7100 1100
-	-1   0    0    1   
-$EndComp
-$Comp
-L Device:LED D2
-U 1 1 5E52A67D
-P 7100 1200
-F 0 "D2" H 7093 945 50  0000 C CNN
-F 1 "LED6" H 7093 1036 50  0000 C CNN
-F 2 "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7100 1200 50  0001 C CNN
-F 3 "~" H 7100 1200 50  0001 C CNN
-	1    7100 1200
-	-1   0    0    1   
-$EndComp
-$Comp
-L Device:LED D3
-U 1 1 5E52A91D
-P 7100 1300
-F 0 "D3" H 7093 1045 50  0000 C CNN
-F 1 "LED5" H 7093 1136 50  0000 C CNN
-F 2 "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7100 1300 50  0001 C CNN
-F 3 "~" H 7100 1300 50  0001 C CNN
-	1    7100 1300
-	-1   0    0    1   
-$EndComp
-$Comp
-L Device:LED D4
-U 1 1 5E52ACF3
-P 7100 1400
-F 0 "D4" H 7093 1145 50  0000 C CNN
-F 1 "LED4" H 7093 1236 50  0000 C CNN
-F 2 "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7100 1400 50  0001 C CNN
-F 3 "~" H 7100 1400 50  0001 C CNN
-	1    7100 1400
-	-1   0    0    1   
-$EndComp
-$Comp
-L Device:LED D5
-U 1 1 5E52AFBB
-P 7100 1800
-F 0 "D5" H 7093 1545 50  0000 C CNN
-F 1 "LED3" H 7093 1636 50  0000 C CNN
-F 2 "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7100 1800 50  0001 C CNN
-F 3 "~" H 7100 1800 50  0001 C CNN
-	1    7100 1800
-	-1   0    0    1   
-$EndComp
-$Comp
-L Device:LED D6
-U 1 1 5E52B30B
-P 7100 1900
-F 0 "D6" H 7093 1645 50  0000 C CNN
-F 1 "LED2" H 7093 1736 50  0000 C CNN
-F 2 "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7100 1900 50  0001 C CNN
-F 3 "~" H 7100 1900 50  0001 C CNN
-	1    7100 1900
-	-1   0    0    1   
-$EndComp
-$Comp
-L Device:LED D7
-U 1 1 5E52B635
-P 7100 2000
-F 0 "D7" H 7093 1745 50  0000 C CNN
-F 1 "LED1" H 7093 1836 50  0000 C CNN
-F 2 "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7100 2000 50  0001 C CNN
-F 3 "~" H 7100 2000 50  0001 C CNN
-	1    7100 2000
-	-1   0    0    1   
-$EndComp
-$Comp
-L Device:LED D8
-U 1 1 5E52B939
-P 7100 2100
-F 0 "D8" H 7093 1845 50  0000 C CNN
-F 1 "LED0" H 7093 1936 50  0000 C CNN
-F 2 "LED_SMD:LED_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7100 2100 50  0001 C CNN
-F 3 "~" H 7100 2100 50  0001 C CNN
-	1    7100 2100
-	-1   0    0    1   
-$EndComp
-$Comp
-L Device:R_Small R18
-U 1 1 5E53B9FC
-P 7350 1600
-F 0 "R18" H 7409 1646 50  0000 L CNN
-F 1 "1K" H 7409 1555 50  0000 L CNN
-F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 7350 1600 50  0001 C CNN
-F 3 "~" H 7350 1600 50  0001 C CNN
-	1    7350 1600
-	0    -1   -1   0   
-$EndComp
-Connection ~ 7250 1200
-Wire Wire Line
-	7250 1200 7250 1100
-Connection ~ 7250 1300
-Wire Wire Line
-	7250 1300 7250 1200
-Wire Wire Line
-	7250 1400 7250 1300
-Connection ~ 7250 1900
-Wire Wire Line
-	7250 1900 7250 1800
-Connection ~ 7250 2000
-Wire Wire Line
-	7250 2000 7250 1900
-Wire Wire Line
-	7250 2100 7250 2000
-Wire Notes Line
-	6700 850  7600 850 
-Wire Notes Line
-	7600 2250 6700 2250
-Wire Notes Line
-	6700 2250 6700 850 
-Text Notes 6700 800  0    50   ~ 0
-GPIO LED OUTPUT
 Text GLabel 4750 2400 0    50   Input ~ 0
 CLK
 Text GLabel 4750 2300 0    50   Input ~ 0
@@ -499,15 +376,6 @@ Wire Wire Line
 Connection ~ 3700 5000
 Wire Notes Line
 	4250 4500 2250 4500
-Wire Wire Line
-	7250 1600 7250 1400
-Connection ~ 7250 1400
-Wire Wire Line
-	7250 1600 7250 1800
-Connection ~ 7250 1600
-Connection ~ 7250 1800
-Wire Notes Line
-	7600 850  7600 2250
 $Comp
 L Device:C_Small C6
 U 1 1 5F43E696
@@ -791,51 +659,12 @@ F 3 "http://www.abracon.com/Oscillators/ASV.pdf" H 7350 2700 50  0001 C CNN
 	1    7450 2700
 	1    0    0    -1  
 $EndComp
-$Comp
-L Connector_Generic:Conn_01x08 J3
-U 1 1 5F374BE1
-P 5400 7350
-F 0 "J3" V 5525 7296 50  0000 C CNN
-F 1 "Conn_01x08" V 5616 7296 50  0000 C CNN
-F 2 "Connector_PinHeader_2.54mm:PinHeader_1x08_P2.54mm_Vertical" H 5400 7350 50  0001 C CNN
-F 3 "~" H 5400 7350 50  0001 C CNN
-	1    5400 7350
-	0    1    1    0   
-$EndComp
 Text GLabel 5900 5350 2    50   Input ~ 0
 I2S_DIN
 Text GLabel 5900 5550 2    50   Input ~ 0
 I2S_WSEL
 Text GLabel 5900 5650 2    50   Input ~ 0
 I2S_BCLK
-Text GLabel 5200 7150 1    50   Input ~ 0
-I2S_DIN
-Text GLabel 5100 7150 1    50   Input ~ 0
-I2S_WSEL
-Text GLabel 5000 7150 1    50   Input ~ 0
-I2S_BCLK
-Wire Wire Line
-	5900 5950 5400 5950
-Wire Wire Line
-	5400 5950 5400 7150
-Wire Wire Line
-	5900 5850 5500 5850
-Wire Wire Line
-	5500 5850 5500 7150
-Wire Wire Line
-	5900 5750 5350 5750
-Wire Wire Line
-	5350 5750 5350 7150
-Wire Wire Line
-	5350 7150 5300 7150
-Wire Notes Line
-	4850 6650 5850 6650
-Wire Notes Line
-	5850 6650 5850 7650
-Wire Notes Line
-	5850 7650 4850 7650
-Wire Notes Line
-	4850 7650 4850 6650
 Text GLabel 10000 4650 3    50   Input ~ 0
 RX_ESP32
 $Comp
@@ -1082,17 +911,6 @@ F 3 "" H 7450 3000 50  0001 C CNN
 	0    1    1    0   
 $EndComp
 $Comp
-L power:GND #PWR0120
-U 1 1 5F547763
-P 7450 1600
-F 0 "#PWR0120" H 7450 1350 50  0001 C CNN
-F 1 "GND" H 7455 1427 50  0000 C CNN
-F 2 "" H 7450 1600 50  0001 C CNN
-F 3 "" H 7450 1600 50  0001 C CNN
-	1    7450 1600
-	1    0    0    -1  
-$EndComp
-$Comp
 L power:GND #PWR0121
 U 1 1 5F549615
 P 6350 2050
@@ -1240,28 +1058,6 @@ F 3 "" H 5300 3650 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Connection ~ 5300 3650
-$Comp
-L power:+3.3V #PWR0134
-U 1 1 5F572C6A
-P 5600 7150
-F 0 "#PWR0134" H 5600 7000 50  0001 C CNN
-F 1 "+3.3V" H 5615 7323 50  0000 C CNN
-F 2 "" H 5600 7150 50  0001 C CNN
-F 3 "" H 5600 7150 50  0001 C CNN
-	1    5600 7150
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR0135
-U 1 1 5F573E82
-P 5700 7150
-F 0 "#PWR0135" H 5700 6900 50  0001 C CNN
-F 1 "GND" H 5705 6977 50  0000 C CNN
-F 2 "" H 5700 7150 50  0001 C CNN
-F 3 "" H 5700 7150 50  0001 C CNN
-	1    5700 7150
-	-1   0    0    1   
-$EndComp
 $Comp
 L power:+3.3V #PWR0136
 U 1 1 5F579447
