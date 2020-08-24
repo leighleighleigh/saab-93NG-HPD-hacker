@@ -18,4 +18,10 @@ K UART,I2C,SPI
 F https://au.mouser.com/datasheet/2/302/SC16IS752_SC16IS762-1127856.pdf
 $ENDCMP
 #
+$CMP SC16IS762IBS
+D Dual UART with I2C-bus/SPI interface, 64-byte FIFOs, IrDA SIR. SPI MODE!
+K UART,I2C,SPI
+F https://au.mouser.com/datasheet/2/302/SC16IS752_SC16IS762-1127856.pdf
+$ENDCMP
+#
 #End Doc Library
