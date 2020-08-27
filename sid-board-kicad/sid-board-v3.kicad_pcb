@@ -1060,7 +1060,7 @@
     (fp_text reference R4 (at 2.159 -11.049) (layer F.Fab) hide
       (effects (font (size 1 1) (thickness 0.15)) (justify right))
     )
-    (fp_text value 1k (at 1.905 0) (layer F.SilkS)
+    (fp_text value 10k (at 1.905 0) (layer F.SilkS)
       (effects (font (size 0.8 0.8) (thickness 0.2)) (justify right))
     )
     (fp_line (start -1 0.6) (end -1 -0.6) (layer F.Fab) (width 0.1))
@@ -1170,7 +1170,7 @@
     (fp_text reference R5 (at 2.159 -12.954) (layer F.Fab) hide
       (effects (font (size 1 1) (thickness 0.15)) (justify right))
     )
-    (fp_text value 1k (at 1.905 0) (layer F.SilkS)
+    (fp_text value 10k (at 1.905 0) (layer F.SilkS)
       (effects (font (size 0.8 0.8) (thickness 0.2)) (justify right))
     )
     (fp_line (start -1 0.6) (end -1 -0.6) (layer F.Fab) (width 0.1))
