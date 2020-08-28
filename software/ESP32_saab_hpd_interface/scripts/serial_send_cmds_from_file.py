@@ -63,11 +63,11 @@ for cmd in rowDatas:
 	ser.write(str.encode(cmd))
 
 	# Wait for valid response.
-	#line = ser.readline()   # read a '\n' terminated line
-	#while(parse_response(str(line.strip(),'utf-8')) != 0):
-#		line = ser.readline()   # read a '\n' terminated line
+	line = ser.readline()   # read a '\n' terminated line
+	while(parse_response(str(line.strip(),'utf-8')) != 0):
+		line = ser.readline()   # read a '\n' terminated line
 
-	time.sleep(1)
+	# time.sleep(1)
 	time.sleep(0.03)
 
 ser.close()
