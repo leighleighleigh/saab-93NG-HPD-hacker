@@ -16,14 +16,15 @@ SC16IS752 spiuart = SC16IS752(SC16IS750_PROTOCOL_SPI, CS);
 
 #define baudrate_A 115200
 #define baudrate_B 115200
-int ignoreCharCount = 0;
+int ignoreChannelBCount = 0;
+int ignoreChannelACount = 0;
 
 bool passThroughMode = true;
 
 void send_sid_data(byte channel,byte len,byte* data)
 {
   uint16_t sum;
-  ignoreCharCount = len + 2;
+  ignoreChannelBCount = len + 2;
   
   sum += len;
 
@@ -52,13 +53,13 @@ int ledPin = 2;
 
 void setup()
 {
+  delay(1000);
   Serial.begin(115200);
   Serial.setTimeout(100);
   Serial.println("Start UART -> SID adapter.");
   pinMode(ledPin,OUTPUT);
   digitalWrite(ledPin,1);
 
-  delay(1000);
 
   // Setup SPI pins
   SPI.begin(SCK,MISO,MOSI,CS);
@@ -90,14 +91,6 @@ void setup()
   spiuart.flush(SC16IS752_CHANNEL_A);
   spiuart.flush(SC16IS752_CHANNEL_B);
 
-
-  // delay(10);
-  // byte da[4] = {0x80,0x0,0xce,0xce};
-  // send_sid_data(SC16IS752_CHANNEL_B,4,da);
-  //
-  //delay(500);
-  //byte da[2] = {0x80,0x80};
-  //send_sid_data(SC16IS752_CHANNEL_B,2,da);
 }
 
 String userInput;
@@ -150,51 +143,69 @@ int n = 0;
 void loop()
 {
   if(!passThroughMode){
-  n++;
-  num2lights(n);
+    n++;
+    num2lights(n);
 
-  // Read from channel B and print to serial
-  if(spiuart.available(SC16IS752_CHANNEL_B) > 0){
-    while (spiuart.available(SC16IS752_CHANNEL_B) > 0)
-    {
-      // read the incoming byte:
-      char c = spiuart.read(SC16IS752_CHANNEL_B);
-      if(ignoreCharCount == 0){
-        Serial.print("RX:");
-        Serial.print(c,HEX);
-        Serial.println("");
-      }else{
-        ignoreCharCount --;
-      }
-    }
-  }
-
-  // Check if we have stuff to read in serial
-  if(Serial.available() > 0)
-  {
-    userInput = Serial.readStringUntil('\n');
-    userInput.getBytes(inputBuf,1024);
-    parseUserInput(inputBuf,userInput.length());
-  }
-  delay(100);
-  }else{
-    // Read from channel A and send to channel B
-    if(spiuart.available(SC16IS752_CHANNEL_B) >= 3){
+    // Read from channel B and print to serial
+    if(spiuart.available(SC16IS752_CHANNEL_B) > 0){
       while (spiuart.available(SC16IS752_CHANNEL_B) > 0)
       {
         // read the incoming byte:
         char c = spiuart.read(SC16IS752_CHANNEL_B);
-        spiuart.write(SC16IS752_CHANNEL_A,c);
+        if(ignoreChannelBCount == 0){
+          Serial.print("RX:");
+          Serial.print(c,HEX);
+          Serial.println("");
+        }else{
+          ignoreChannelBCount --;
+        }
       }
+    }
+
+    // Check if we have stuff to read in serial
+    if(Serial.available() > 0)
+    {
+      userInput = Serial.readStringUntil('\n');
+      userInput.getBytes(inputBuf,1024);
+      parseUserInput(inputBuf,userInput.length());
+    }
+    delay(100);
+  }else{
+    // Read from channel A and send to channel B
+    if(spiuart.available(SC16IS752_CHANNEL_B) >= 3){
+      Serial.print("SID:");
+      while (spiuart.available(SC16IS752_CHANNEL_B) > 0)
+      {
+        // read the incoming byte:
+        char c = spiuart.read(SC16IS752_CHANNEL_B);
+        if(ignoreChannelBCount == 0){
+          spiuart.write(SC16IS752_CHANNEL_A,c);
+          ignoreChannelACount++;
+          Serial.print(c,HEX);
+          Serial.print(",");
+        }else{
+          ignoreChannelBCount --;
+        }
+      }
+      Serial.println(";");
     }
     // Read from channel B and send to channel A
     if(spiuart.available(SC16IS752_CHANNEL_A) >= 3){
+      Serial.print("ICM:");
       while (spiuart.available(SC16IS752_CHANNEL_A) > 0)
       {
         // read the incoming byte:
         char d = spiuart.read(SC16IS752_CHANNEL_A);
-        spiuart.write(SC16IS752_CHANNEL_B,d);
+        if(ignoreChannelACount == 0){
+          spiuart.write(SC16IS752_CHANNEL_B,d);
+          ignoreChannelBCount++;
+          Serial.print(d,HEX);
+          Serial.print(",");
+        }else{
+          ignoreChannelACount --;
+        }
       }
+      Serial.println(";");
     }
   }
 }

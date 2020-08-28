@@ -87,8 +87,8 @@ if(doTestRoutine):
 	# 0 has all caps, and some symbols
 	# 1 and 2 have normall unicode stuff, no symbols?
 	# NEWLINE WORKS! woah.
-	drawText(gfxArea=0x25,reqID=0x1,reqID2=0x0,w=384,x=140,y=20,size=1,text="PEE PEE")
-	drawText(gfxArea=0x26,reqID=0x2,reqID2=0x0,w=384,x=140,y=38,size=0,text="POO\nPOO!")
+	drawText(gfxArea=0x25,reqID=0x1,reqID2=0x0,w=384,x=140,y=20,size=1,text="BOY BYE")
+	drawText(gfxArea=0x26,reqID=0x2,reqID2=0x0,w=384,x=140,y=38,size=0,text="BROCKHAMPTON\nGINGER")
 	#drawText(gfxArea=0x81,reqID=0x1,reqID2=0x1,w=384,x=68,y=0x0,size=1,text="abcdefghijklmnopqrstuvw\nxyz0123456789!@#$%^&*()")
 	# VALID GFX AREAS
 	# 0x25, 0x26, used for primary text
@@ -113,7 +113,7 @@ if(doTestRoutine):
 	# 140 x = padded into right text region
 	symbolInt = 0x27
 	symbolRange = 1
-	msg = allHex(symbolInt,symbolInt+symbolRange) + "," + strToHex(" MY MANS GOING HAM ON THE GOO")
+	msg = allHex(symbolInt,symbolInt+symbolRange) + "," + strToHex(" ONE NEW MESSAGE")
 	drawText(gfxArea=0x81,reqID=0x3,reqID2=0x0,w=384,x=140,y=4,size=0,rawText=msg)
 	### ICONS
 	#drawIcon(0x76,0x0,0x04,0x48,0x0,0x0,0x54)
@@ -191,14 +191,17 @@ def parse_response(msg):
 	else:
 		return 0
 
+#print("\n".join(cmdList))
+#sys.exit()
+
 # Send data
-ser = serial.Serial('/dev/ttyACM0',115200)
+ser = serial.Serial('/dev/ttyACM1',115200)
 
 # Send commands, wait for valid return code, retry send if fail.
 cmdIndex = 0
 retryCount = 0
-retryMax = 0
-restartOnFail = False
+retryMax = 3
+restartOnFail = True
 
 while(cmdIndex < len(cmdList)):
 	cmd = cmdList[cmdIndex]
