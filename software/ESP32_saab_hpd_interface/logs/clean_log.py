@@ -8,7 +8,8 @@ filehandle = open(filename)
 trimmed_lines = []
 
 raw_icm_only = True
-no_headers = True
+no_headers = False
+to_ascii = False
 
 for line in filehandle:
     # Check line is empty
@@ -24,8 +25,13 @@ for line in filehandle:
                         txt = txt.replace("ICM:","")
                         txt = txt.replace(",;","")
                         txtsplit = txt.split(",")
-                        result = ",".join(txtsplit[1:-1])
-                        trimmed_lines.append(result)
+                        if(not to_ascii):
+                            result = ",".join(txtsplit[1:-1])
+                            trimmed_lines.append(result)
+                        else:
+                            asciis = [chr(int(x,16)) for x in txtsplit[1:-1]]
+                            result = ",".join(asciis)
+                            trimmed_lines.append(result)
             else:
                 trimmed_lines.append(line.strip())
 
@@ -36,8 +42,11 @@ if(raw_icm_only):
     if(not no_headers):
         outfilename = filename.replace(".log",".trimmed.icmonly.log")
     else:
-        outfilename = filename.replace(".log",".trimmed.noheaders.log")
-else:
+        if(not to_ascii):
+            outfilename = filename.replace(".log",".trimmed.noheaders.log")
+        else:
+            outfilename = filename.replace(".log",".trimmed.ascii.log")
+else:   
     outfilename = filename.replace(".log",".trimmed.log")
 
 outf = open(outfilename,'w')
