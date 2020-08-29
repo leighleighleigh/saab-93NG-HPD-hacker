@@ -12,51 +12,20 @@
 
 SC16IS752 spiuart = SC16IS752(SC16IS750_PROTOCOL_SPI, CS);
 
-// Due to bodged board, data goes out channel A, and comes back in channel B.
-
 #define baudrate_A 115200
 #define baudrate_B 115200
 int ignoreChannelBCount = 0;
 int ignoreChannelACount = 0;
 
-bool passThroughMode = true;
-
-void send_sid_data(byte channel,byte len,byte* data)
-{
-  uint16_t sum;
-  ignoreChannelBCount = len + 2;
-  
-  sum += len;
-
-  spiuart.write(channel,len);  
-  //Serial.print("TX: ");
-  
-  //Serial.print(len,HEX);
-  //Serial.print(",");
-
-  for(byte i = 0; i<len; i++)
-  {
-    spiuart.write(channel,*data);
-    //Serial.print(*data,HEX);
-    //Serial.print(",");
-    sum += *data;
-    data = data + sizeof(byte);
-  }
-
-  // Send the LSB of the sum.
-  sum = sum & 0b11111111;
-  spiuart.write(channel,sum);
-  //Serial.println(sum,HEX);
-}
-
+bool passThroughMode = false; // false, do serial to SID mode, //true, do in-car mode
 int ledPin = 2;
 
 void setup()
 {
   delay(1000);
   Serial.begin(115200);
-  Serial.setTimeout(100);
-  Serial.println("Start UART -> SID adapter.");
+  Serial.setTimeout(50);
+  //Serial.println("Start UART -> SID adapter.");
   pinMode(ledPin,OUTPUT);
   digitalWrite(ledPin,1);
 
@@ -70,13 +39,9 @@ void setup()
   
   if (spiuart.ping() != 1)
   {
-    Serial.println("Device not found");
+    //Serial.println("Device not found");
     while (1)
       ;
-  }
-  else
-  {
-    Serial.println("Device found");
   }
 
   // SETUP GPIO
@@ -90,7 +55,43 @@ void setup()
   
   spiuart.flush(SC16IS752_CHANNEL_A);
   spiuart.flush(SC16IS752_CHANNEL_B);
+  Serial.flush();
+}
 
+void num2lights(int num)
+{
+  for(int gpioPin = 0; gpioPin < 8; gpioPin++){
+    spiuart.digitalWrite(gpioPin, num & 1);
+    num = num >> 1;
+  }
+}
+
+void send_sid_data(byte channel,byte len,byte* data)
+{
+  uint16_t sum;
+  ignoreChannelBCount = len + 2;
+  
+  sum += len;
+
+  spiuart.write(channel,len);  
+  //Serial.print("TX: ");
+  
+  // Serial.print(len,HEX);
+  // Serial.print(",");
+
+  for(byte i = 0; i<len; i++)
+  {
+    spiuart.write(channel,*data);
+    // Serial.print(*data,HEX);
+    // Serial.print(",");
+    sum += *data;
+    data = data + sizeof(byte);
+  }
+
+  // Send the LSB of the sum.
+  sum = sum & 0b11111111;
+  spiuart.write(channel,sum);
+  // Serial.println(sum,HEX);
 }
 
 String userInput;
@@ -130,14 +131,6 @@ void parseUserInput(uint8_t * payload, size_t length)
   send_sid_data(SC16IS752_CHANNEL_B,tokenIndex,tokenData);
 }
 
-void num2lights(int num)
-{
-  for(int gpioPin = 0; gpioPin < 8; gpioPin++){
-    spiuart.digitalWrite(gpioPin, num & 1);
-    num = num >> 1;
-  }
-}
-
 int n = 0;
 
 void loop()
@@ -145,14 +138,13 @@ void loop()
   if(!passThroughMode){
     n++;
     num2lights(n);
-
-    // Read from channel B and print to serial
-    if(spiuart.available(SC16IS752_CHANNEL_B) > 0){
+    if(spiuart.available(SC16IS752_CHANNEL_B) >= 3){
       while (spiuart.available(SC16IS752_CHANNEL_B) > 0)
       {
         // read the incoming byte:
         char c = spiuart.read(SC16IS752_CHANNEL_B);
         if(ignoreChannelBCount == 0){
+          ignoreChannelACount++;
           Serial.print("RX:");
           Serial.print(c,HEX);
           Serial.println("");
@@ -162,6 +154,7 @@ void loop()
       }
     }
 
+    
     // Check if we have stuff to read in serial
     if(Serial.available() > 0)
     {
@@ -169,7 +162,7 @@ void loop()
       userInput.getBytes(inputBuf,1024);
       parseUserInput(inputBuf,userInput.length());
     }
-    delay(100);
+      
   }else{
     // Read from channel A and send to channel B
     if(spiuart.available(SC16IS752_CHANNEL_B) >= 3){

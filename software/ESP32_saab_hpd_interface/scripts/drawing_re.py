@@ -196,12 +196,17 @@ def parse_response(msg):
 
 # Send data
 ser = serial.Serial('/dev/ttyACM1',115200)
+ser.setDTR(False)
+time.sleep(0.5)
+ser.setDTR(True)
+time.sleep(3)
+ser.flushInput()
 
 # Send commands, wait for valid return code, retry send if fail.
 cmdIndex = 0
 retryCount = 0
 retryMax = 3
-restartOnFail = True
+restartOnFail = False
 
 while(cmdIndex < len(cmdList)):
 	cmd = cmdList[cmdIndex]
