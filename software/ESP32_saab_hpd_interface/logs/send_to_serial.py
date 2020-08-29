@@ -31,7 +31,7 @@ for row in f:
 		
 
 # Send data
-ser = serial.Serial('/dev/ttyACM1',115200)
+ser = serial.Serial('/dev/ttyACM0',115200)
 ser.setDTR(False)
 time.sleep(0.5)
 ser.setDTR(True)
@@ -45,7 +45,7 @@ for cmd in commandList:
 
     ser.write(str.encode(cmdStr))
         
-    time.sleep(0.05)
+    time.sleep(0.5)
 
     while(ser.in_waiting != 0):
         print(ser.readline().decode("utf-8"))

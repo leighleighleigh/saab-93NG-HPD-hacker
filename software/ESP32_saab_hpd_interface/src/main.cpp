@@ -17,12 +17,13 @@ SC16IS752 spiuart = SC16IS752(SC16IS750_PROTOCOL_SPI, CS);
 int ignoreChannelBCount = 0;
 int ignoreChannelACount = 0;
 
-bool passThroughMode = true; // false, do serial to SID mode, //true, do in-car mode
+bool passThroughMode = false; // false, do serial to SID mode, //true, do in-car mode
 int ledPin = 2;
 
+//11,10,0,2,0,2,3,0,2,22,0,CF,0,1F,50,6C,61,79,D0
 const char auxPlayMsg[] = {0x11,0x10,0x0,0x2,0x0,0x2,0x3,0x0,0x2,0x22,0x0,0xCF,0x0,0x1F,0x50,0x6C,0x61,0x79,0xD0};
 int auxPlayMatchIndex = 0;
-byte newPlayMsg[] = {0x10,0x0,0x2,0x0,0x2,0x3,0x0,0x2,0x22,0x0,0xCF,0x0,0x1F,0x42,0x6c,0x75,0x65,0x74,0x6f,0x6f,0x74,0x68};
+byte newPlayMsg[] = {0x10,0x0,0x2,0x0,0x2,0x3,0x0,0x2,0x22,0x0,0xD5,0x0,0x1F,0x42,0x54};
 
 void setup()
 {
@@ -202,10 +203,10 @@ void loop()
           // Check for match with the aux 'play' msg
           if(d == auxPlayMsg[auxPlayMatchIndex]){
             // If we are done matching
-            if(d == 18){
+            if(auxPlayMatchIndex == 18){
               // Matched the last char, send replacement message
-              send_sid_data(SC16IS752_CHANNEL_B,17,newPlayMsg);
               Serial.println("Sending replacement bluetooth text");
+              send_sid_data(SC16IS752_CHANNEL_B,17,newPlayMsg);
               // Reset aux play match
               auxPlayMatchIndex = 0;
             }else{
