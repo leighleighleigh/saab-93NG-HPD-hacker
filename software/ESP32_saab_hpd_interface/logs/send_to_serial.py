@@ -13,8 +13,7 @@ f = open(filename)
 
 # Extrac tdata
 commandList = []
-commandList.append([0x4,0x80,0x0,0x3E,0x0,0xC2])
-
+commandList.append([0x83,0x0])
 
 for row in f:
     # Ignore comments
@@ -29,26 +28,76 @@ for row in f:
             lineData = [int(x,16) for x in lineSplit]
             commandList.append(lineData)
 		
+# Determine if it's a valid frame
+### Used for response parsing
+def is_valid_frame(frame_items):
+    if(len(frame_items) == 0):
+        return False
+
+    dlc = int(frame_items[0],16)
+
+    if(len(frame_items) != dlc + 2):
+        return False
+
+    # Validate sum
+    sum = dlc
+    for i in range(0,dlc):
+        sum += int(frame_items[1+i],16)
+
+    # Get crc from frame
+    crc = int(frame_items[-1],16)
+    # Get LSB of sum
+    sum = sum & 0b11111111
+
+    if(crc == sum):
+        return True
+    else:
+        print("CRC:" + str(crc) + ",SUM:" + str(sum))
+        return True
+
 
 # Send data
-ser = serial.Serial('/dev/ttyACM0',115200)
+ser = serial.Serial('/dev/ttyACM1',921600)
+
+# Reset the device
 ser.setDTR(False)
 time.sleep(0.5)
 ser.setDTR(True)
 time.sleep(3)
 ser.flushInput()
 
+# Send commands
 for cmd in commandList:
     # Print to serial
-    cmdStr = ",".join([hex(x) for x in cmd[1:-1]])
-    print(cmdStr)
+    # cmdStr = ",".join([hex(x) for x in cmd[1:-1]])
+    cmdStr = ",".join([hex(x) for x in cmd])
+    print("Raw TX: " + cmdStr)
 
+    # Send out the string to the serial port
     ser.write(str.encode(cmdStr))
-        
-    time.sleep(0.5)
 
-    while(ser.in_waiting != 0):
-        print(ser.readline().decode("utf-8"))
+    valid_response = False
+    
+    # Wait for valid response frame
+    while(ser.in_waiting != 0 or not valid_response):
+        dat = ser.readline().decode("utf-8").strip().lstrip()
+        # Only print if valid
+        if(len(dat) >= 2):
+            print(dat)
+
+        # Check if contains 'RX'
+        if("RX" in dat):
+            # Check if valid response
+            frame_items = dat.replace("RX: ","").split(",")[0:-1]
+            result = is_valid_frame(frame_items)
+            # print(frame_items)
+            # print(result)
+            # Tick the box
+            valid_response = result
+
+    print("")
+    # time.sleep(0.05)
+
 
 
 ser.close()

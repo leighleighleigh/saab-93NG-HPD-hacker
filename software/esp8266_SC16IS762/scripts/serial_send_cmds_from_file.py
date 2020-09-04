@@ -13,7 +13,7 @@ for row in f:
 			rowDatas.append(row)
 
 # Send data
-ser = serial.Serial('/dev/ttyACM0',115200)
+ser = serial.Serial('/dev/ttyACM1',9600)
 
 ### Used for response parsing
 def is_valid_frame(frame_items):

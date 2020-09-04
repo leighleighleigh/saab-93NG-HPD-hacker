@@ -4,6 +4,7 @@
 #include <SC16IS752.h> // Dual UART interface
 #include <string.h>
 #include <stdio.h>
+#include <sid_frame_utils.h>
 
 #define SCK 14
 #define MISO 12
@@ -12,8 +13,8 @@
 
 SC16IS752 spiuart = SC16IS752(SC16IS750_PROTOCOL_SPI, CS);
 
-#define baudrate_A 115200
-#define baudrate_B 115200
+#define baudrate_A 111111
+#define baudrate_B 111111
 int ignoreChannelBCount = 0;
 int ignoreChannelACount = 0;
 
@@ -28,8 +29,8 @@ byte newPlayMsg[] = {0x10,0x0,0x2,0x0,0x2,0x3,0x0,0x2,0x22,0x0,0xD5,0x0,0x1F,0x4
 void setup()
 {
   delay(1000);
-  Serial.begin(115200);
-  Serial.setTimeout(50);
+  Serial.begin(921600);
+  Serial.setTimeout(100);
   //Serial.println("Start UART -> SID adapter.");
   pinMode(ledPin,OUTPUT);
   digitalWrite(ledPin,1);
@@ -79,16 +80,17 @@ void send_sid_data(byte channel,byte len,byte* data)
   sum += len;
 
   spiuart.write(channel,len);  
-  //Serial.print("TX: ");
+  Serial.print("TX: 0x");
   
-  // Serial.print(len,HEX);
-  // Serial.print(",");
+  Serial.print(len,HEX);
+  Serial.print(",");
 
   for(byte i = 0; i<len; i++)
   {
     spiuart.write(channel,*data);
-    // Serial.print(*data,HEX);
-    // Serial.print(",");
+    Serial.print("0x");
+    Serial.print(*data,HEX);
+    Serial.print(",");
     sum += *data;
     data = data + sizeof(byte);
   }
@@ -96,7 +98,8 @@ void send_sid_data(byte channel,byte len,byte* data)
   // Send the LSB of the sum.
   sum = sum & 0b11111111;
   spiuart.write(channel,sum);
-  // Serial.println(sum,HEX);
+  Serial.print("0x");
+  Serial.println(sum,HEX);
 }
 
 String userInput;
@@ -136,27 +139,50 @@ void parseUserInput(uint8_t * payload, size_t length)
   send_sid_data(SC16IS752_CHANNEL_B,tokenIndex,tokenData);
 }
 
-int n = 0;
+// int n = 0;
+
+// Timeout for receiveing a valid RX frame
+
+// SID RX buffer
+byte rxBuffer[256];
+byte rxBufferIndex = 0;
 
 void loop()
 {
   if(!passThroughMode){
-    n++;
-    num2lights(n);
-    if(spiuart.available(SC16IS752_CHANNEL_B) >= 3){
+    // n++;
+    // num2lights(n);
+
+    if(spiuart.available(SC16IS752_CHANNEL_B) > 0){
       while (spiuart.available(SC16IS752_CHANNEL_B) > 0)
       {
         // read the incoming byte:
         char c = spiuart.read(SC16IS752_CHANNEL_B);
         if(ignoreChannelBCount == 0){
-          ignoreChannelACount++;
-          Serial.print("RX:");
-          Serial.print(c,HEX);
-          Serial.println("");
+          // Fill up the RX buffer
+          rxBuffer[rxBufferIndex++] = c;
+          // Set lights to be the data
+          num2lights(c);
         }else{
           ignoreChannelBCount --;
         }
       }
+
+      // Print the contents of the RX buffer
+      if(rxBufferIndex != 0)
+      {
+        Serial.print("RX: ");
+      }
+      for(int i = 0; i<rxBufferIndex; i++)
+      {
+        Serial.print("0x");
+        Serial.print(rxBuffer[i],HEX);
+        Serial.print(",");
+      }
+      Serial.println("");
+
+      // Reset RX buffer
+      rxBufferIndex = 0;
     }
 
     
@@ -166,6 +192,8 @@ void loop()
       userInput = Serial.readStringUntil('\n');
       userInput.getBytes(inputBuf,1024);
       parseUserInput(inputBuf,userInput.length());
+      // Reset the rx buffer
+      rxBufferIndex = 0;
     }
       
   }else{
