@@ -68,6 +68,18 @@
   "project": {
     "files": [
       {
+        "name": "sid-board-v3.sch",
+        "open": false,
+        "window": {
+          "display": 0,
+          "maximized": false,
+          "pos_x": 970,
+          "pos_y": 20,
+          "size_x": 928,
+          "size_y": 1015
+        }
+      },
+      {
         "name": "sid-board-v3.kicad_pro",
         "open": false,
         "window": {

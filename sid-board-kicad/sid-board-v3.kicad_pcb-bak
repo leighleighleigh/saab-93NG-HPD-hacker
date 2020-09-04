@@ -12,26 +12,6 @@
   (page A4)
   (layers
     (0 F.Cu signal)
-<<<<<<< HEAD
-    (31 B.Cu signal)
-    (32 B.Adhes user)
-    (33 F.Adhes user)
-    (34 B.Paste user)
-    (35 F.Paste user)
-    (36 B.SilkS user)
-    (37 F.SilkS user)
-    (38 B.Mask user)
-    (39 F.Mask user)
-    (40 Dwgs.User user)
-    (41 Cmts.User user)
-    (42 Eco1.User user)
-    (43 Eco2.User user)
-    (44 Edge.Cuts user)
-    (45 Margin user)
-    (46 B.CrtYd user)
-    (47 F.CrtYd user)
-    (48 B.Fab user)
-=======
     (31 B.Cu signal hide)
     (32 B.Adhes user hide)
     (33 F.Adhes user hide)
@@ -50,7 +30,6 @@
     (46 B.CrtYd user hide)
     (47 F.CrtYd user)
     (48 B.Fab user hide)
->>>>>>> dcc8a55f07a8de8df6e490b9c41c252cb4a77847
     (49 F.Fab user)
   )
 
@@ -1081,7 +1060,7 @@
     (fp_text reference R4 (at 2.159 -11.049) (layer F.Fab) hide
       (effects (font (size 1 1) (thickness 0.15)) (justify right))
     )
-    (fp_text value 1k (at 1.905 0) (layer F.SilkS)
+    (fp_text value 10k (at 1.905 0) (layer F.SilkS)
       (effects (font (size 0.8 0.8) (thickness 0.2)) (justify right))
     )
     (fp_line (start -1 0.6) (end -1 -0.6) (layer F.Fab) (width 0.1))
@@ -1191,7 +1170,7 @@
     (fp_text reference R5 (at 2.159 -12.954) (layer F.Fab) hide
       (effects (font (size 1 1) (thickness 0.15)) (justify right))
     )
-    (fp_text value 1k (at 1.905 0) (layer F.SilkS)
+    (fp_text value 10k (at 1.905 0) (layer F.SilkS)
       (effects (font (size 0.8 0.8) (thickness 0.2)) (justify right))
     )
     (fp_line (start -1 0.6) (end -1 -0.6) (layer F.Fab) (width 0.1))
