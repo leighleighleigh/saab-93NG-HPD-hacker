@@ -25,6 +25,7 @@ for row in f:
             lineTxt = lineTxt.replace(",;","")
             lineSplit = lineTxt.split(",")
             # Convert to integers
+            # print(lineSplit)
             lineData = [int(x,16) for x in lineSplit]
             commandList.append(lineData)
 		
@@ -57,7 +58,7 @@ def is_valid_frame(frame_items):
 
 
 # Send data
-ser = serial.Serial('/dev/ttyACM1',921600)
+ser = serial.Serial('/dev/ttyACM0',921600)
 
 # Reset the device
 ser.setDTR(False)
