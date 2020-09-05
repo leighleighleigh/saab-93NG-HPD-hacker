@@ -29,7 +29,7 @@ byte newPlayMsg[] = {0x10,0x0,0x2,0x0,0x2,0x3,0x0,0x2,0x22,0x0,0xD5,0x0,0x1F,0x4
 void setup()
 {
   delay(1000);
-  Serial.begin(921600);
+  Serial.begin(115200);
   Serial.setTimeout(100);
   //Serial.println("Start UART -> SID adapter.");
   pinMode(ledPin,OUTPUT);

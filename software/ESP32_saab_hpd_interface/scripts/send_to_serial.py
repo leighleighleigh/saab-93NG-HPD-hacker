@@ -58,7 +58,7 @@ def is_valid_frame(frame_items):
 
 
 # Send data
-ser = serial.Serial('/dev/ttyACM0',921600)
+ser = serial.Serial('/dev/ttyACM0',115200)
 
 # Reset the device
 ser.setDTR(False)

@@ -8,8 +8,8 @@ filehandle = open(filename)
 trimmed_lines = []
 
 raw_icm_only = True
-no_headers = False
-to_ascii = False
+no_headers = True
+to_ascii = True
 
 for line in filehandle:
     # Check line is empty
