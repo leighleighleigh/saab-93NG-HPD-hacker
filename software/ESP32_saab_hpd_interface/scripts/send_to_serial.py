@@ -97,7 +97,7 @@ for cmd in commandList:
             valid_response = result
 
     print("")
-    # time.sleep(0.05)
+    # time.sleep(0.15)
 
 
 

@@ -109,7 +109,7 @@ void parseUserInput(uint8_t * payload, size_t length)
 {
   // Parse the input text payload as CSVs
   // Send this onto the serial bus via send_sid_data.
-  char str[1024];
+  char str[256];
 
   // Load payload into str (the buffer)
   memcpy(str,payload,length);
@@ -117,7 +117,7 @@ void parseUserInput(uint8_t * payload, size_t length)
   const char s[2] = ",";
 
   byte tokenIndex = 0;
-  byte tokenData[1024];
+  byte tokenData[256];
   char *token;
   
   /* get the first token */
@@ -187,10 +187,10 @@ void loop()
 
     
     // Check if we have stuff to read in serial
-    if(Serial.available() > 0)
+    if(Serial.available() > 0 and ignoreChannelBCount==0)
     {
       userInput = Serial.readStringUntil('\n');
-      userInput.getBytes(inputBuf,1024);
+      userInput.getBytes(inputBuf,256);
       parseUserInput(inputBuf,userInput.length());
       // Reset the rx buffer
       rxBufferIndex = 0;
