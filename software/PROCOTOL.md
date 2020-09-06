@@ -16,17 +16,18 @@ Communication sequence
 
 Reverse-engineering table (DLC and CHECKSUM's removed)
 
-| COMMAND BYTE | DATA BYTES DESCRIPTIONS                                      | RESPONSE | DESCRIPTION                            |
-| ------------ | ------------------------------------------------------------ | -------- | -------------------------------------- |
-| 0x80         | **[0]:** Green LED brightness<br />**[1]: **Orange/RED LED brightness | OK       | Adjusts backlight.                     |
-| 0x81         |                                                              | 0x82...  | Status?                                |
-| 0x83         |                                                              | 0x84...  | Status?                                |
-| 0x10         | **[0]:** Region ID<br/>**[2:3]:** Sub-region ID <br/>**[4]:** ??? Usually 0x0<br/><br />**[5]:** Font Style<br />**[6]:** Width<br/>**[8]:** X Position<br/>**[10]:** Y Position<br/>**[11+]:** Text data | OK       | Setup layer on region, with text data. |
-| 0x11         | **[0]:** Region ID<br/>**[2:3]:** Sub Region ID<br/>**[4]:** ????, 0x8 for normal, sometimes 0x2<br/>**[5]:** Style<br/>    # 0x00, normal<br/>    # 0x10, right aligned<br/>    # 0x20, blinking<br/>    # 0x40, inverted <br/>    # 0x80, underline<br /> | OK       | Adjust layer presentation.             |
-| 0x60         | **[0]:** Region ID<br />**[2]:** Clear Flag (0x0)            | OK       | CLEAR region.                          |
-| 0x70         | **[0]:** Region ID<br />**[2]:** Draw Flag (0 or 1)          | OK       | DRAW region.                           |
-| 0x30         | # [0]: Region ID<br/># [2:3]: Sub-region ID<br/># [4]: Icon Number<br/># [5]: Icon Style<br/># [6]: X Pos<br/># [7]: Right Align |          | Setup ICON                             |
-| 0x33         | usual region stuff. 4,5 are car door state. 6 is x pos like icon. 7 must be 0 else no works. |          | Draw CAR door stats                    |
+| COMMAND BYTE | DATA BYTES DESCRIPTIONS                                      | RESPONSE | DESCRIPTION                                        |
+| ------------ | ------------------------------------------------------------ | -------- | -------------------------------------------------- |
+| 0x80         | **[0]:** Green LED brightness<br />**[1]: **Orange/RED LED brightness | OK       | Adjusts backlight.                                 |
+| 0x81         |                                                              | 0x82...  | Status?                                            |
+| 0x83         |                                                              | 0x84...  | Status?                                            |
+| 0x10         | **[0]:** Region ID<br/>**[2:3]:** Sub-region ID <br/>**[4]:** ??? Usually 0x0<br/><br />**[5]:** Font Style<br />**[6]:** Width<br/>**[8]:** X Position<br/>**[10]:** Y Position<br/>**[11+]:** Text data | OK       | Setup layer on region, with text data.             |
+| 0x11         | **[0]:** Region ID<br/>**[2:3]:** Sub Region ID<br/>**[4]:** ????, 0x8 for normal, sometimes 0x2<br/>**[5]:** Style<br/>    # 0x00, normal<br/>    # 0x10, right aligned<br/>    # 0x20, blinking<br/>    # 0x40, inverted <br/>    # 0x80, underline<br /> | OK       | Adjust layer presentation.                         |
+| 0x60         | **[0]:** Region ID<br />**[2]:** Clear Flag (0x0)            | OK       | CLEAR region.                                      |
+| 0x70         | **[0]:** Region ID<br />**[2]:** Draw Flag (0 or 1)          | OK       | DRAW region.                                       |
+| 0x30         | # [0]: Region ID<br/># [2:3]: Sub-region ID<br/># [4]: Icon Number<br/># [5]: Icon Style<br/># [6]: X Pos<br/># [7]: Right Align |          | Setup ICON                                         |
+| 0x33         | usual region stuff. 4,5 are car door state. 6 is x pos like icon. 7 must be 0 else no works. |          | Draw CAR door stats                                |
+| 0x40         |                                                              |          | Some kind of raw display stuff, does weird things. |
 
 
 
