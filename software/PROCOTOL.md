@@ -3,15 +3,61 @@ Thanks to users **ruthenianboy** and **bojer** of trionictuning.com for their wo
 Interface
 - **115200baud** UART over CAN physical layer.
 
-Command frame format
-- DLC[1] + CONTENT[x] + CHECKSUM[1], CHECKSUM being the MSB of the sum of all previous bytes.
-- About 12 commands have been sniffed while used in stock operation, however 32 returned response codes. 
-- This might indicate extra features!
+Frame format
+- DLC[1] + COMMAND[1] + 0x0 + DATA[0...n] + CHECKSUM[1], CHECKSUM being the MSB of the sum of all previous bytes.
 
-Response frame types, from SID back to ICM.
-- ACK, NACK, ERROR, VALUE ...
+Communication sequence
+
+1. ICM sends command to SID
+2. SID replies with ACK/ERROR or other frame. 
+3. SID ALWAYS replies.
+
+
+
+Reverse-engineering table (DLC and CHECKSUM's removed)
+
+| COMMAND BYTE | DATA BYTES DESCRIPTIONS                                      | RESPONSE | DESCRIPTION                            |
+| ------------ | ------------------------------------------------------------ | -------- | -------------------------------------- |
+| 0x80         | **[0]:** Green LED brightness<br />**[1]: **Orange/RED LED brightness | OK       | Adjusts backlight.                     |
+| 0x81         |                                                              | 0x82...  | Status?                                |
+| 0x83         |                                                              | 0x84...  | Status?                                |
+| 0x10         | **[0]:** Region ID<br/>**[2:3]:** Sub-region ID <br/>**[4]:** ??? Usually 0x0<br/><br />**[5]:** Font Style<br />**[6]:** Width<br/>**[8]:** X Position<br/>**[10]:** Y Position<br/>**[11+]:** Text data | OK       | Setup layer on region, with text data. |
+| 0x11         | **[0]:** Region ID<br/>**[2:3]:** Sub Region ID<br/>**[4]:** ????, 0x8 for normal, sometimes 0x2<br/>**[5]:** Style<br/>    # 0x00, normal<br/>    # 0x10, right aligned<br/>    # 0x20, blinking<br/>    # 0x40, inverted <br/>    # 0x80, underline<br /> | OK       | Adjust layer presentation.             |
+| 0x60         | **[0]:** Region ID<br />**[2]:** Clear Flag (0x0)            | OK       | CLEAR region.                          |
+| 0x70         | **[0]:** Region ID<br />**[2]:** Draw Flag (0 or 1)          | OK       | DRAW region.                           |
+| 0x30         |                                                              |          | Setup ICON                             |
+|              |                                                              |          |                                        |
+
+
+
+- 0x80,0x80 clear screen / screen off
+- 0x80,0x00,0xCE,0x00 (sets backlight for orange portion, last value is brightness)
+      0xC, shows only the orange portion.
+
+- 0x80,0x00-x79 screen on, brightess command?
+- 0x81,0x00 (gets info from SID, status query?)
+- 0x83,0x00 (gets some kind of info from SID, status query?)
+- 0x11 < draw data to screen
+
+- 0x70,0x0,0x76,0x0,0x01 < Displays brake light failure icon
+
+- 0x94, some kind of serial code
+- 0x96, some other kind of serial code
+
+- 0x9f,0x00 < self test mode
+
+Return values
+
+- 0xff,0x00 (success)
+- 0xfe,0x00,0x31 (invalid commmand / command doesn't exist)
+- 0xfe,0x00,0x34 (invalid command length, arguments?)
+- 0xfe,0x00,0x35 ( no idea)
+- 0xfe,0x0,0x37 (no idea)
+
+
 
 MISC:
+
 - Panel resolution (green) is 384x64 px
 - Icon resolution (orange) is 64x64 px
 - Temp and light sensors
@@ -99,30 +145,3 @@ ICON DATA CODES:
 - 167	NAV skew up left		
 - 168	NAV ROTATE LEFT		filled
 - 169	NAV ROTATE RIGHT		filled
-
-
-Discovered commands (data portion only):
-- 0x80,0x80 clear screen / screen off
-- 0x80,0x00,0xCE,0x00 (sets backlight for orange portion, last value is brightness)
-            0xC, shows only the orange portion.
-
-- 0x80,0x00-x79 screen on, brightess command?
-- 0x81,0x00 (gets info from SID, status query?)
-- 0x83,0x00 (gets some kind of info from SID, status query?)
-- 0x11 < draw data to screen
-
-- 0x70,0x0,0x76,0x0,0x01 < Displays brake light failure icon
-
-- 0x94, some kind of serial code
-- 0x96, some other kind of serial code
-
-- 0x9f,0x00 < self test mode
-
-Return values
-- 0xff,0x00 (success)
-- 0xfe,0x00,0x31 (invalid commmand / command doesn't exist)
-- 0xfe,0x00,0x34 (invalid command length, arguments?)
-- 0xfe,0x00,0x35 ( no idea)
-- 0xfe,0x0,0x37 (no idea)
-
-

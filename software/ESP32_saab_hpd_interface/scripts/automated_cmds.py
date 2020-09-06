@@ -1,33 +1,19 @@
 #!/usr/bin/python3
 
-# Sends from a trimmed icmonly log to a serial interface.
-# Doesn't wait for valid reply.
+# Sends some commands in an automated fashion
 
 import serial
 import sys
 import time
-
-# Get data from file
-filename = sys.argv[1]
-f = open(filename)
+import pprint
+import json
 
 # Extrac tdata
 commandList = []
-# commandList.append([0x83,0x0])
 
-for row in f:
-    # Ignore comments
-    if("#" not in row):
-        if(len(row) > 3):
-            # Trim leading ICM and trailing semicolons
-            lineTxt = row.strip()
-            lineTxt = lineTxt.replace("ICM:","")
-            lineTxt = lineTxt.replace(",;","")
-            lineSplit = lineTxt.split(",")
-            # Convert to integers
-            # print(lineSplit)
-            lineData = [int(x,16) for x in lineSplit]
-            commandList.append(lineData)
+# Append commands
+for i in range(0,0xff):
+    commandList.append([i,0x0])
 		
 # Determine if it's a valid frame
 ### Used for response parsing
@@ -67,6 +53,11 @@ ser.setDTR(True)
 time.sleep(0.2)
 ser.flushInput()
 
+
+# # RESULTS BY RESPONSE
+data = {}
+pp = pprint.PrettyPrinter(indent=4)
+
 # Send commands
 for cmd in commandList:
     # Print to serial
@@ -91,8 +82,13 @@ for cmd in commandList:
             # Check if valid response
             frame_items = dat.replace("RX: ","").split(",")[0:-1]
             result = is_valid_frame(frame_items)
-            # print(frame_items)
-            # print(result)
+            # Check if in data
+            if dat in data:
+                data[dat].append(cmdStr)
+            else:
+                data[dat] = []
+                data[dat].append(cmdStr)
+
             # Tick the box
             valid_response = result
 
@@ -102,3 +98,10 @@ for cmd in commandList:
 
 
 ser.close()
+
+f = open("results.json",'w')
+d = json.dumps(data, sort_keys=True, indent=4)
+f.write(d)
+f.close()
+
+pp.pprint(data)

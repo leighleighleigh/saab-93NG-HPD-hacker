@@ -13,8 +13,8 @@
 
 SC16IS752 spiuart = SC16IS752(SC16IS750_PROTOCOL_SPI, CS);
 
-#define baudrate_A 111111
-#define baudrate_B 111111
+#define baudrate_A 115200
+#define baudrate_B 115200
 int ignoreChannelBCount = 0;
 int ignoreChannelACount = 0;
 
@@ -28,9 +28,8 @@ byte newPlayMsg[] = {0x10,0x0,0x2,0x0,0x2,0x3,0x0,0x2,0x22,0x0,0xD5,0x0,0x1F,0x4
 
 void setup()
 {
-  delay(1000);
   Serial.begin(115200);
-  Serial.setTimeout(100);
+  Serial.setTimeout(200);
   //Serial.println("Start UART -> SID adapter.");
   pinMode(ledPin,OUTPUT);
   digitalWrite(ledPin,1);
@@ -74,7 +73,7 @@ void num2lights(int num)
 
 void send_sid_data(byte channel,byte len,byte* data)
 {
-  uint16_t sum;
+  uint16_t sum = 0;
   ignoreChannelBCount = len + 2;
   
   sum += len;
@@ -109,15 +108,15 @@ void parseUserInput(uint8_t * payload, size_t length)
 {
   // Parse the input text payload as CSVs
   // Send this onto the serial bus via send_sid_data.
-  char str[256];
+  char str[512];
 
   // Load payload into str (the buffer)
   memcpy(str,payload,length);
 
   const char s[2] = ",";
 
-  byte tokenIndex = 0;
-  byte tokenData[256];
+  uint16_t tokenIndex = 0;
+  byte tokenData[512];
   char *token;
   
   /* get the first token */
@@ -126,10 +125,10 @@ void parseUserInput(uint8_t * payload, size_t length)
   /* walk through other tokens */
   while( token != NULL ) {
     // Only do if token != '\n'
-    if(token != "\n" && token != "\0" && token != "\r"){
+    // if(token != "\n" && token != "\0" && token != "\r"){
       // Parse token into array
       tokenData[tokenIndex++] = (byte)strtol(token, NULL, 0);
-    }
+    // }
 
     // Get next token
     token = strtok(NULL, s);
@@ -144,8 +143,8 @@ void parseUserInput(uint8_t * payload, size_t length)
 // Timeout for receiveing a valid RX frame
 
 // SID RX buffer
-byte rxBuffer[256];
-byte rxBufferIndex = 0;
+byte rxBuffer[512];
+uint16_t rxBufferIndex = 0;
 
 void loop()
 {
@@ -162,7 +161,7 @@ void loop()
           // Fill up the RX buffer
           rxBuffer[rxBufferIndex++] = c;
           // Set lights to be the data
-          num2lights(c);
+          //num2lights(c);
         }else{
           ignoreChannelBCount --;
         }
@@ -190,7 +189,7 @@ void loop()
     if(Serial.available() > 0 and ignoreChannelBCount==0)
     {
       userInput = Serial.readStringUntil('\n');
-      userInput.getBytes(inputBuf,256);
+      userInput.getBytes(inputBuf,512);
       parseUserInput(inputBuf,userInput.length());
       // Reset the rx buffer
       rxBufferIndex = 0;

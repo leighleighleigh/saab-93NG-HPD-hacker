@@ -6,7 +6,7 @@ import time
 # List of commands, not including DLC's and trailing headers
 cmdList = []
 response_SUCCESS = ['02','ff','00','01']
-response_ARG = ['03','fe','33','34'] # Incorrect arguments?
+response_ARG = ['03','fe','33','34'] # Incorrect arguments?, 0x0, 0x34 not long enuf
 response_ARG2 = ['03','fe','31','32'] # Idk???
 response_INVALID = ['03','fe','4a','4b'] # For example, trying to draw when nothing has been written.
 
@@ -18,7 +18,7 @@ def setBacklight(a,b=None,c=None):
 		cmdList.append("0x80,{},{},{}".format(hex(a),hex(b),hex(c)))
 
 def clearArea(area):
-	cmdList.append("0x60,0x0,{},0x0".format(hex(area)))
+	cmdList.append("0x60,0x0,{},0x0,0x0".format(hex(area)))
 
 def drawArea(area):
 	cmdList.append("0x70,0x0,{},0x0,0x1".format(hex(area)))
