@@ -29,8 +29,8 @@ Reverse-engineering table (DLC and CHECKSUM's removed)
 | 0x33         | usual region stuff. 4,5 are car door state. 6 is x pos like icon. 7 must be 0 else no works. |          | Draw CAR door stats                                |
 | 0x40         |                                                              |          | Some kind of raw display stuff, does weird things. |
 | 0xa0         |                                                              |          | Not sure?                                          |
-| 0x20         |                                                              |          | Not sure? Drawing arrows?                          |
-| 0x21         |                                                              |          | Not sure?                                          |
+| 0x20         |                                                              |          | Related to creating groups of sub-regions.         |
+| 0x21         |                                                              |          | Related to moving groups of sub-regions.           |
 |              |                                                              |          |                                                    |
 
 
