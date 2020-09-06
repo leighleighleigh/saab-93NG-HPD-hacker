@@ -25,8 +25,8 @@ Reverse-engineering table (DLC and CHECKSUM's removed)
 | 0x11         | **[0]:** Region ID<br/>**[2:3]:** Sub Region ID<br/>**[4]:** ????, 0x8 for normal, sometimes 0x2<br/>**[5]:** Style<br/>    # 0x00, normal<br/>    # 0x10, right aligned<br/>    # 0x20, blinking<br/>    # 0x40, inverted <br/>    # 0x80, underline<br /> | OK       | Adjust layer presentation.             |
 | 0x60         | **[0]:** Region ID<br />**[2]:** Clear Flag (0x0)            | OK       | CLEAR region.                          |
 | 0x70         | **[0]:** Region ID<br />**[2]:** Draw Flag (0 or 1)          | OK       | DRAW region.                           |
-| 0x30         |                                                              |          | Setup ICON                             |
-|              |                                                              |          |                                        |
+| 0x30         | # [0]: Region ID<br/># [2:3]: Sub-region ID<br/># [4]: Icon Number<br/># [5]: Icon Style<br/># [6]: X Pos<br/># [7]: Right Align |          | Setup ICON                             |
+| 0x33         | usual region stuff. 4,5 are car door state. 6 is x pos like icon. 7 must be 0 else no works. |          | Draw CAR door stats                    |
 
 
 
