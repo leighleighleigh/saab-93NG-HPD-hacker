@@ -28,6 +28,10 @@ Reverse-engineering table (DLC and CHECKSUM's removed)
 | 0x30         | # [0]: Region ID<br/># [2:3]: Sub-region ID<br/># [4]: Icon Number<br/># [5]: Icon Style<br/># [6]: X Pos<br/># [7]: Right Align |          | Setup ICON                                         |
 | 0x33         | usual region stuff. 4,5 are car door state. 6 is x pos like icon. 7 must be 0 else no works. |          | Draw CAR door stats                                |
 | 0x40         |                                                              |          | Some kind of raw display stuff, does weird things. |
+| 0xa0         |                                                              |          | Not sure?                                          |
+| 0x20         |                                                              |          | Not sure? Drawing arrows?                          |
+| 0x21         |                                                              |          | Not sure?                                          |
+|              |                                                              |          |                                                    |
 
 
 

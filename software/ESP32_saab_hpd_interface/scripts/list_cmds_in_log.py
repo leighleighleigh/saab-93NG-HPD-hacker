@@ -1,11 +1,8 @@
 #!/usr/bin/python3
-
-# Sends from a trimmed icmonly log to a serial interface.
-# Doesn't wait for valid reply.
-
 import serial
 import sys
 import time
+import pprint
 
 # Get data from file
 filename = sys.argv[1]
@@ -13,7 +10,6 @@ f = open(filename)
 
 # Extrac tdata
 commandList = []
-commandList.append([0x83,0x0])
 
 for row in f:
     # Ignore comments
@@ -56,51 +52,16 @@ def is_valid_frame(frame_items):
         print("CRC:" + str(crc) + ",SUM:" + str(sum))
         return True
 
-
-# Send data
-ser = serial.Serial('/dev/ttyACM0',921600)
-
-# Reset the device
-ser.setDTR(False)
-time.sleep(0.1)
-ser.setDTR(True)
-time.sleep(0.2)
-ser.flushInput()
+cmd_list = []
+pp = pprint.PrettyPrinter(indent=4)
 
 # Send commands
 for cmd in commandList:
     # Print to serial
     # cmdStr = ",".join([hex(x) for x in cmd[1:-1]])
-    # Add dummy byte
-    cmd.append(0x00)
-    cmdStr = ",".join([hex(x) for x in cmd])
-    print("Raw TX: " + cmdStr)
+    commandByte = hex(cmd[0])
+    if commandByte not in cmd_list:
+        cmd_list.append(commandByte)
+    #cmdStr = ",".join([hex(x) for x in cmd])
 
-    # Send out the string to the serial port
-    ser.write(str.encode(cmdStr))
-
-    valid_response = False
-    
-    # Wait for valid response frame
-    while(ser.in_waiting != 0 or not valid_response):
-        dat = ser.readline().decode("utf-8").strip().lstrip()
-        # Only print if valid
-        if(len(dat) >= 2):
-            print(dat)
-
-        # Check if contains 'RX'
-        if("RX" in dat):
-            # Check if valid response
-            frame_items = dat.replace("RX: ","").split(",")[0:-1]
-            result = is_valid_frame(frame_items)
-            # print(frame_items)
-            # print(result)
-            # Tick the box
-            valid_response = result
-
-    print("")
-    # time.sleep(0.5)
-
-
-
-ser.close()
+pp.pprint(cmd_list)

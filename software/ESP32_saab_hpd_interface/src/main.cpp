@@ -28,7 +28,7 @@ byte newPlayMsg[] = {0x10,0x0,0x2,0x0,0x2,0x3,0x0,0x2,0x22,0x0,0xD5,0x0,0x1F,0x4
 
 void setup()
 {
-  Serial.begin(115200);
+  Serial.begin(921600);
   Serial.setTimeout(200);
   //Serial.println("Start UART -> SID adapter.");
   pinMode(ledPin,OUTPUT);
@@ -71,9 +71,11 @@ void num2lights(int num)
   }
 }
 
-void send_sid_data(byte channel,byte len,byte* data)
+void send_sid_data(byte channel,byte lenA,byte* data)
 {
   uint16_t sum = 0;
+  uint16_t len = lenA - 1;
+
   ignoreChannelBCount = len + 2;
   
   sum += len;
