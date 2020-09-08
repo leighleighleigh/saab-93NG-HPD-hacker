@@ -211,13 +211,18 @@ int CAN_init() {
 		__tq = 0.25;
 		break;
 
+	case CAN_SPEED_33KBPS:
+		MODULE_CAN->BTR1.B.TSEG1 = 0b1111;
+		MODULE_CAN->BTR1.B.TSEG2 = 0b111;
+		__tq = 1.200000025;
+
 	default:
 		MODULE_CAN->BTR1.B.TSEG1 = 0xc;
 		__tq = ((float) 1000 / CAN_cfg.speed) / 16;
 	}
 
 	// set baud rate prescaler
-	MODULE_CAN->BTR0.B.BRP = (uint8_t) round((((APB_CLK_FREQ * __tq) / 2) - 1) / 1000000) - 1;
+	MODULE_CAN->BTR0.B.BRP = (uint8_t) round( ( ( (APB_CLK_FREQ * __tq) / 2) - 1) / 1000000) - 1;
 
 	/* Set sampling
 	 * 1 -> triple; the bus is sampled three times; recommended for low/medium speed buses     (class A and B) where

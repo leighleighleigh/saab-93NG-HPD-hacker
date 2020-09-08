@@ -5,7 +5,28 @@
 # SJW=4*tcl
 # BTR0=ef,7f
 
+# FROM CAN_INIT()
+# _tq = 0.25
+# calc_tseg1 = 0xc
+# calc_tseg2 = 0x5
+# calc_btr0 = round((((80000000*_tq)/2)-1)/1000000) - 1
+# MY VALS
+_tq = 1.200000025
+calc_tseg1 = 0b1111
+calc_tseg2 = 0b111
+calc_btr0 = round((((80000000*_tq)/2)-1)/1000000) - 1
+
+print(bin(calc_btr0))
+print(bin(calc_tseg1))
+print(bin(calc_tseg2))
+
+# CALCULATOR TO CHECK BAUD RATE, set val=btr0
 val = 0xef
+
+# CALCULATE TQ given btr0
+calc_tq = ((((((val & 0b00111111)) + 1)*1000000)+1)*2)/80000000
+print(calc_tq)
+
 # Calc binary
 valBin = bin(val & 0b00111111)[::-1]
 btr0 = [0,0,0,0,0,0]
