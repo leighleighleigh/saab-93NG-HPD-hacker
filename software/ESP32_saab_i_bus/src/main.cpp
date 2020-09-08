@@ -5,13 +5,18 @@
 #include <CAN_config.h>
 
 int ledPin = 2;
+bool ledPinState = false;
+
 CAN_device_t CAN_cfg;               // CAN Config
 const int rx_queue_size = 10;       // Receive Queue size
+unsigned long previousMillis = 0;   // will store last time a CAN Message was send
+const int interval = 1000;          // interval at which send CAN Messages (milliseconds)
+
 
 void setup()
 {
-  delay(100);
-  Serial.begin(921600);
+  delay(1000);
+  Serial.begin(115200);
   Serial.println("I-BUS INTERFACE");
 
   pinMode(ledPin,OUTPUT);
@@ -28,6 +33,31 @@ void setup()
 
 void loop()
 {
+
+  unsigned long currentMillis = millis();
+  
+  // Send CAN Message
+  if (currentMillis - previousMillis >= interval) {
+    Serial.println("TX!");
+    digitalWrite(ledPin,ledPinState);
+    ledPinState = !ledPinState;
+    previousMillis = currentMillis;
+    CAN_frame_t tx_frame;
+    tx_frame.FIR.B.FF = CAN_frame_std;
+    tx_frame.MsgID = 0x001;
+    tx_frame.FIR.B.DLC = 8;
+    tx_frame.data.u8[0] = 0x00;
+    tx_frame.data.u8[1] = 0x01;
+    tx_frame.data.u8[2] = 0x02;
+    tx_frame.data.u8[3] = 0x03;
+    tx_frame.data.u8[4] = 0x04;
+    tx_frame.data.u8[5] = 0x05;
+    tx_frame.data.u8[6] = 0x06;
+    tx_frame.data.u8[7] = 0x07;
+    ESP32Can.CANWriteFrame(&tx_frame);
+  }
+
+  // Receive frame
   CAN_frame_t rx_frame;
 
   // Receive next CAN frame from queue
