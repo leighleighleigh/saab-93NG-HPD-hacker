@@ -18,19 +18,22 @@ SC16IS752 spiuart = SC16IS752(SC16IS750_PROTOCOL_SPI, CS);
 int ignoreChannelBCount = 0;
 int ignoreChannelACount = 0;
 
-bool passThroughMode = false; // false, do serial to SID mode, //true, do in-car mode
+bool passThroughMode = true; // false, do serial to SID mode, //true, do in-car mode
+bool fakeResponse = false; // Send OK reponse to everything haha.
+
 int ledPin = 2;
 
 //11,10,0,2,0,2,3,0,2,22,0,CF,0,1F,50,6C,61,79,D0
 const char auxPlayMsg[] = {0x11,0x10,0x0,0x2,0x0,0x2,0x3,0x0,0x2,0x22,0x0,0xCF,0x0,0x1F,0x50,0x6C,0x61,0x79,0xD0};
 int auxPlayMatchIndex = 0;
 byte newPlayMsg[] = {0x10,0x0,0x2,0x0,0x2,0x3,0x0,0x2,0x22,0x0,0xD5,0x0,0x1F,0x42,0x54};
+byte okMsg[] = {0xFF,0x00};
 
 void setup()
 {
   Serial.begin(921600);
   Serial.setTimeout(200);
-  //Serial.println("Start UART -> SID adapter.");
+  // Serial.println("Start UART -> SID adapter.");
   pinMode(ledPin,OUTPUT);
   digitalWrite(ledPin,1);
 
@@ -75,8 +78,17 @@ void send_sid_data(byte channel,byte lenA,byte* data)
 {
   uint16_t sum = 0;
   uint16_t len = lenA - 1;
+  if(passThroughMode)
+  {
+    len = lenA;
+  }
 
-  ignoreChannelBCount = len + 2;
+  if(channel == SC16IS752_CHANNEL_B){
+    ignoreChannelBCount = len + 2;
+  }
+  if(channel == SC16IS752_CHANNEL_A){
+    ignoreChannelACount = len + 2;
+  }
   
   sum += len;
 
@@ -198,6 +210,18 @@ void loop()
     }
       
   }else{
+
+    // If user input
+    if(Serial.available() > 0)
+    {
+      char c  = Serial.read();
+      // If SEND OKAY
+      if(fakeResponse)
+      {
+        send_sid_data(SC16IS752_CHANNEL_A,2,okMsg);
+      }
+    }
+
     // Read from channel A and send to channel B
     if(spiuart.available(SC16IS752_CHANNEL_B) >= 3){
       Serial.print("SID:");
