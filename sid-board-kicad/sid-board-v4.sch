@@ -257,30 +257,6 @@ IO0
 Text GLabel 5900 3850 2    50   Input ~ 0
 IO0
 $Comp
-L Connector:USB_B_Micro J2
-U 1 1 5F431498
-P 10050 1700
-F 0 "J2" H 10107 2167 50  0000 C CNN
-F 1 "USB_B_Micro" H 10107 2076 50  0000 C CNN
-F 2 "Connector_USB:USB_Micro-B_Molex-105017-0001" H 10200 1650 50  0001 C CNN
-F 3 "~" H 10200 1650 50  0001 C CNN
-	1    10050 1700
-	-1   0    0    1   
-$EndComp
-$Comp
-L Diode:1N5819 D10
-U 1 1 5F43801F
-P 8950 2050
-F 0 "D10" H 8950 1834 50  0000 C CNN
-F 1 "1N5819" H 8950 1925 50  0000 C CNN
-F 2 "Diode_SMD:D_SOD-123" H 8950 1875 50  0001 C CNN
-F 3 "http://www.vishay.com/docs/88525/1n5817.pdf" H 8950 2050 50  0001 C CNN
-	1    8950 2050
-	0    -1   -1   0   
-$EndComp
-Wire Wire Line
-	10150 1300 10100 1300
-$Comp
 L Device:LED_Small D9
 U 1 1 5F455DEF
 P 6450 4050
@@ -557,16 +533,14 @@ Text GLabel 10100 4650 3    50   Input ~ 0
 TX_ESP32
 Text GLabel 5900 3950 2    50   Input ~ 0
 TX_ESP32
-Text GLabel 9750 1700 0    50   Input ~ 0
+Text GLabel 9500 2000 2    50   Input ~ 0
 USB_DP
-Text GLabel 9750 1600 0    50   Input ~ 0
+Text GLabel 9500 1800 2    50   Input ~ 0
 USB_DM
 Text GLabel 9700 3650 1    50   Input ~ 0
 USB_DM
 Text GLabel 9800 3650 1    50   Input ~ 0
 USB_DP
-Text GLabel 8950 1900 1    50   Input ~ 0
-VBUS
 Text GLabel 9900 3550 1    50   Input ~ 0
 VBUS
 Wire Wire Line
@@ -627,8 +601,6 @@ Wire Notes Line
 	10750 6400 10750 3200
 Wire Notes Line
 	4300 3200 10750 3200
-Wire Wire Line
-	8950 1900 9750 1900
 Text GLabel 1150 3700 0    50   Input ~ 0
 CAN_H
 Text GLabel 1150 3800 0    50   Input ~ 0
@@ -990,27 +962,13 @@ $EndComp
 $Comp
 L power:GND #PWR0128
 U 1 1 5F555477
-P 10100 1300
-F 0 "#PWR0128" H 10100 1050 50  0001 C CNN
-F 1 "GND" H 10105 1127 50  0000 C CNN
-F 2 "" H 10100 1300 50  0001 C CNN
-F 3 "" H 10100 1300 50  0001 C CNN
-	1    10100 1300
-	-1   0    0    1   
-$EndComp
-Connection ~ 10100 1300
-Wire Wire Line
-	10100 1300 10050 1300
-$Comp
-L power:VCC #PWR0129
-U 1 1 5F55A24A
-P 8950 2200
-F 0 "#PWR0129" H 8950 2050 50  0001 C CNN
-F 1 "VCC" H 8968 2373 50  0000 C CNN
-F 2 "" H 8950 2200 50  0001 C CNN
-F 3 "" H 8950 2200 50  0001 C CNN
-	1    8950 2200
-	-1   0    0    1   
+P 8900 2800
+F 0 "#PWR0128" H 8900 2550 50  0001 C CNN
+F 1 "GND" H 8900 2600 50  0000 C CNN
+F 2 "" H 8900 2800 50  0001 C CNN
+F 3 "" H 8900 2800 50  0001 C CNN
+	1    8900 2800
+	1    0    0    -1  
 $EndComp
 $Comp
 L power:GND #PWR0130
@@ -1252,4 +1210,60 @@ F 3 "~" H 2550 6550 50  0001 C CNN
 	1    2550 6550
 	1    0    0    -1  
 $EndComp
+$Comp
+L Connector:USB_C_Plug_USB2.0 P1
+U 1 1 5F5BFB7F
+P 8900 1900
+F 0 "P1" H 9007 2767 50  0000 C CNN
+F 1 "USB_C_Plug_USB2.0" H 9007 2676 50  0000 C CNN
+F 2 "Connector_USB:USB_C_Receptacle_Amphenol_12401610E4-2A" H 9050 1900 50  0001 C CNN
+F 3 "https://www.usb.org/sites/default/files/documents/usb_type-c.zip" H 9050 1900 50  0001 C CNN
+	1    8900 1900
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:VCC #PWR0129
+U 1 1 5F55A24A
+P 10050 1600
+F 0 "#PWR0129" H 10050 1450 50  0001 C CNN
+F 1 "VCC" H 10068 1773 50  0000 C CNN
+F 2 "" H 10050 1600 50  0001 C CNN
+F 3 "" H 10050 1600 50  0001 C CNN
+	1    10050 1600
+	-1   0    0    1   
+$EndComp
+Text GLabel 10050 1300 1    50   Input ~ 0
+VBUS
+$Comp
+L Diode:1N5819 D10
+U 1 1 5F43801F
+P 10050 1450
+F 0 "D10" H 10050 1234 50  0000 C CNN
+F 1 "1N5819" H 10050 1325 50  0000 C CNN
+F 2 "Diode_SMD:D_SOD-123" H 10050 1275 50  0001 C CNN
+F 3 "http://www.vishay.com/docs/88525/1n5817.pdf" H 10050 1450 50  0001 C CNN
+	1    10050 1450
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	10050 1300 9600 1300
+Wire Wire Line
+	8900 2800 8600 2800
+Connection ~ 8900 2800
+$Comp
+L Device:R_Small R9
+U 1 1 5F5C3392
+P 9600 1400
+F 0 "R9" H 9659 1446 50  0000 L CNN
+F 1 "56k" H 9659 1355 50  0000 L CNN
+F 2 "Resistor_SMD:R_0805_2012Metric_Pad1.15x1.40mm_HandSolder" H 9600 1400 50  0001 C CNN
+F 3 "~" H 9600 1400 50  0001 C CNN
+	1    9600 1400
+	1    0    0    -1  
+$EndComp
+Connection ~ 9600 1300
+Wire Wire Line
+	9600 1300 9500 1300
+Wire Wire Line
+	9600 1500 9500 1500
 $EndSCHEMATC
