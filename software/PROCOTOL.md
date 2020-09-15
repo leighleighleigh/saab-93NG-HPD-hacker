@@ -1,20 +1,22 @@
+# SID HPD Protocol
+
 Thanks to users **ruthenianboy** and **bojer** of trionictuning.com for their work in reverse-engineering the protocol of the SID.
 
-Interface
+## Physical Interface
+
 - **115200baud** UART over CAN physical layer.
 
-Frame format
+## Frame format
+
 - DLC[1] + COMMAND[1] + 0x0 + DATA[0...n] + CHECKSUM[1], CHECKSUM being the MSB of the sum of all previous bytes.
 
-Communication sequence
+## Communication sequence
 
 1. ICM sends command to SID
 2. SID replies with ACK/ERROR or other frame. 
 3. SID ALWAYS replies.
 
-
-
-Reverse-engineering table (DLC and CHECKSUM's removed)
+## Commands table
 
 | COMMAND BYTE | DATA BYTES DESCRIPTIONS                                      | RESPONSE | DESCRIPTION                                        |
 | ------------ | ------------------------------------------------------------ | -------- | -------------------------------------------------- |
@@ -61,14 +63,15 @@ Return values
 
 
 
-MISC:
+## MISC
 
 - Panel resolution (green) is 384x64 px
 - Icon resolution (orange) is 64x64 px
 - Temp and light sensors
 - 4 font sizes, underscore, solid background, flashing, and align right styles.
 
-ICON DATA CODES:
+## ICON DATA CODES (DECIMAL):
+
 - dec	desc		
 - 65	!		
 - 66	washer 	?	
