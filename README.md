@@ -16,6 +16,7 @@ Please see [UART PROTOCOL](/UART_PROTOCOL.md)
 <p align="center">
 <img src="https://github.com/leighleighleigh/saab-93NG-HPD-hacker/blob/main/media/hardware_diagram.png?raw=true" alt="" />
 </p>
+
 ## Project structure
 ```bash
 ├── data_dumps # Raw UART data, CSV files exported from 'KingstVIS' software
