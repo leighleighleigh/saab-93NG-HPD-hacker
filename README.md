@@ -7,7 +7,7 @@ A reverse-engineering and interfacing board for the Saab Information Display / H
 
 ## Project Status (DEC **2021**)
 The **third** prototype of the PCB has been assembled and tested, as of August **2020**.
-During this testing period, mild success was had, and some text/images were displayed. The exact protocol is yet to be determined.
+During this testing period, mild success was had, and some text/images were displayed. The full protocol is yet to be determined.
 <p align="center">
 <img src="https://github.com/leighleighleigh/saab-93NG-HPD-hacker/blob/main/media/hpd_finally.jpg?raw=true" alt="" />
 </p>
@@ -17,7 +17,10 @@ Please see [UART PROTOCOL](/UART_PROTOCOL.md)
 
 ## Hardware Diagram
 <p align="center">
+<b>Full In-car System</b>
 <img src="https://github.com/leighleighleigh/saab-93NG-HPD-hacker/blob/main/media/hardware_diagram.png?raw=true" alt="" />
+<b>HPD Interface v3 Internals</b>
+<img src="https://github.com/leighleighleigh/saab-93NG-HPD-hacker/blob/main/media/pcb_v3_diagram.png?raw=true" alt="" />
 </p>
 
 ## Project structure
