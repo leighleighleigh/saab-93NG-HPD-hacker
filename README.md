@@ -1,9 +1,8 @@
-# saab-sid-re-board
-SAAB SID Reverse-Engineering Board.
-A board to go in between the SAAB SID/HPD connector on 2003-2006 9-3 (Second Generation) Models, so that the UART-based protocol can be reverse engineered.
+# saab-93NG-HPD-hacker
+A reverse-engineering and interfacing board for the Saab Information Display / High Position Display, on 2003-2006 9-3 (Second Generation) Models.
 
 <p align="center">
-<img src="https://github.com/leighleighleigh/saab-sid-re-board/blob/main/media/pcb_v3.jpg?raw=true" width="640" height="303" alt="A square black circuit board with white text marked 'SAAB HPD INTERFACE v3' rests on a cream coloured benchtop." />
+<img src="https://github.com/leighleighleigh/saab-933NG-HPD-hacker/blob/main/media/pcb_v3.jpg?raw=true" width="640" height="303" alt="A square black circuit board with white text marked 'SAAB HPD INTERFACE v3' rests on a cream coloured benchtop." />
 </p>
 
 ## Project Status (DEC **2021**)
