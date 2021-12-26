@@ -12,6 +12,9 @@ During this testing period, mild success was had, and some text/images were disp
 ## Protocol Reverse Engineering
 Please see [UART PROTOCOL](/UART_PROTOCOL.md) 
 
+## Hardware Diagram
+![hardware_diagram](/media/hardware_diagram.png)
+
 ## Project structure
 ```bash
 ├── data_dumps # Raw UART data, CSV files exported from 'KingstVIS' software
