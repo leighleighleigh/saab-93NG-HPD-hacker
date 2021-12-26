@@ -1,4 +1,5 @@
 # SID HPD Protocol
+This document is incomplete.
 
 Thanks to users **ruthenianboy** and **bojer** of trionictuning.com for their work in reverse-engineering the protocol of the SID.
 
