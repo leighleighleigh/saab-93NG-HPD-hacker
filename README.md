@@ -21,7 +21,10 @@ Please see [UART PROTOCOL](/UART_PROTOCOL.md)
 <img src="https://github.com/leighleighleigh/saab-93NG-HPD-hacker/blob/main/media/hardware_diagram.png?raw=true" alt="" />
 </p>
 
-### HPD Interface v3 Internals
+### HPD Interface v3 Internals (WIP)
+The HPD hacker is unusual in that it utilises a dedicated UART interface accesible over SPI.
+This eliminates the need for dedicated UART interfaces on the host microcontroller, which was a concern when the original design targeted the ESP8266.
+The ESP32 series has enough hardware UARTs to do this on it's own, which will be utilised in the next hardware revision.
 <p align="center">
 <img src="https://github.com/leighleighleigh/saab-93NG-HPD-hacker/blob/main/media/pcb_v3_diagram.png?raw=true" alt="" />
 </p>
