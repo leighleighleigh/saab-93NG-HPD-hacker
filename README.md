@@ -11,7 +11,7 @@ The **third** prototype of the PCB has been assembled and tested, as of August *
 During this testing period, mild success was had, and some text/images were displayed. The exact protocol is yet to be determined.
 
 ## Protocol Reverse Engineering
-Please see [PROTOCOL](/PROTOCOL.md) 
+Please see [UART PROTOCOL](/UART_PROTOCOL.md) 
 
 ## Project structure
 ```bash
