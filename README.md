@@ -16,12 +16,14 @@ During this testing period, mild success was had, and some text/images were disp
 Please see [UART PROTOCOL](/UART_PROTOCOL.md) 
 
 ## Hardware Diagram
-<p align="center" style="text-align: center;">
-<b>Full In-car System</b><br>
-<img src="https://github.com/leighleighleigh/saab-93NG-HPD-hacker/blob/main/media/hardware_diagram.png?raw=true" alt="" /><br>
+### Full In-car System
+<p align="center">
+<img src="https://github.com/leighleighleigh/saab-93NG-HPD-hacker/blob/main/media/hardware_diagram.png?raw=true" alt="" />
+</p>
 
-<b>HPD Interface v3 Internals</b><br>
-<img src="https://github.com/leighleighleigh/saab-93NG-HPD-hacker/blob/main/media/pcb_v3_diagram.png?raw=true" alt="" /><br>
+### HPD Interface v3 Internals
+<p align="center">
+<img src="https://github.com/leighleighleigh/saab-93NG-HPD-hacker/blob/main/media/pcb_v3_diagram.png?raw=true" alt="" />
 </p>
 
 ## Project structure
