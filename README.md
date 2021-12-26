@@ -13,8 +13,9 @@ During this testing period, mild success was had, and some text/images were disp
 Please see [UART PROTOCOL](/UART_PROTOCOL.md) 
 
 ## Hardware Diagram
-![hardware_diagram](/media/hardware_diagram.png)
-
+<p align="center">
+<img src="https://github.com/leighleighleigh/saab-933NG-HPD-hacker/blob/main/media/hardware_diagram.png?raw=true" alt="" />
+</p>
 ## Project structure
 ```bash
 ├── data_dumps # Raw UART data, CSV files exported from 'KingstVIS' software
