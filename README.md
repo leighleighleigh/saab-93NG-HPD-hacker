@@ -15,7 +15,7 @@ Please see [PROTOCOL](/PROTOCOL.md)
 
 ## Project structure
 ```bash
-├── data_dumps # CSV files exported from 'KingstVIS' Digital Logic Analyser software, from the SID UART signals.
+├── data_dumps # Raw UART data, CSV files exported from 'KingstVIS' software
 ├── hardware # KICAD v5+ projects
 ├── media # Images and diagrams
 ├── software # PlatformIO projects for the microcontrollers used here
